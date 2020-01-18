@@ -11,3 +11,13 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.Header {
+  height: 100px;
+  background-color: black;
+}
+
+.Header h1 {
+  color: #e43831;
+  text-align: center;
+}
