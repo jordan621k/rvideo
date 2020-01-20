@@ -1,4 +1,5 @@
 import React from 'react';
+import '../css/DropDownMenu.css';
 
 class DropDownMenu extends React.Component {
 
@@ -11,61 +12,64 @@ class DropDownMenu extends React.Component {
     this.filter = this.filter.bind(this);
     this.hideDropDown = this.hideDropDown.bind(this);
     this.highlightItem = this.highlightItem.bind(this);
-  }
-
-  componentDidMount() {
-
+    this.populateInput = this.populateInput.bind(this);
   }
 
   showDropDown() {
-    document.getElementById(this.dropDownId).style.display = ""
+    document.getElementById(this.dropDownId).className = "showDropDownList"
   }
 
   hideDropDown() {
-    document.getElementById(this.dropDownId).style.display = "none"
+    document.getElementById(this.dropDownId).className = "hideDropDownList"
   }
 
   highlightItem(e){
-    e.target.style.background = 'red';
+    e.target.style.background = '#c7c6c3';
   }
 
   unHighlightItem(e){
     e.target.style.background = 'white';
   }
 
-  filter() {
+  populateInput(e){
+    document.getElementById(this.inputId).value = e.target.innerHTML;
+  }
 
-    let updatedState = {};
+  filter() {
+    let filteredOptions = {};
 
     Object.keys(this.props.options).forEach((key) => {
       if (key.toLowerCase().includes(document.getElementById(this.inputId).value)) {
-        updatedState[key] = this.props.options[key]
+        filteredOptions[key] = this.props.options[key]
       }
     });
 
-    console.log(updatedState);
-
-    this.setState({options: updatedState});
+    this.setState({options: filteredOptions});
   }
 
   render() {
-
-    console.log(this.state.options);
-
     return (
-      <React.Fragment>
-        <input id={this.inputId} type={Text} className="DropDownMenu" onFocus={this.showDropDown} onChange={this.filter} onBlur={this.hideDropDown}>
-        </input>
-        <ui id={this.dropDownId} style={{display: 'none'}}>
-          {Object.keys(this.state.options).map((key) => {
-            return <li onMouseOver={this.highlightItem}
-                       onMouseLeave={this.unHighlightItem}
-                       key={this.state.options[key]}>
-                        {key}
-                  </li>
-          })}
-        </ui>
-      </React.Fragment>
+      <div className="dropDown">
+        <input id={this.inputId}
+               className="dropDownInput"
+               placeholder={this.props.placeholder}
+               onFocus={this.showDropDown}
+               onChange={this.filter}
+               onBlur={this.hideDropDown}
+        />
+        <div id={this.dropDownId} className="hideDropDownList">
+          {/*<ui>*/}
+            {Object.keys(this.state.options).map((key) => {
+              return <li onMouseOver={this.highlightItem}
+                         onMouseLeave={this.unHighlightItem}
+                         onMouseDown={this.populateInput}
+                         key={this.state.options[key]}>
+                          {key}
+                     </li>
+            })}
+          {/*</ui>*/}
+        </div>
+      </div>
     );
   }
 }

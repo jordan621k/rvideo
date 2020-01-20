@@ -1,5 +1,4 @@
 import React from 'react';
-import logo from '../logo.svg';
 import '../css/App.css';
 import Header from './Header';
 import Footer from './Footer';
@@ -20,23 +19,23 @@ const countries = {
 };
 
 const categories = {
-  'Music': '',
-  'Sports': '',
-  'News': '',
-  'Live': '',
-  'Pets': ''
+  'Music': '1',
+  'Sports': '2',
+  'News': '3',
+  'Live': '4',
+  'Pets': '5'
 };
 
 class App extends React.Component {
   render() {
     return (
       <React.Fragment>
-      <Header></Header>
+      <Header/>
       <div className="App">
-        <DropDownMenu id={"countryDropDownMenu"} options={countries}></DropDownMenu>
-        <DropDownMenu id={"categoryDropDownMenu"} options={categories}></DropDownMenu>
+        <DropDownMenu id={"countryDropDownMenu"} options={countries} placeholder={"USA"}/>
+        <DropDownMenu id={"categoryDropDownMenu"} options={categories} placeholder={"ALL"}/>
       </div>
-      <Footer></Footer>
+      <Footer/>
       </React.Fragment>
     );
   }
