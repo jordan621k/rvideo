@@ -3,28 +3,39 @@ import logo from '../logo.svg';
 import '../css/App.css';
 import Header from './Header';
 import Footer from './Footer';
+import DropDownMenu from './DropDownMenu';
+
+
+const countries = {
+  'Brazil': 'BR',
+  'Canada': 'CA',
+  'Japan': 'JA',
+  'Korea': 'KP',
+  'Spain': 'ES',
+  'South Africa': 'ZA',
+  'United Kingdom': 'UK',
+  'United States of America': 'US',
+  'Thailand': 'TH',
+  'Taiwan' : 'TW'
+};
+
+const categories = {
+  'Music': '',
+  'Sports': '',
+  'News': '',
+  'Live': '',
+  'Pets': ''
+};
 
 class App extends React.Component {
   render() {
     return (
       <React.Fragment>
       <Header></Header>
-        <div className="App">
-          <header className="App-header">
-            <img src={logo} className="App-logo" alt="logo" />
-            <p>
-              Edit <code>src/App.js</code> and save to reload.
-            </p>
-            <a
-              className="App-link"
-              href="https://reactjs.org"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Learn React
-            </a>
-          </header>
-        </div>
+      <div className="App">
+        <DropDownMenu id={"countryDropDownMenu"} options={countries}></DropDownMenu>
+        <DropDownMenu id={"categoryDropDownMenu"} options={categories}></DropDownMenu>
+      </div>
       <Footer></Footer>
       </React.Fragment>
     );
