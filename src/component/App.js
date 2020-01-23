@@ -32,8 +32,8 @@ class App extends React.Component {
       <React.Fragment>
       <Header/>
       <div className="App">
-        <DropDownMenu id={"countryDropDownMenu"} options={countries} placeholder={"USA"}/>
-        <DropDownMenu id={"categoryDropDownMenu"} options={categories} placeholder={"ALL"}/>
+        <DropDownMenu name={"countryDropDownMenu"} options={countries} placeholder={"USA"}/>
+        <DropDownMenu name={"categoryDropDownMenu"} options={categories} placeholder={"ALL"}/>
       </div>
       <Footer/>
       </React.Fragment>

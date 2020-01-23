@@ -6,8 +6,8 @@ class DropDownMenu extends React.Component {
   constructor(props) {
     super(props);
     this.state = {options: this.props.options};
-    this.inputId = this.props.id + "-input";
-    this.dropDownId = this.props.id + "-dropdown";
+    this.inputId = this.props.name + "-input";
+    this.dropDownId = this.props.name + "-dropdown";
     this.showDropDown = this.showDropDown.bind(this);
     this.filter = this.filter.bind(this);
     this.hideDropDown = this.hideDropDown.bind(this);
