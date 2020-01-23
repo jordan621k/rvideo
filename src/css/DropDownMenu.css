@@ -5,11 +5,13 @@
 
 .dropDownInput {
     font-size: 3vw;
+    background-color: #c5c6c7;
 }
 
 .dropDownMenu {
     position: absolute;
     z-index: 1;
+    background-color: #c5c6c7;
 }
 
 li {
