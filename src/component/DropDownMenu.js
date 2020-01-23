@@ -5,7 +5,7 @@ class DropDownMenu extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {options: this.props.options};
+    this.state = {options: this.props.options, showDropDown: false};
     this.inputId = this.props.name + "-input";
     this.dropDownId = this.props.name + "-dropdown";
     this.showDropDown = this.showDropDown.bind(this);
@@ -16,11 +16,11 @@ class DropDownMenu extends React.Component {
   }
 
   showDropDown() {
-    document.getElementById(this.dropDownId).className = "showDropDownList"
+    this.setState({showDropDown: true});
   }
 
   hideDropDown() {
-    document.getElementById(this.dropDownId).className = "hideDropDownList"
+    this.setState({showDropDown: false});
   }
 
   highlightItem(e){
@@ -48,6 +48,21 @@ class DropDownMenu extends React.Component {
   }
 
   render() {
+    let dropDownMenu;
+
+    if (this.state.showDropDown) {
+      dropDownMenu = <div id={this.dropDownId} className="dropDownMenu">
+        {Object.keys(this.state.options).map((key) => {
+          return <li onMouseOver={this.highlightItem}
+                     onMouseLeave={this.unHighlightItem}
+                     onMouseDown={this.populateInput}
+                     key={this.state.options[key]}>
+            {key}
+          </li>
+        })}
+      </div>
+    }
+
     return (
       <div className="dropDown">
         <input id={this.inputId}
@@ -57,18 +72,7 @@ class DropDownMenu extends React.Component {
                onChange={this.filter}
                onBlur={this.hideDropDown}
         />
-        <div id={this.dropDownId} className="hideDropDownList">
-          {/*<ui>*/}
-            {Object.keys(this.state.options).map((key) => {
-              return <li onMouseOver={this.highlightItem}
-                         onMouseLeave={this.unHighlightItem}
-                         onMouseDown={this.populateInput}
-                         key={this.state.options[key]}>
-                          {key}
-                     </li>
-            })}
-          {/*</ui>*/}
-        </div>
+        {dropDownMenu}
       </div>
     );
   }

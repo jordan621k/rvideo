@@ -1,5 +1,5 @@
 .dropDown {
-    position:relative;
+    position: relative;
     display: inline-block;
 }
 
@@ -7,12 +7,8 @@
     font-size: 3vw;
 }
 
-.hideDropDownList {
-    display: none;
-}
-
-.showDropDownList {
-    position:absolute;
+.dropDownMenu {
+    position: absolute;
     z-index: 1;
 }
 
