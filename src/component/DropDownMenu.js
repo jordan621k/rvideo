@@ -33,6 +33,7 @@ class DropDownMenu extends React.Component {
 
   populateInput(e){
     document.getElementById(this.inputId).value = e.target.innerHTML;
+    this.props.callback(e.target.innerHTML)
   }
 
   filter() {
