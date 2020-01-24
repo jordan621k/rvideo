@@ -12,28 +12,27 @@ const countries = {
     'United States of America': 'US',
     'Thailand': 'TH',
     'Taiwan' : 'TW'
-  };
+};
   
-  const categories = {
+const categories = {
     'Music': '1',
     'Sports': '2',
     'News': '3',
     'Live': '4',
     'Pets': '5'
-  };
-  
+};
 
 class Form extends React.Component {
 
   constructor(props) {
-    super(props)
-    this.handleSubmit = this.handleSubmit.bind(this)
-    this.updateCountry = this.updateCountry.bind(this)
-    this.updateCatagory = this.updateCatagory.bind(this)
+    super(props);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.updateCountry = this.updateCountry.bind(this);
+    this.updateCategory = this.updateCategory.bind(this);
   }
 
   handleSubmit(event) {
-    console.log(this.state)
+    console.log(this.state);
     event.preventDefault();
   }
 
@@ -41,15 +40,15 @@ class Form extends React.Component {
     this.setState({country: country});
   }
 
-  updateCatagory(catagory) {
-    this.setState({catagory: catagory});
+  updateCategory(category) {
+    this.setState({category: category});
   }
 
   render() {
     return (
       <form onSubmit={this.handleSubmit}>
         <DropDownMenu name={"countryDropDownMenu"} options={countries} placeholder={"USA"} callback={this.updateCountry}/>
-        <DropDownMenu name={"categoryDropDownMenu"} options={categories} placeholder={"ALL"} callback={this.updateCatagory}/>
+        <DropDownMenu name={"categoryDropDownMenu"} options={categories} placeholder={"ALL"} callback={this.updateCategory}/>
         <input type="submit" value="Submit"/>
       </form>
     );

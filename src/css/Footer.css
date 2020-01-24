@@ -1,11 +1,10 @@
 
 .Footer {
-    height: 100px;
+    height: 7vw;
     background-color: #0b0c10;
     position: fixed;
     left: 0;
     bottom: 0;
     width: 100%;
-    text-align: center;
 }
   
