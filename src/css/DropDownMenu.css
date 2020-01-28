@@ -4,22 +4,28 @@
 }
 
 .dropDownInput {
-    font-size: 3vw;
-    background-color: #c5c6c7;
+    color: white;
+    font-weight: bold;
+    font-size: 1.5vw;
+    background-color: #1f2833;
+    border: 0;
+    border-bottom: 2px solid #45A291;
+    text-align: center;
 }
 
 .dropDownMenu {
     position: absolute;
     z-index: 1;
-    background-color: white;
+    background-color: #0b0c10;
     width: 100%;
+    min-width: 20em;
 }
 
 li {
     list-style-type: none;
     text-align: left;
-    font-size: 3vw;
+    font-size: 1.5vw;
     font-weight: bold;
-    margin-top: 0.15em;
-    margin-bottom: 0.15em;
+    margin: 0.15em;
+    white-space: nowrap;
 }

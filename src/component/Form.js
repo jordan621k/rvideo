@@ -1,5 +1,6 @@
 import React from 'react';
 import DropDownMenu from './DropDownMenu';
+import '../css/Form.css';
 
 const countries = {
     'Brazil': 'BR',
@@ -46,10 +47,15 @@ class Form extends React.Component {
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
-        <DropDownMenu name={"countryDropDownMenu"} options={countries} placeholder={"USA"} callback={this.updateCountry}/>
-        <DropDownMenu name={"categoryDropDownMenu"} options={categories} placeholder={"ALL"} callback={this.updateCategory}/>
-        <input type="submit" value="Submit"/>
+      <form className="Form" onSubmit={this.handleSubmit}>
+        <b>
+            Watch trending {'{'}
+            <DropDownMenu name={"categoryDropDownMenu"} options={categories} placeholder={"All"} callback={this.updateCategory}/>{'} '}
+            videos on Youtube from
+            {' {'}
+            <DropDownMenu name={"countryDropDownMenu"} options={countries} placeholder={"United States"} callback={this.updateCountry}/> {'}'} </b>
+        <br/>
+      <input type="submit" value="Submit"/>
       </form>
     );
   }

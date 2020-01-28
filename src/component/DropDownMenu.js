@@ -13,6 +13,7 @@ class DropDownMenu extends React.Component {
     this.hideDropDown = this.hideDropDown.bind(this);
     this.highlightItem = this.highlightItem.bind(this);
     this.populateInput = this.populateInput.bind(this);
+    this.resizeInput = this.resizeInput.bind(this);
   }
 
   showDropDown() {
@@ -23,24 +24,32 @@ class DropDownMenu extends React.Component {
     this.setState({showDropDown: false});
   }
 
-  highlightItem(e){
-    e.target.style.background = '#c7c6c3';
+  highlightItem(e) {
+    e.target.style.background = '#45A291';
   }
 
-  unHighlightItem(e){
-    e.target.style.background = 'white';
+  unHighlightItem(e) {
+    e.target.style.background = '#0b0c10';
   }
 
   populateInput(e){
     document.getElementById(this.inputId).value = e.target.innerHTML;
+    this.resizeInput(e.target.innerHTML.length);
     this.props.callback(e.target.innerHTML)
   }
 
+  resizeInput(size) {
+    document.getElementById(this.inputId).size = size
+  }
+
   filter() {
+    let input = document.getElementById(this.inputId).value;
     let filteredOptions = {};
 
+    this.resizeInput(input.length);
+
     Object.keys(this.props.options).forEach((key) => {
-      if (key.toLowerCase().includes(document.getElementById(this.inputId).value)) {
+      if (key.toLowerCase().includes(input)) {
         filteredOptions[key] = this.props.options[key]
       }
     });
@@ -68,7 +77,9 @@ class DropDownMenu extends React.Component {
       <div className="dropDown">
         <input id={this.inputId}
                className="dropDownInput"
+               autoComplete="off"
                placeholder={this.props.placeholder}
+               size={this.props.placeholder.length}
                onFocus={this.showDropDown}
                onChange={this.filter}
                onBlur={this.hideDropDown}
