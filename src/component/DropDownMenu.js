@@ -32,13 +32,18 @@ class DropDownMenu extends React.Component {
     e.target.style.background = '#0b0c10';
   }
 
-  populateInput(e){
+  populateInput(e) {
     document.getElementById(this.inputId).value = e.target.innerHTML;
     this.resizeInput(e.target.innerHTML.length);
     this.props.callback(e.target.innerHTML)
   }
 
   resizeInput(size) {
+    let { placeholder } = this.props
+
+    if (size <= placeholder.length) {
+      size = placeholder.length
+    }
     document.getElementById(this.inputId).size = size
   }
 
