@@ -2,8 +2,6 @@ import React from 'react';
 import DropDownMenu from './DropDownMenu';
 import '../css/Form.css';
 
-const axios = require('axios');
-
 const countries = {
     'Brazil': 'BR',
     'Canada': 'CA',
@@ -34,10 +32,26 @@ class Form extends React.Component {
     this.updateCategory = this.updateCategory.bind(this);
   }
 
+  componentDidMount() {
+    window.gapi.load('client', () => {
+        window.gapi.client.init({
+            'apiKey': 'AIzaSyAN6WGBl3-zqdtlabrDV428Tn3zrlpeAW0',
+            'scope': 'profile',
+        })
+    });
+  }
+
   handleSubmit(event) {
     console.log(this.state);
     event.preventDefault();
-    this.execute()
+
+    window.gapi.client.request({
+      'path': 'https://www.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&chart=mostPopular&locale=zh-TW&maxResults=20&regionCode=TW&key=AIzaSyAN6WGBl3-zqdtlabrDV428Tn3zrlpeAW0',
+    }).then(function(response) {
+      console.log(response.result.items);
+    }, function(reason) {
+      console.log('Error: ' + reason.result.error.message);
+});
   }
 
   updateCountry(country) {
@@ -47,30 +61,6 @@ class Form extends React.Component {
   updateCategory(category) {
     this.setState({category: category});
   }
-
-  // Make sure the client is loaded and sign-in is complete before calling this method.
-  execute() { 
-  // Make a request for a user with a given ID
-  axios({
-    method: 'get',
-    url: 'https://www.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&chart=mostPopular&locale=zh-TW&maxResults=20&regionCode=TW&key=AIzaSyAN6WGBl3-zqdtlabrDV428Tn3zrlpeAW0',
-    responseType: 'json',
-    headers: {Authorization: 'Bearer AIzaSyAN6WGBl3-zqdtlabrDV428Tn3zrlpeAW0',
-              Accept: 'application/json'}
-    }).then(function (response) {
-      // handle success
-      console.log(response);
-    })
-    .catch(function (error) {
-      // handle error
-      console.log(error);
-    })
-    .then(function () {
-      // always executed
-    });
-  }
-
-  
 
   render() {
     return (
