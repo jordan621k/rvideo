@@ -1,5 +1,6 @@
 import React from 'react';
 import DropDownMenu from './DropDownMenu';
+import Video from './Video';
 import '../css/Form.css';
 
 const countries = {
@@ -22,11 +23,15 @@ const categories = {
     'Live': '4',
     'Pets': '5'
 };
+const videoresult = {
+
+};
 
 class Form extends React.Component {
 
   constructor(props) {
     super(props);
+    this.state = {videolist: {}}
     this.handleSubmit = this.handleSubmit.bind(this);
     this.updateCountry = this.updateCountry.bind(this);
     this.updateCategory = this.updateCategory.bind(this);
@@ -42,16 +47,21 @@ class Form extends React.Component {
   }
 
   handleSubmit(event) {
-    console.log(this.state);
+    //console.log(this.state);
     event.preventDefault();
+
+    let videoresult
 
     window.gapi.client.request({
       'path': 'https://www.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&chart=mostPopular&locale=zh-TW&maxResults=20&regionCode=TW&key=AIzaSyAN6WGBl3-zqdtlabrDV428Tn3zrlpeAW0',
     }).then(function(response) {
       console.log(response.result.items);
+      videoresult = response.result.items
     }, function(reason) {
       console.log('Error: ' + reason.result.error.message);
 });
+      this.setState({videolist: videoresult});
+      console.log(this.state)
   }
 
   updateCountry(country) {
@@ -63,6 +73,16 @@ class Form extends React.Component {
   }
 
   render() {
+    let videolist;
+
+    // videolist = <div>
+    //   {Object.keys(this.response.result.items).map((key) => {
+    //     return <li key={this.response.result.items[key].snippet.localized.title}>
+    //       {key}
+    //     </li>
+    //   })}
+    //   </div>
+
     return (
       <form className="Form" onSubmit={this.handleSubmit}>
         <b>
@@ -73,6 +93,8 @@ class Form extends React.Component {
             <DropDownMenu name={"countryDropDownMenu"} options={countries} placeholder={"United States"} callback={this.updateCountry}/> {'}'} </b>
         <br/>
       <input type="submit" value="Submit"/>
+      {/* <Video options={this.state.videoresults}/> */}
+      {videolist}
       </form>
     );
   }
