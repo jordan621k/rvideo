@@ -5,29 +5,29 @@ class Video extends React.Component {
 
     constructor(props) {
         super(props);
-        this.gotoYoutube = this.gotoYoutube.bind(this);
+        this.openVideoInWindow = this.openVideoInWindow.bind(this);
     }
     
-    gotoYoutube() {
+    openVideoInWindow() {
         window.open(this.props.videoLink);
     }
 
     render() {
-    let {title, viewCount, likeCount, publishedAt, thumbnail, rank, channelTitle} = this.props
-    return (
-        <React.Fragment>
-            <div onMouseDown={this.gotoYoutube}>
-                <div>{rank}</div>
-                <div><img src={thumbnail}/></div>
-                <div>
-                <b>TITLE: {title}  </b><b>CHANEL: {channelTitle}</b><br/>
-                <b>VIEWS: {viewCount}  </b>
-                <b>LIKES: {likeCount}  </b>
-                <b>DATE: {publishedAt}  </b>
+        let {title, viewCount, likeCount, publishedAt, thumbnail, rank, channelTitle} = this.props;
+        return (
+            <React.Fragment>
+                <div onMouseDown={this.openVideoInWindow}>
+                    <div>{rank}</div>
+                    <div><img src={thumbnail}/></div>
+                    <div>
+                    <b>TITLE: {title}  </b><b>CHANEL: {channelTitle}</b><br/>
+                    <b>VIEWS: {viewCount}  </b>
+                    <b>LIKES: {likeCount}  </b>
+                    <b>DATE: {publishedAt}  </b>
+                    </div>
                 </div>
-            </div>
-        </React.Fragment>
-        )
+            </React.Fragment>
+         )
     }
 }
 

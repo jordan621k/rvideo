@@ -51,7 +51,7 @@ class Form extends React.Component {
     this.setState({category: category});
   }
 
-  getCatagoryDropDownProps() {
+  getCategoryDropDownProps() {
     return {
       name: 'categoryDropDownMenu',
       options: {
@@ -86,32 +86,11 @@ class Form extends React.Component {
     }
   }
 
-  getVideoProps() {
-    return {
-      name: 'countryDropDownMenu',
-      options: {
-        'Brazil': 'BR',
-        'Canada': 'CA',
-        'Japan': 'JA',
-        'Korea': 'KP',
-        'Spain': 'ES',
-        'South Africa': 'ZA',
-        'United Kingdom': 'UK',
-        'United States of America': 'US',
-        'Thailand': 'TH',
-        'Taiwan' : 'TW'
-       },
-       placeholder: 'United States',
-       callback: this.updateCountry,
-    }
-  }
-
   render() {
 
-    let videolist = <div id={this.videoListId} className="videolist">
-      {Object.keys(this.state.videos).map((key) => {
-        let video = this.state.videos[key]
-        let rank = parseInt(key) + 1
+    let videoList = Object.keys(this.state.videos).map((key) => {
+        let video = this.state.videos[key];
+        let rank = parseInt(key) + 1;
         let videoProps = {
           title: video.snippet.title,
           rank: rank,
@@ -120,25 +99,24 @@ class Form extends React.Component {
           publishedAt: video.snippet.publishedAt.slice(0,10),
           thumbnail: video.snippet.thumbnails.default.url,
           channelTitle: video.snippet.channelTitle,
-          videoLink: 'https://www.youtube.com/watch?v=' + video.id,
-        }
+          videoLink: 'https://www.youtube.com/watch?v=' + video.id
+        };
         return <Video {...videoProps}/>
-        })}
-      </div>
+        });
 
     return (
       <React.Fragment>
       <form className="Form" onSubmit={this.handleSubmit}>
         <b>
             Watch trending {'{'}
-            <DropDownMenu {...this.getCatagoryDropDownProps()}/>{'} '}
+            <DropDownMenu {...this.getCategoryDropDownProps()}/>{'} '}
             videos on Youtube from
             {' {'}
             <DropDownMenu {...this.getCountryDropDownProps()}/> {'}'} </b>
         <br/>
       <input type="submit" value="Submit"/>
       </form>
-      {videolist}
+      {videoList}
       </React.Fragment>
     );
   }
