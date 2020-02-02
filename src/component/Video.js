@@ -3,20 +3,32 @@ import '../css/Video.css';
 
 class Video extends React.Component {
 
-  constructor(props) {
-    super(props);
-  }
+    constructor(props) {
+        super(props);
+        this.gotoYoutube = this.gotoYoutube.bind(this);
+    }
+    
+    gotoYoutube() {
+        window.open(this.props.videoLink);
+    }
 
-  render() {
-    return ( 
-      <React.Fragment>
-        <h1>{this.props.title}</h1>
-        <h1>{this.props.rank}</h1>
-        <h1>{this.props.view}</h1>
-        <h1>{this.props.like}</h1>
-        <h1>{this.props.date}</h1>
-      </React.Fragment>
-      );
-  }
+    render() {
+    let {title, viewCount, likeCount, publishedAt, thumbnail, rank, channelTitle} = this.props
+    return (
+        <React.Fragment>
+            <div onMouseDown={this.gotoYoutube}>
+                <div>{rank}</div>
+                <div><img src={thumbnail}/></div>
+                <div>
+                <b>TITLE: {title}  </b><b>CHANEL: {channelTitle}</b><br/>
+                <b>VIEWS: {viewCount}  </b>
+                <b>LIKES: {likeCount}  </b>
+                <b>DATE: {publishedAt}  </b>
+                </div>
+            </div>
+        </React.Fragment>
+        )
+    }
 }
+
 export default Video;

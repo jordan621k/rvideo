@@ -1,37 +1,16 @@
 import React from 'react';
 import DropDownMenu from './DropDownMenu';
+import Video from './Video';
 import '../css/Form.css';
-
-const countries = {
-    'Brazil': 'BR',
-    'Canada': 'CA',
-    'Japan': 'JA',
-    'Korea': 'KP',
-    'Spain': 'ES',
-    'South Africa': 'ZA',
-    'United Kingdom': 'UK',
-    'United States of America': 'US',
-    'Thailand': 'TH',
-    'Taiwan' : 'TW'
-};
-  
-const categories = {
-    'Music': '1',
-    'Sports': '2',
-    'News': '3',
-    'Live': '4',
-    'Pets': '5'
-};
 
 class Form extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {showVideo: false}
+    this.state = {videos: []};
     this.handleSubmit = this.handleSubmit.bind(this);
     this.updateCountry = this.updateCountry.bind(this);
     this.updateCategory = this.updateCategory.bind(this);
-    this.showVideo = this.showVideo.bind(this);
   }
 
   componentDidMount() {
@@ -41,10 +20,6 @@ class Form extends React.Component {
             'scope': 'profile',
         })
     });
-  }
-
-  showVideo() {
-    this.setState({showVideo: true})
   }
 
   async getYoutubeVideos() {
@@ -58,7 +33,6 @@ class Form extends React.Component {
         console.log('Error: ' + response.result.error.message);
     } else {
         this.setState({videos: response.result.items});
-        this.showVideo()
     }
 
     console.log(this.state)
@@ -77,35 +51,95 @@ class Form extends React.Component {
     this.setState({category: category});
   }
 
-  render() {
-    let videolist;
+  getCatagoryDropDownProps() {
+    return {
+      name: 'categoryDropDownMenu',
+      options: {
+        'Music': '1',
+        'Sports': '2',
+        'News': '3',
+        'Live': '4',
+        'Pets': '5'
+       },
+       placeholder: 'ALL',
+       callback: this.updateCategory,
+    }
+  }
 
-    if (this.state.showVideo) {
-      videolist = <div id={this.videoListId} className="videolist">
+  getCountryDropDownProps() {
+    return {
+      name: 'countryDropDownMenu',
+      options: {
+        'Brazil': 'BR',
+        'Canada': 'CA',
+        'Japan': 'JA',
+        'Korea': 'KP',
+        'Spain': 'ES',
+        'South Africa': 'ZA',
+        'United Kingdom': 'UK',
+        'United States of America': 'US',
+        'Thailand': 'TH',
+        'Taiwan' : 'TW'
+       },
+       placeholder: 'United States',
+       callback: this.updateCountry,
+    }
+  }
+
+  getVideoProps() {
+    return {
+      name: 'countryDropDownMenu',
+      options: {
+        'Brazil': 'BR',
+        'Canada': 'CA',
+        'Japan': 'JA',
+        'Korea': 'KP',
+        'Spain': 'ES',
+        'South Africa': 'ZA',
+        'United Kingdom': 'UK',
+        'United States of America': 'US',
+        'Thailand': 'TH',
+        'Taiwan' : 'TW'
+       },
+       placeholder: 'United States',
+       callback: this.updateCountry,
+    }
+  }
+
+  render() {
+
+    let videolist = <div id={this.videoListId} className="videolist">
       {Object.keys(this.state.videos).map((key) => {
-        return <li key={this.state.videos[key]}>
-            Rank:{key}<p></p>
-            {this.state.videos[key].snippet.title}<p></p>
-            {this.state.videos[key].statistics.viewCount}<p></p>
-            {this.state.videos[key].statistics.likeCount}<p></p>
-            {this.state.videos[key].snippet.publishedAt}<p></p>
-          </li>
+        let video = this.state.videos[key]
+        let rank = parseInt(key) + 1
+        let videoProps = {
+          title: video.snippet.title,
+          rank: rank,
+          viewCount: video.statistics.viewCount,
+          likeCount: video.statistics.likeCount,
+          publishedAt: video.snippet.publishedAt.slice(0,10),
+          thumbnail: video.snippet.thumbnails.default.url,
+          channelTitle: video.snippet.channelTitle,
+          videoLink: 'https://www.youtube.com/watch?v=' + video.id,
+        }
+        return <Video {...videoProps}/>
         })}
       </div>
-    }
 
     return (
+      <React.Fragment>
       <form className="Form" onSubmit={this.handleSubmit}>
         <b>
             Watch trending {'{'}
-            <DropDownMenu name={"categoryDropDownMenu"} options={categories} placeholder={"All"} callback={this.updateCategory}/>{'} '}
+            <DropDownMenu {...this.getCatagoryDropDownProps()}/>{'} '}
             videos on Youtube from
             {' {'}
-            <DropDownMenu name={"countryDropDownMenu"} options={countries} placeholder={"United States"} callback={this.updateCountry}/> {'}'} </b>
+            <DropDownMenu {...this.getCountryDropDownProps()}/> {'}'} </b>
         <br/>
       <input type="submit" value="Submit"/>
-      {videolist}
       </form>
+      {videolist}
+      </React.Fragment>
     );
   }
 }
