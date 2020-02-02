@@ -27,9 +27,11 @@ class Form extends React.Component {
 
   constructor(props) {
     super(props);
+    this.state = {showVideo: false}
     this.handleSubmit = this.handleSubmit.bind(this);
     this.updateCountry = this.updateCountry.bind(this);
     this.updateCategory = this.updateCategory.bind(this);
+    this.showVideo = this.showVideo.bind(this);
   }
 
   componentDidMount() {
@@ -39,6 +41,10 @@ class Form extends React.Component {
             'scope': 'profile',
         })
     });
+  }
+
+  showVideo() {
+    this.setState({showVideo: true})
   }
 
   async getYoutubeVideos() {
@@ -52,6 +58,7 @@ class Form extends React.Component {
         console.log('Error: ' + response.result.error.message);
     } else {
         this.setState({videos: response.result.items});
+        this.showVideo()
     }
 
     console.log(this.state)
@@ -71,6 +78,22 @@ class Form extends React.Component {
   }
 
   render() {
+    let videolist;
+
+    if (this.state.showVideo) {
+      videolist = <div id={this.videoListId} className="videolist">
+      {Object.keys(this.state.videos).map((key) => {
+        return <li key={this.state.videos[key]}>
+            Rank:{key}<p></p>
+            {this.state.videos[key].snippet.title}<p></p>
+            {this.state.videos[key].statistics.viewCount}<p></p>
+            {this.state.videos[key].statistics.likeCount}<p></p>
+            {this.state.videos[key].snippet.publishedAt}<p></p>
+          </li>
+        })}
+      </div>
+    }
+
     return (
       <form className="Form" onSubmit={this.handleSubmit}>
         <b>
@@ -81,6 +104,7 @@ class Form extends React.Component {
             <DropDownMenu name={"countryDropDownMenu"} options={countries} placeholder={"United States"} callback={this.updateCountry}/> {'}'} </b>
         <br/>
       <input type="submit" value="Submit"/>
+      {videolist}
       </form>
     );
   }
