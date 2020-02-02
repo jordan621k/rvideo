@@ -15,18 +15,20 @@ class Video extends React.Component {
     render() {
         let {title, viewCount, likeCount, publishedAt, thumbnail, rank, channelTitle} = this.props;
         return (
-            <React.Fragment>
-                <div onMouseDown={this.openVideoInWindow}>
-                    <div>{rank}</div>
-                    <div><img src={thumbnail}/></div>
-                    <div>
+            <div onMouseDown={this.openVideoInWindow}>
+                <div>
+                    {rank}
+                </div>
+                <div>
+                    <img src={thumbnail}/>
+                </div>
+                <div>
                     <b>TITLE: {title}  </b><b>CHANEL: {channelTitle}</b><br/>
                     <b>VIEWS: {viewCount}  </b>
                     <b>LIKES: {likeCount}  </b>
                     <b>DATE: {publishedAt}  </b>
-                    </div>
                 </div>
-            </React.Fragment>
+            </div>
          )
     }
 }
