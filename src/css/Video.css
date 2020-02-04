@@ -6,9 +6,9 @@
 #rank {
     width: 200px;
     height: 200px;
-    /* float: left; */;
     position: absolute;
     font-size: 100px;
+    color: #66fcf1;
 }
 
 
@@ -16,17 +16,25 @@
     float: left;
     font-size: 200%;
     margin:0 300px 0 200px;
+    color: white;
+}
+
+#videoimageandinfo {
+    width: auto;
+    height: auto;
+    float: left;
+    margin:10px 300px 0 200px;
 }
 
 
 #videothumbnail {
     float: left;
-    margin:0 300px 0 200px;
-    padding-top: 10px;
 }
 
 #videoinfo {
-    /* float: left; */
-    position: relative;
-    margin:0 300px 0 100px;
+    margin: 0 0 0 150px;
+    right: 0;
+    top: 0;
+    color:white;
+    text-align: left;
 }

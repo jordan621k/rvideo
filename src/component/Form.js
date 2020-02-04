@@ -1,57 +1,57 @@
-import React from 'react';
-import DropDownMenu from './DropDownMenu';
-import Video from './Video';
-import '../css/Form.css';
+import React from 'react'
+import DropDownMenu from './DropDownMenu'
+import Video from './Video'
+import '../css/Form.css'
 
 class Form extends React.Component {
 
-  constructor(props) {
-    super(props);
-    this.state = {videos: []};
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.updateCountry = this.updateCountry.bind(this);
-    this.updateCategory = this.updateCategory.bind(this);
+  constructor (props) {
+    super(props)
+    this.state = { videos: [] }
+    this.handleSubmit = this.handleSubmit.bind(this)
+    this.updateCountry = this.updateCountry.bind(this)
+    this.updateCategory = this.updateCategory.bind(this)
   }
 
-  componentDidMount() {
+  componentDidMount () {
     window.gapi.load('client', () => {
-        window.gapi.client.init({
-            'apiKey': 'AIzaSyAN6WGBl3-zqdtlabrDV428Tn3zrlpeAW0',
-            'scope': 'profile',
-        })
-    });
+      window.gapi.client.init({
+        'apiKey': 'AIzaSyAN6WGBl3-zqdtlabrDV428Tn3zrlpeAW0',
+        'scope': 'profile',
+      })
+    })
   }
 
-  async getYoutubeVideos() {
+  async getYoutubeVideos () {
     const youtubePromise = window.gapi.client.request({
       'path': 'https://www.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&chart=mostPopular&locale=zh-TW&maxResults=20&regionCode=TW&key=AIzaSyAN6WGBl3-zqdtlabrDV428Tn3zrlpeAW0',
-    });
+    })
 
     const response = await youtubePromise;
 
-    if (response.result.error)  {
-        console.log('Error: ' + response.result.error.message);
+    if (response.result.error) {
+      console.log('Error: ' + response.result.error.message)
     } else {
-        this.setState({videos: response.result.items});
+      this.setState({ videos: response.result.items })
     }
 
     console.log(this.state)
   }
 
-  handleSubmit(event) {
-    event.preventDefault();
+  handleSubmit (event) {
+    event.preventDefault()
     this.getYoutubeVideos()
   }
 
-  updateCountry(country) {
-    this.setState({country: country});
+  updateCountry (country) {
+    this.setState({ country: country })
   }
 
-  updateCategory(category) {
-    this.setState({category: category});
+  updateCategory (category) {
+    this.setState({ category: category })
   }
 
-  getCategoryDropDownProps() {
+  getCategoryDropDownProps () {
     return {
       name: 'categoryDropDownMenu',
       options: {
@@ -60,13 +60,13 @@ class Form extends React.Component {
         'News': '3',
         'Live': '4',
         'Pets': '5'
-       },
-       placeholder: 'ALL',
-       callback: this.updateCategory,
+      },
+      placeholder: 'ALL',
+      callback: this.updateCategory
     }
   }
 
-  getCountryDropDownProps() {
+  getCountryDropDownProps () {
     return {
       name: 'countryDropDownMenu',
       options: {
@@ -80,46 +80,45 @@ class Form extends React.Component {
         'United States of America': 'US',
         'Thailand': 'TH',
         'Taiwan' : 'TW'
-       },
-       placeholder: 'United States',
-       callback: this.updateCountry,
+      },
+      placeholder: 'United States',
+      callback: this.updateCountry
     }
   }
 
-  render() {
-
-    let videoList = Object.keys(this.state.videos).map((key) => {
-        let video = this.state.videos[key];
-        let rank = parseInt(key) + 1;
-        let videoProps = {
-          title: video.snippet.title,
-          rank: rank,
-          viewCount: video.statistics.viewCount,
-          likeCount: video.statistics.likeCount,
-          publishedAt: video.snippet.publishedAt.slice(0,10),
-          thumbnail: video.snippet.thumbnails.default.url,
-          channelTitle: video.snippet.channelTitle,
-          videoLink: 'https://www.youtube.com/watch?v=' + video.id
-        };
-        return <Video {...videoProps}/>
-        });
+  render () {
+    const videoList = Object.keys(this.state.videos).map((key) => {
+      const video = this.state.videos[key]
+      const rank = parseInt(key) + 1
+      const videoProps = {
+        title: video.snippet.title,
+        rank: rank,
+        viewCount: video.statistics.viewCount,
+        likeCount: video.statistics.likeCount,
+        publishedAt: video.snippet.publishedAt.slice(0, 10),
+        thumbnail: video.snippet.thumbnails.default.url,
+        channelTitle: video.snippet.channelTitle,
+        videoLink: 'https://www.youtube.com/watch?v=' + video.id
+      }
+      return <Video {...videoProps}/>
+    })
 
     return (
       <React.Fragment>
-      <form className="Form" onSubmit={this.handleSubmit}>
-        <b>
+        <form className="Form" onSubmit={this.handleSubmit}>
+          <b>
             Watch trending {'{'}
             <DropDownMenu {...this.getCategoryDropDownProps()}/>{'} '}
             videos on Youtube from
             {' {'}
             <DropDownMenu {...this.getCountryDropDownProps()}/> {'}'} </b>
-        <br/>
-      <input type="submit" value="Submit"/>
-      </form>
-      {videoList}
+          <br/>
+          <input type="submit" value="Submit"/>
+        </form>
+        {videoList}
       </React.Fragment>
     );
   }
 }
 
-export default Form;
+export default Form

@@ -22,12 +22,14 @@ class Video extends React.Component {
         <div id="videotitle">
           <b>{title}</b><br/>
         </div>
-        <img id="videothumbnail" src={thumbnail}/>
-        <div id="videoinfo">
-          <b>CHANEL: {channelTitle}</b><br/>
-          <b>VIEWS: {viewCount}</b><br/>
-          <b>LIKES: {likeCount}</b><br/>
-          <b>DATE: {publishedAt}</b><br/>
+        <div id="videoimageandinfo">
+          <img id="videothumbnail" src={thumbnail}/>
+          <div id="videoinfo">
+            <b>CHANEL: {channelTitle}</b><br/>
+            <b>VIEWS: {viewCount}</b><br/>
+            <b>LIKES: {likeCount}</b><br/>
+            <b>DATE: {publishedAt}</b><br/>
+          </div>
         </div>
       </div>
     )
