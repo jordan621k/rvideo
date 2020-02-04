@@ -4,7 +4,6 @@ import Video from './Video'
 import '../css/Form.css'
 
 class Form extends React.Component {
-
   constructor (props) {
     super(props)
     this.state = { videos: [] }
@@ -16,18 +15,18 @@ class Form extends React.Component {
   componentDidMount () {
     window.gapi.load('client', () => {
       window.gapi.client.init({
-        'apiKey': 'AIzaSyAN6WGBl3-zqdtlabrDV428Tn3zrlpeAW0',
-        'scope': 'profile',
+        apiKey: 'AIzaSyAN6WGBl3-zqdtlabrDV428Tn3zrlpeAW0',
+        scope: 'profile'
       })
     })
   }
 
   async getYoutubeVideos () {
     const youtubePromise = window.gapi.client.request({
-      'path': 'https://www.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&chart=mostPopular&locale=zh-TW&maxResults=20&regionCode=TW&key=AIzaSyAN6WGBl3-zqdtlabrDV428Tn3zrlpeAW0',
+      path: 'https://www.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&chart=mostPopular&locale=zh-TW&maxResults=20&regionCode=TW&key=AIzaSyAN6WGBl3-zqdtlabrDV428Tn3zrlpeAW0'
     })
 
-    const response = await youtubePromise;
+    const response = await youtubePromise
 
     if (response.result.error) {
       console.log('Error: ' + response.result.error.message)
@@ -54,11 +53,11 @@ class Form extends React.Component {
     return {
       name: 'categoryDropDownMenu',
       options: {
-        'Music': '1',
-        'Sports': '2',
-        'News': '3',
-        'Live': '4',
-        'Pets': '5'
+        Music: '1',
+        Sports: '2',
+        News: '3',
+        Live: '4',
+        Pets: '5'
       },
       placeholder: 'ALL',
       callback: this.updateCategory
@@ -69,16 +68,16 @@ class Form extends React.Component {
     return {
       name: 'countryDropDownMenu',
       options: {
-        'Brazil': 'BR',
-        'Canada': 'CA',
-        'Japan': 'JA',
-        'Korea': 'KP',
-        'Spain': 'ES',
-        'South Africa': 'ZA',
-        'United Kingdom': 'UK',
-        'United States of America': 'US',
-        'Thailand': 'TH',
-        'Taiwan' : 'TW'
+        Brazil: 'BR',
+        Canada: 'CA',
+        Japan: 'JA',
+        Korea: 'KP',
+        Spain: 'ES',
+        South_Africa: 'ZA',
+        United_Kingdom: 'UK',
+        United_States_of_America: 'US',
+        Thailand: 'TH',
+        Taiwan: 'TW'
       },
       placeholder: 'United States',
       callback: this.updateCountry
