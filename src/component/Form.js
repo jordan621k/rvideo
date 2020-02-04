@@ -86,11 +86,11 @@ class Form extends React.Component {
   }
 
   sortVideobyCount (e) {
-    e.props.viewCount.sort((a, b) => a - b)
+    const sortList = e.sort((a, b) => (parseInt(a.props.viewCount) < parseInt(b.props.viewCount)) ? 1 : -1)
+    return sortList
   }
 
   render () {
-    // this.sortVideobyCount(this.state.videos) videos[""0""].statistics.viewCount
     const unsortVideoList = Object.keys(this.state.videos).map((key) => {
       const video = this.state.videos[key]
       const rank = parseInt(key) + 1
@@ -106,10 +106,9 @@ class Form extends React.Component {
       }
       return <Video {...videoProps}/>
     })
-
-    console.log(typeof unsortVideoList)
-    //const sortedVideoList = this.sortVideobyCount(unsortVideoList)
-    const sortedVideoList = unsortVideoList
+    // get max view count
+    // console.log(Math.max.apply(Math, listofVideos[0].map(function (o) { return parseInt(o.props.viewCount) })))
+    const sortedVideoList = this.sortVideobyCount([unsortVideoList][0])
 
     return (
       <React.Fragment>
