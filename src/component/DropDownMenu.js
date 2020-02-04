@@ -1,19 +1,19 @@
-import React from 'react';
-import '../css/DropDownMenu.css';
+import React from 'react'
+import '../css/DropDownMenu.css'
 
 class DropDownMenu extends React.Component {
 
   constructor(props) {
-    super(props);
-    this.state = {options: this.props.options, showDropDown: false};
-    this.inputId = this.props.name + "-input";
-    this.dropDownId = this.props.name + "-dropdown";
-    this.showDropDown = this.showDropDown.bind(this);
-    this.filter = this.filter.bind(this);
-    this.hideDropDown = this.hideDropDown.bind(this);
-    this.highlightItem = this.highlightItem.bind(this);
-    this.populateInput = this.populateInput.bind(this);
-    this.resizeInput = this.resizeInput.bind(this);
+    super(props)
+    this.state = { options: this.props.options, showDropDown: false }
+    this.inputId = this.props.name + "-input"
+    this.dropDownId = this.props.name + "-dropdown"
+    this.showDropDown = this.showDropDown.bind(this)
+    this.filter = this.filter.bind(this)
+    this.hideDropDown = this.hideDropDown.bind(this)
+    this.highlightItem = this.highlightItem.bind(this)
+    this.populateInput = this.populateInput.bind(this)
+    this.resizeInput = this.resizeInput.bind(this)
   }
 
   showDropDown() {

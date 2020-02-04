@@ -1,36 +1,35 @@
-import React from 'react';
-import '../css/Video.css';
+import React from 'react'
+import '../css/Video.css'
 
 class Video extends React.Component {
-
-    constructor(props) {
-        super(props);
-        this.openVideoInWindow = this.openVideoInWindow.bind(this);
-    }
+  constructor(props) {
+    super(props)
+    this.openVideoInWindow = this.openVideoInWindow.bind(this)
+  }
     
-    openVideoInWindow() {
-        window.open(this.props.videoLink);
-    }
+  openVideoInWindow() {
+    window.open(this.props.videoLink)
+  }
 
-    render() {
-        let {title, viewCount, likeCount, publishedAt, thumbnail, rank, channelTitle} = this.props;
-        return (
-            <div onMouseDown={this.openVideoInWindow}>
-                <div>
-                    {rank}
-                </div>
-                <div>
-                    <img src={thumbnail}/>
-                </div>
-                <div>
-                    <b>TITLE: {title}  </b><b>CHANEL: {channelTitle}</b><br/>
-                    <b>VIEWS: {viewCount}  </b>
-                    <b>LIKES: {likeCount}  </b>
-                    <b>DATE: {publishedAt}  </b>
-                </div>
+  render() {
+    const { title, viewCount, likeCount, publishedAt, thumbnail, rank, channelTitle } = this.props
+    return (
+        <div onMouseDown={this.openVideoInWindow}>
+            <div>
+                {rank}
             </div>
-         )
-    }
+            <div>
+                <img src={thumbnail}/>
+            </div>
+            <div>
+                <b>TITLE: {title}  </b><b>CHANEL: {channelTitle}</b><br/>
+                <b>VIEWS: {viewCount}  </b>
+                <b>LIKES: {likeCount}  </b>
+                <b>DATE: {publishedAt}  </b>
+            </div>
+        </div>
+     )
+  }
 }
 
 export default Video;
