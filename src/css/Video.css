@@ -1,0 +1,32 @@
+#videoblock {
+    width: 100%;
+    height: 180px;
+}
+
+#rank {
+    width: 200px;
+    height: 200px;
+    /* float: left; */;
+    position: absolute;
+    font-size: 100px;
+}
+
+
+#videotitle {
+    float: left;
+    font-size: 200%;
+    margin:0 300px 0 200px;
+}
+
+
+#videothumbnail {
+    float: left;
+    margin:0 300px 0 200px;
+    padding-top: 10px;
+}
+
+#videoinfo {
+    /* float: left; */
+    position: relative;
+    margin:0 300px 0 100px;
+}
