@@ -2,12 +2,11 @@ import React from 'react'
 import '../css/DropDownMenu.css'
 
 class DropDownMenu extends React.Component {
-
-  constructor(props) {
+  constructor (props) {
     super(props)
     this.state = { options: this.props.options, showDropDown: false }
-    this.inputId = this.props.name + "-input"
-    this.dropDownId = this.props.name + "-dropdown"
+    this.inputId = this.props.name + '-input'
+    this.dropDownId = this.props.name + '-dropdown'
     this.showDropDown = this.showDropDown.bind(this)
     this.filter = this.filter.bind(this)
     this.hideDropDown = this.hideDropDown.bind(this)
@@ -16,29 +15,29 @@ class DropDownMenu extends React.Component {
     this.resizeInput = this.resizeInput.bind(this)
   }
 
-  showDropDown() {
-    this.setState({showDropDown: true});
+  showDropDown () {
+    this.setState({ showDropDown: true })
   }
 
-  hideDropDown() {
-    this.setState({showDropDown: false});
+  hideDropDown () {
+    this.setState({ showDropDown: false })
   }
 
-  highlightItem(e) {
-    e.target.style.background = '#45A291';
+  highlightItem (e) {
+    e.target.style.background = '#45A291'
   }
 
-  unHighlightItem(e) {
-    e.target.style.background = '#0b0c10';
+  unHighlightItem (e) {
+    e.target.style.background = '#0b0c10'
   }
 
-  populateInput(e) {
-    document.getElementById(this.inputId).value = e.target.innerHTML;
-    this.resizeInput(e.target.innerHTML.length);
+  populateInput (e) {
+    document.getElementById(this.inputId).value = e.target.innerHTML
+    this.resizeInput(e.target.innerHTML.length)
     this.props.callback(e.target.innerHTML)
   }
 
-  resizeInput(size) {
+  resizeInput (size) {
     let { placeholder } = this.props
 
     if (size <= placeholder.length) {
@@ -47,11 +46,11 @@ class DropDownMenu extends React.Component {
     document.getElementById(this.inputId).size = size
   }
 
-  filter() {
-    let input = document.getElementById(this.inputId).value;
-    let filteredOptions = {};
+  filter () {
+    const input = document.getElementById(this.inputId).value
+    const filteredOptions = {}
 
-    this.resizeInput(input.length);
+    this.resizeInput(input.length)
 
     Object.keys(this.props.options).forEach((key) => {
       if (key.toLowerCase().includes(input)) {
@@ -59,19 +58,19 @@ class DropDownMenu extends React.Component {
       }
     });
 
-    this.setState({options: filteredOptions});
+    this.setState({ options: filteredOptions })
   }
 
-  render() {
-    let dropDownMenu;
+  render () {
+    let dropDownMenu
 
     if (this.state.showDropDown) {
       dropDownMenu = <div id={this.dropDownId} className="dropDownMenu">
         {Object.keys(this.state.options).map((key) => {
           return <li onMouseOver={this.highlightItem}
-                     onMouseLeave={this.unHighlightItem}
-                     onMouseDown={this.populateInput}
-                     key={this.state.options[key]}>
+            onMouseLeave={this.unHighlightItem}
+            onMouseDown={this.populateInput}
+            key={this.state.options[key]}>
             {key}
           </li>
         })}
@@ -81,18 +80,18 @@ class DropDownMenu extends React.Component {
     return (
       <div className="dropDown">
         <input id={this.inputId}
-               className="dropDownInput"
-               autoComplete="off"
-               placeholder={this.props.placeholder}
-               size={this.props.placeholder.length}
-               onFocus={this.showDropDown}
-               onChange={this.filter}
-               onBlur={this.hideDropDown}
+          className="dropDownInput"
+          autoComplete="off"
+          placeholder={this.props.placeholder}
+          size={this.props.placeholder.length}
+          onFocus={this.showDropDown}
+          onChange={this.filter}
+          onBlur={this.hideDropDown}
         />
         {dropDownMenu}
       </div>
-    );
+    )
   }
 }
 
-export default DropDownMenu;
+export default DropDownMenu

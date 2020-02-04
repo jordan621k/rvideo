@@ -34,7 +34,6 @@ class Form extends React.Component {
     } else {
       this.setState({ videos: response.result.items })
     }
-
     console.log(this.state)
   }
 
@@ -86,8 +85,13 @@ class Form extends React.Component {
     }
   }
 
+  sortVideobyCount (e) {
+    e.props.viewCount.sort((a, b) => a - b)
+  }
+
   render () {
-    const videoList = Object.keys(this.state.videos).map((key) => {
+    // this.sortVideobyCount(this.state.videos) videos[""0""].statistics.viewCount
+    const unsortVideoList = Object.keys(this.state.videos).map((key) => {
       const video = this.state.videos[key]
       const rank = parseInt(key) + 1
       const videoProps = {
@@ -103,6 +107,10 @@ class Form extends React.Component {
       return <Video {...videoProps}/>
     })
 
+    console.log(typeof unsortVideoList)
+    //const sortedVideoList = this.sortVideobyCount(unsortVideoList)
+    const sortedVideoList = unsortVideoList
+
     return (
       <React.Fragment>
         <form className="Form" onSubmit={this.handleSubmit}>
@@ -115,7 +123,7 @@ class Form extends React.Component {
           <br/>
           <input type="submit" value="Submit"/>
         </form>
-        {videoList}
+        {sortedVideoList}
       </React.Fragment>
     );
   }
