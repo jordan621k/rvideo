@@ -15,15 +15,15 @@ class Video extends React.Component {
     const { title, viewCount, likeCount, publishedAt, thumbnail, rank, channelTitle } = this.props
     return (
       <div className="Video" onMouseDown={this.openVideoInWindow}>
-        <div id="rank">
+        <div className="rank">
           {rank}
         </div>
-        <div id="videotitle">
+        <div className="videotitle">
           <b>{title}</b><br/>
         </div>
-        <div id="videoimageandinfo">
-          <img id="videothumbnail" src={thumbnail}/>
-          <div id="videoinfo">
+        <div className="videoimageandinfo">
+          <img className="videothumbnail" src={thumbnail}/>
+          <div className="videoinfo">
             <b>CHANEL: {channelTitle}</b><br/>
             <b>VIEWS: {viewCount}</b><br/>
             <b>LIKES: {likeCount}</b><br/>
