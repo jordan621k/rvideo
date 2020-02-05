@@ -2,7 +2,6 @@ import React from 'react'
 import '../css/Video.css'
 
 class Video extends React.Component {
-
   constructor (props) {
     super(props)
     this.openVideoInWindow = this.openVideoInWindow.bind(this)
@@ -15,7 +14,7 @@ class Video extends React.Component {
   render () {
     const { title, viewCount, likeCount, publishedAt, thumbnail, rank, channelTitle } = this.props
     return (
-      <div id="videoblock" onMouseDown={this.openVideoInWindow}>
+      <div className="Video" onMouseDown={this.openVideoInWindow}>
         <div id="rank">
           {rank}
         </div>

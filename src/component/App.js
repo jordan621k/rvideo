@@ -9,7 +9,7 @@ class App extends React.Component {
     return (
       <React.Fragment>
         <Header/>
-        <div id="form">
+        <div className="App">
           <Form/>
         </div>
         <Footer/>

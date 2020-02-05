@@ -47,9 +47,3 @@ body {
   flex-direction: column;
   background-color: #1f2833;
 }
-
-#form {
-  width: 90%;
-  text-align: center;
-  margin: 0px auto;
-}

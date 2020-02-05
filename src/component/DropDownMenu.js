@@ -38,7 +38,7 @@ class DropDownMenu extends React.Component {
   }
 
   resizeInput (size) {
-    let { placeholder } = this.props
+    const { placeholder } = this.props
 
     if (size <= placeholder.length) {
       size = placeholder.length
@@ -56,7 +56,7 @@ class DropDownMenu extends React.Component {
       if (key.toLowerCase().includes(input)) {
         filteredOptions[key] = this.props.options[key]
       }
-    });
+    })
 
     this.setState({ options: filteredOptions })
   }
