@@ -30,6 +30,7 @@ class Form extends React.Component {
 
     if (response.result.error) {
       console.log('Error: ' + response.result.error.message)
+      // todo: show error message
     } else {
       const sortedVideos = response.result.items.sort((a, b) => (parseInt(a.statistics.viewCount) < parseInt(b.statistics.viewCount)) ? 1 : -1)
       this.setState({ videos: sortedVideos })
@@ -90,7 +91,7 @@ class Form extends React.Component {
       const video = this.state.videos[key]
       const rank = parseInt(key) + 1
       const videoProps = {
-        title: video.snippet.title,
+        title: video.snippet.title.trim(),
         rank: rank,
         viewCount: video.statistics.viewCount,
         likeCount: video.statistics.likeCount,

@@ -3,27 +3,27 @@
     height: 180px;
 }
 
-.rank {
+.Rank {
     width: 200px;
     height: 200px;
     position: absolute;
-    font-size: 100px;
+    font-size: 3em;
     color: #66fcf1;
 }
 
 
-.videotitle {
+.Video .Title {
     float: left;
-    font-size: 200%;
-    margin:0 300px 0 200px;
+    margin: 0 300px 0 200px;
     color: white;
+    white-space: nowrap;
 }
 
 .videoimageandinfo {
     width: auto;
     height: auto;
     float: left;
-    margin:10px 300px 0 200px;
+    margin: 5px 0 5px 200px;
 }
 
 
