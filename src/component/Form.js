@@ -31,7 +31,8 @@ class Form extends React.Component {
     if (response.result.error) {
       console.log('Error: ' + response.result.error.message)
     } else {
-      this.setState({ videos: response.result.items })
+      const sortedVideos = response.result.items.sort((a, b) => (parseInt(a.statistics.viewCount) < parseInt(b.statistics.viewCount)) ? 1 : -1)
+      this.setState({ videos: sortedVideos })
     }
     console.log(this.state)
   }
@@ -84,13 +85,8 @@ class Form extends React.Component {
     }
   }
 
-  sortVideobyCount (e) {
-    const sortList = e.sort((a, b) => (parseInt(a.props.viewCount) < parseInt(b.props.viewCount)) ? 1 : -1)
-    return sortList
-  }
-
   render () {
-    const unsortVideoList = Object.keys(this.state.videos).map((key) => {
+    const videosList = Object.keys(this.state.videos).map((key) => {
       const video = this.state.videos[key]
       const rank = parseInt(key) + 1
       const videoProps = {
@@ -105,9 +101,6 @@ class Form extends React.Component {
       }
       return <Video {...videoProps}/>
     })
-    // get max view count
-    // console.log(Math.max.apply(Math, listofVideos[0].map(function (o) { return parseInt(o.props.viewCount) })))
-    const sortedVideoList = this.sortVideobyCount([unsortVideoList][0])
 
     return (
       <React.Fragment>
@@ -121,9 +114,9 @@ class Form extends React.Component {
           <br/>
           <input type="submit" value="Submit"/>
         </form>
-        {sortedVideoList}
+        {videosList}
       </React.Fragment>
-    );
+    )
   }
 }
 
