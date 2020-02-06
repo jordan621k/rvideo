@@ -45,7 +45,7 @@ class Form extends React.Component {
 
   updateCountry (country, code) {
     this.setState({ country: country })
-    this.setState({ countrycode: code})
+    this.setState({ countrycode: code })
   }
 
   updateCategory (category) {
