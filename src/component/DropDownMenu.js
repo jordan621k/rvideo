@@ -47,7 +47,7 @@ class DropDownMenu extends React.Component {
   }
 
   filter () {
-    const input = document.getElementById(this.inputId).value
+    const input = document.getElementById(this.inputId).value.toLowerCase()
     const filteredOptions = {}
 
     this.resizeInput(input.length)
