@@ -23,7 +23,7 @@ class Form extends React.Component {
 
   async getYoutubeVideos () {
     const youtubePromise = window.gapi.client.request({
-      path: 'https://www.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&chart=mostPopular&locale=zh-TW&maxResults=20&regionCode=TW&key=AIzaSyAN6WGBl3-zqdtlabrDV428Tn3zrlpeAW0'
+      path: 'https://www.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&chart=mostPopular&locale=zh-+TW&maxResults=20&regionCode=' + this.state.countrycode + '&key=AIzaSyAN6WGBl3-zqdtlabrDV428Tn3zrlpeAW0'
     })
 
     const response = await youtubePromise
@@ -43,8 +43,9 @@ class Form extends React.Component {
     this.getYoutubeVideos()
   }
 
-  updateCountry (country) {
+  updateCountry (country, code) {
     this.setState({ country: country })
+    this.setState({ countrycode: code})
   }
 
   updateCategory (category) {
