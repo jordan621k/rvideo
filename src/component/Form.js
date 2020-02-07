@@ -116,6 +116,9 @@ class Form extends React.Component {
   }
 
   addCommmatoDigit (viewCount) {
+    if (viewCount == null) {
+      return '0'
+    }
     var result = ''
     var digit = 0
     for (var i = viewCount.length - 1; i >= 0; i--) {
@@ -132,11 +135,14 @@ class Form extends React.Component {
     const videosList = Object.keys(this.state.videos).map((key) => {
       const video = this.state.videos[key]
       const rank = parseInt(key) + 1
+      console.log(video.statistics.viewCount, video.statistics.likeCount)
       const videoProps = {
         title: video.snippet.title.trim(),
         rank: rank,
         viewCount: this.addCommmatoDigit(video.statistics.viewCount),
         likeCount: this.addCommmatoDigit(video.statistics.likeCount),
+        // viewCount: video.statistics.viewCount,
+        // likeCount: video.statistics.likeCount,
         publishedAt: video.snippet.publishedAt.slice(0, 10),
         thumbnail: video.snippet.thumbnails.default.url,
         channelTitle: video.snippet.channelTitle,
