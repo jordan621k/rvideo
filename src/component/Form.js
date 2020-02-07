@@ -140,7 +140,8 @@ class Form extends React.Component {
         publishedAt: video.snippet.publishedAt.slice(0, 10),
         thumbnail: video.snippet.thumbnails.default.url,
         channelTitle: video.snippet.channelTitle,
-        videoLink: 'https://www.youtube.com/watch?v=' + video.id
+        videoLink: 'https://www.youtube.com/watch?v=' + video.id,
+        channelID: video.snippet.channelId
       }
       return <Video {...videoProps}/>
     })
