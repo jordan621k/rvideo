@@ -101,7 +101,7 @@ class Form extends React.Component {
       options: {
         'Brazil': 'BR',
         'Canada': 'CA',
-        'Japan': 'JA',
+        'Japan': 'JP',
         'Korea': 'KP',
         'Spain': 'ES',
         'South Africa': 'ZA',

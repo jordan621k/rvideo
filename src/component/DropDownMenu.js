@@ -32,9 +32,9 @@ class DropDownMenu extends React.Component {
   }
 
   populateInput (e) {
-    document.getElementById(this.inputId).value = e.target.innerHTML
-    this.resizeInput(e.target.innerHTML.length)
-    this.props.callback(e.target.innerHTML, this.props.options[e.target.innerHTML])
+    document.getElementById(this.inputId).value = e.target.innerText
+    this.resizeInput(e.target.innerText.length)
+    this.props.callback(e.target.innerText, this.props.options[e.target.innerText])
   }
 
   resizeInput (size) {
