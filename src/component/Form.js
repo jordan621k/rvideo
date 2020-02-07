@@ -115,6 +115,19 @@ class Form extends React.Component {
     }
   }
 
+  addCommmatoDigit (viewCount) {
+    var result = ''
+    var digit = 0
+    for (var i = viewCount.length - 1; i >= 0; i--) {
+      if (digit % 3 === 0 & i !== viewCount.length - 1) {
+        result = ',' + result
+      }
+      result = viewCount[i] + result
+      digit += 1
+    }
+    return result
+  }
+
   render () {
     const videosList = Object.keys(this.state.videos).map((key) => {
       const video = this.state.videos[key]
@@ -122,8 +135,8 @@ class Form extends React.Component {
       const videoProps = {
         title: video.snippet.title.trim(),
         rank: rank,
-        viewCount: video.statistics.viewCount,
-        likeCount: video.statistics.likeCount,
+        viewCount: this.addCommmatoDigit(video.statistics.viewCount),
+        likeCount: this.addCommmatoDigit(video.statistics.likeCount),
         publishedAt: video.snippet.publishedAt.slice(0, 10),
         thumbnail: video.snippet.thumbnails.default.url,
         channelTitle: video.snippet.channelTitle,
