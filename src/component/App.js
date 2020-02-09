@@ -3,6 +3,7 @@ import '../css/App.css'
 import Header from './Header'
 import Footer from './Footer'
 import Form from './Form'
+import VideoList from './VideoList'
 
 class App extends React.Component {
   render () {
@@ -11,6 +12,7 @@ class App extends React.Component {
         <Header/>
         <div className="App">
           <Form/>
+          <VideoList/>
         </div>
         <Footer/>
       </React.Fragment>

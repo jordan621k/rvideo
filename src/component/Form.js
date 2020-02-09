@@ -115,42 +115,39 @@ class Form extends React.Component {
     }
   }
 
-  addCommmatoDigit (viewCount) {
-    if (viewCount == null) {
-      return '0'
-    }
-    var result = ''
-    var digit = 0
-    for (var i = viewCount.length - 1; i >= 0; i--) {
-      if (digit % 3 === 0 & i !== viewCount.length - 1) {
-        result = ',' + result
-      }
-      result = viewCount[i] + result
-      digit += 1
-    }
-    return result
-  }
+  // addCommmatoDigit (count) {
+  //   if (count == null) {
+  //     return '0'
+  //   }
+  //   var result = ''
+  //   var digit = 0
+  //   for (var i = count.length - 1; i >= 0; i--) {
+  //     if (digit % 3 === 0 & i !== count.length - 1) {
+  //       result = ',' + result
+  //     }
+  //     result = count[i] + result
+  //     digit += 1
+  //   }
+  //   return result
+  // }
 
   render () {
-    const videosList = Object.keys(this.state.videos).map((key) => {
-      const video = this.state.videos[key]
-      const rank = parseInt(key) + 1
-      console.log(video.statistics.viewCount, video.statistics.likeCount)
-      const videoProps = {
-        title: video.snippet.title.trim(),
-        rank: rank,
-        viewCount: this.addCommmatoDigit(video.statistics.viewCount),
-        likeCount: this.addCommmatoDigit(video.statistics.likeCount),
-        // viewCount: video.statistics.viewCount,
-        // likeCount: video.statistics.likeCount,
-        publishedAt: video.snippet.publishedAt.slice(0, 10),
-        thumbnail: video.snippet.thumbnails.default.url,
-        channelTitle: video.snippet.channelTitle,
-        videoLink: 'https://www.youtube.com/watch?v=' + video.id,
-        channelID: video.snippet.channelId
-      }
-      return <Video {...videoProps}/>
-    })
+    // const videosList = Object.keys(this.state.videos).map((key) => {
+    //   const video = this.state.videos[key]
+    //   const rank = parseInt(key) + 1
+    //   const videoProps = {
+    //     title: video.snippet.title.trim(),
+    //     rank: rank,
+    //     viewCount: this.addCommmatoDigit(video.statistics.viewCount),
+    //     likeCount: this.addCommmatoDigit(video.statistics.likeCount),
+    //     publishedAt: video.snippet.publishedAt.slice(0, 10),
+    //     thumbnail: video.snippet.thumbnails.default.url,
+    //     channelTitle: video.snippet.channelTitle,
+    //     videoLink: 'https://www.youtube.com/watch?v=' + video.id,
+    //     channelLink: 'https://www.youtube.com/channel/' + video.snippet.channelId
+    //   }
+    //   return <Video {...videoProps}/>
+    // })
 
     return (
       <React.Fragment>
@@ -164,7 +161,7 @@ class Form extends React.Component {
           <br/>
           <input type="submit" value="Submit"/>
         </form>
-        {videosList}
+        {/* {videosList} */}
       </React.Fragment>
     )
   }
