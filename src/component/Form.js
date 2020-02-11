@@ -1,12 +1,11 @@
 import React from 'react'
 import DropDownMenu from './DropDownMenu'
-import Video from './Video'
 import '../css/Form.css'
+import { videoList } from '../store/VideoStore'
 
 class Form extends React.Component {
   constructor (props) {
     super(props)
-    this.state = { videos: [] }
     this.handleSubmit = this.handleSubmit.bind(this)
     this.updateCountry = this.updateCountry.bind(this)
     this.updateCategory = this.updateCategory.bind(this)
@@ -29,13 +28,12 @@ class Form extends React.Component {
     const response = await youtubePromise
 
     if (response.result.error) {
-      console.log('Error: ' + response.result.error.message)
+      console.log('Error: ' + JSON.stringify(response.result.error.message))
       // todo: show error message
     } else {
       const sortedVideos = response.result.items.sort((a, b) => (parseInt(a.statistics.viewCount) < parseInt(b.statistics.viewCount)) ? 1 : -1)
-      this.setState({ videos: sortedVideos })
+      videoList.set(sortedVideos)
     }
-    console.log(this.state)
   }
 
   handleSubmit (event) {
@@ -44,12 +42,10 @@ class Form extends React.Component {
   }
 
   updateCountry (country, countryCode) {
-    // this.setState({ country: country })
     this.setState({ countryCode: countryCode })
   }
 
   updateCategory (category, categoryCode) {
-    // this.setState({ category: category })
     this.setState({ categoryCode: categoryCode })
   }
 
@@ -74,11 +70,11 @@ class Form extends React.Component {
         'Education': '27',
         'Science & Technology': '28',
         'Nonprofits & Activism': '29',
-        // 'Movies': '30',
+        'Movies': '30',
         'Anime/Animation': '31',
         'Action/Adventure': '32',
         'Classics': '33',
-        'Comedy': '34',
+        // 'Comedy': '34',
         'Documentary': '35',
         'Drama': '36',
         'Family': '37',
@@ -115,43 +111,7 @@ class Form extends React.Component {
     }
   }
 
-  addCommmatoDigit (viewCount) {
-    if (viewCount == null) {
-      return '0'
-    }
-    var result = ''
-    var digit = 0
-    for (var i = viewCount.length - 1; i >= 0; i--) {
-      if (digit % 3 === 0 & i !== viewCount.length - 1) {
-        result = ',' + result
-      }
-      result = viewCount[i] + result
-      digit += 1
-    }
-    return result
-  }
-
   render () {
-    const videosList = Object.keys(this.state.videos).map((key) => {
-      const video = this.state.videos[key]
-      const rank = parseInt(key) + 1
-      console.log(video.statistics.viewCount, video.statistics.likeCount)
-      const videoProps = {
-        title: video.snippet.title.trim(),
-        rank: rank,
-        viewCount: this.addCommmatoDigit(video.statistics.viewCount),
-        likeCount: this.addCommmatoDigit(video.statistics.likeCount),
-        // viewCount: video.statistics.viewCount,
-        // likeCount: video.statistics.likeCount,
-        publishedAt: video.snippet.publishedAt.slice(0, 10),
-        thumbnail: video.snippet.thumbnails.default.url,
-        channelTitle: video.snippet.channelTitle,
-        videoLink: 'https://www.youtube.com/watch?v=' + video.id,
-        channelID: video.snippet.channelId
-      }
-      return <Video {...videoProps}/>
-    })
-
     return (
       <React.Fragment>
         <form className="Form" onSubmit={this.handleSubmit}>
@@ -164,7 +124,6 @@ class Form extends React.Component {
           <br/>
           <input type="submit" value="Submit"/>
         </form>
-        {videosList}
       </React.Fragment>
     )
   }

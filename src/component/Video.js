@@ -12,7 +12,7 @@ class Video extends React.Component {
   }
 
   render () {
-    const { title, viewCount, likeCount, publishedAt, thumbnail, rank, channelTitle, channelID } = this.props
+    const { title, viewCount, likeCount, publishedAt, thumbnail, rank, channelTitle, channelLink } = this.props
     return (
       <div className="Video" onMouseDown={this.openVideoInWindow}>
         <div className="Rank">
@@ -25,9 +25,9 @@ class Video extends React.Component {
           <div className="ThumbnailAndStats">
             <img className="Thumbnail" src={thumbnail}/>
             <div className="Stats">
-              <b>{viewCount} Views</b><br/>
-              <b>{likeCount} Likes</b><br/>
-              <b>Uploaded by <a href={'https://www.youtube.com/channel/' + this.props.channelID}>{channelTitle}</a> on {publishedAt}</b><br/>
+              <p>{viewCount} Views</p>
+              <p>{likeCount} Likes</p>
+              <p>Uploaded by <a href={channelLink}>{channelTitle}</a> on {publishedAt}</p>
             </div>
           </div>
         </div>
