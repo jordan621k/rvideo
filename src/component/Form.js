@@ -101,7 +101,7 @@ class Form extends React.Component {
         'Korea': 'KP',
         'Spain': 'ES',
         'South Africa': 'ZA',
-        'United Kingdom': 'UK',
+        'United Kingdom': 'GB',
         'United States of America': 'US',
         'Thailand': 'TH',
         'Taiwan': 'TW'
