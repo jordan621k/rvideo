@@ -12,7 +12,7 @@ class Video extends React.Component {
   }
 
   render () {
-    const { title, viewCount, likeCount, publishedAt, thumbnail, rank, channelTitle, channelLink } = this.props
+    const { title, viewCount, likeCount, publishedAt, thumbnail, rank, channelTitle, channelLink, duration } = this.props
     return (
       <div className="Video" onMouseDown={this.openVideoInWindow}>
         <div className="Rank">
@@ -27,6 +27,7 @@ class Video extends React.Component {
             <div className="Stats">
               <p>{viewCount} Views</p>
               <p>{likeCount} Likes</p>
+              <p>Video duration: {duration}</p>
               <p>Uploaded by <a href={channelLink}>{channelTitle}</a> on {publishedAt}</p>
             </div>
           </div>

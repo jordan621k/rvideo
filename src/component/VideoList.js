@@ -26,7 +26,6 @@ const VideoList = observer(class VideoList extends React.Component {
   }
 
   turnDatetoDaysago (date1, date2) {
-    console.log(date1, date2)
     const dt1 = new Date(date1)
     const dt2 = new Date(date2)
     const diff = Math.floor((Date.UTC(dt2.getFullYear(), dt2.getMonth(), dt2.getDate()) - Date.UTC(dt1.getFullYear(), dt1.getMonth(), dt1.getDate())) / (1000 * 60 * 60 * 24))
@@ -34,6 +33,23 @@ const VideoList = observer(class VideoList extends React.Component {
       return diff + ' day ago'
     }
     return diff + ' days ago'
+  }
+
+  convertDuration (duration) {
+    var result = ''
+    var isAlpha = function (ch) {
+      return typeof ch === 'string' && ch.length === 1 && (ch >= 'a' && ch <= 'z' || ch >= 'A' && ch <= 'Z')
+    }
+    for (var i = 2; i < duration.length - 1; i++) {
+      if (isAlpha(duration[i])) {
+        result += ':'
+      }
+      else {
+        result += duration[i]
+      }
+    }
+    console.log(result)
+    return result
   }
 
   render () {
@@ -52,7 +68,8 @@ const VideoList = observer(class VideoList extends React.Component {
             thumbnail: video.snippet.thumbnails.default.url,
             channelTitle: video.snippet.channelTitle,
             videoLink: 'https://www.youtube.com/watch?v=' + video.id,
-            channelLink: 'https://www.youtube.com/channel/' + video.snippet.channelId
+            channelLink: 'https://www.youtube.com/channel/' + video.snippet.channelId,
+            duration: this.convertDuration(video.contentDetails.duration)
           }
           index = index + 1
           return <Video {...videoProps}/>
