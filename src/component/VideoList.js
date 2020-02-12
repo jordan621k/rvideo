@@ -48,7 +48,7 @@ const VideoList = observer(class VideoList extends React.Component {
             rank: rank,
             viewCount: this.addCommmaToDigit(video.statistics.viewCount),
             likeCount: this.addCommmaToDigit(video.statistics.likeCount),
-            publishedAt: this.turnDatetoDaysago(video.snippet.publishedAt.slice(0, 10), new Date()),
+            publishedAt: this.turnDatetoDaysago(video.snippet.publishedAt, new Date()),
             thumbnail: video.snippet.thumbnails.default.url,
             channelTitle: video.snippet.channelTitle,
             videoLink: 'https://www.youtube.com/watch?v=' + video.id,
