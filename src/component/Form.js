@@ -6,6 +6,7 @@ import { videoList } from '../store/VideoStore'
 class Form extends React.Component {
   constructor (props) {
     super(props)
+    this.state = { countryCode: '', categoryCode: '' }
     this.handleSubmit = this.handleSubmit.bind(this)
     this.updateCountry = this.updateCountry.bind(this)
     this.updateCategory = this.updateCategory.bind(this)
@@ -22,14 +23,13 @@ class Form extends React.Component {
 
   async getYoutubeVideos () {
     const youtubePromise = window.gapi.client.request({
-      path: `https://www.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&chart=mostPopular&locale=zh-+TW&maxResults=20&regionCode=${this.state.countryCode}&videoCategoryId=${this.state.categoryCode}&key=AIzaSyAN6WGBl3-zqdtlabrDV428Tn3zrlpeAW0`
+      path: `https://www.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&chart=mostPopular&maxResults=20&regionCode=${this.state.countryCode}&videoCategoryId=${this.state.categoryCode}&key=AIzaSyAN6WGBl3-zqdtlabrDV428Tn3zrlpeAW0`
     })
-
     const response = await youtubePromise
-
+    console.log(response.result.error)
     if (response.result.error) {
       console.log('Error: ' + JSON.stringify(response.result.error.message))
-      // todo: show error message
+      window.alert(response.result.error.message)
     } else {
       const sortedVideos = response.result.items.sort((a, b) => (parseInt(a.statistics.viewCount) < parseInt(b.statistics.viewCount)) ? 1 : -1)
       videoList.set(sortedVideos)
@@ -37,16 +37,26 @@ class Form extends React.Component {
   }
 
   handleSubmit (event) {
-    event.preventDefault()
+    // event.preventDefault()
     this.getYoutubeVideos()
   }
 
+  submitVideoList () {
+    if (this.state.countryCode !== '' && this.state.categoryCode !== '') {
+      this.handleSubmit()
+    }
+  }
+
   updateCountry (country, countryCode) {
-    this.setState({ countryCode: countryCode })
+    this.setState({ countryCode: countryCode }, function () {
+      this.submitVideoList()
+    })
   }
 
   updateCategory (category, categoryCode) {
-    this.setState({ categoryCode: categoryCode })
+    this.setState({ categoryCode: categoryCode }, function () {
+      this.submitVideoList()
+    })
   }
 
   getCategoryDropDownProps () {
@@ -114,7 +124,7 @@ class Form extends React.Component {
   render () {
     return (
       <React.Fragment>
-        <form className="Form" onSubmit={this.handleSubmit}>
+        <form Id="submitForm" className="Form" onSubmit={this.handleSubmit}>
           <b>
             Watch trending {'{'}
             <DropDownMenu {...this.getCategoryDropDownProps()}/>{'} '}
@@ -122,7 +132,7 @@ class Form extends React.Component {
             {' {'}
             <DropDownMenu {...this.getCountryDropDownProps()}/> {'}'} </b>
           <br/>
-          <input type="submit" value="Submit"/>
+          {/* <input type="submit" value="Submit"/> */}
         </form>
       </React.Fragment>
     )
