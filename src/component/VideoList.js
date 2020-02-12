@@ -5,7 +5,6 @@ import { observer } from 'mobx-react'
 import { videoList } from '../store/VideoStore'
 
 const VideoList = observer(class VideoList extends React.Component {
-
   constructor (props) {
     super(props)
   }
@@ -26,6 +25,17 @@ const VideoList = observer(class VideoList extends React.Component {
     return result
   }
 
+  turnDatetoDaysago (date1, date2) {
+    console.log(date1, date2)
+    const dt1 = new Date(date1)
+    const dt2 = new Date(date2)
+    const diff = Math.floor((Date.UTC(dt2.getFullYear(), dt2.getMonth(), dt2.getDate()) - Date.UTC(dt1.getFullYear(), dt1.getMonth(), dt1.getDate())) / (1000 * 60 * 60 * 24))
+    if (diff === 1) {
+      return diff + ' day ago'
+    }
+    return diff + ' days ago'
+  }
+
   render () {
     let index = 0
     return (
@@ -38,7 +48,7 @@ const VideoList = observer(class VideoList extends React.Component {
             rank: rank,
             viewCount: this.addCommmaToDigit(video.statistics.viewCount),
             likeCount: this.addCommmaToDigit(video.statistics.likeCount),
-            publishedAt: video.snippet.publishedAt.slice(0, 10),
+            publishedAt: this.turnDatetoDaysago(video.snippet.publishedAt.slice(0, 10), new Date()),
             thumbnail: video.snippet.thumbnails.default.url,
             channelTitle: video.snippet.channelTitle,
             videoLink: 'https://www.youtube.com/watch?v=' + video.id,

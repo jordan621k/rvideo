@@ -26,13 +26,13 @@ class Form extends React.Component {
       path: `https://www.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&chart=mostPopular&maxResults=20&regionCode=${this.state.countryCode}&videoCategoryId=${this.state.categoryCode}&key=AIzaSyAN6WGBl3-zqdtlabrDV428Tn3zrlpeAW0`
     })
     const response = await youtubePromise
-    console.log(response.result.error)
     if (response.result.error) {
       console.log('Error: ' + JSON.stringify(response.result.error.message))
       window.alert(response.result.error.message)
     } else {
       const sortedVideos = response.result.items.sort((a, b) => (parseInt(a.statistics.viewCount) < parseInt(b.statistics.viewCount)) ? 1 : -1)
       videoList.set(sortedVideos)
+      console.log(videoList)
     }
   }
 
