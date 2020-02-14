@@ -53,9 +53,25 @@ const VideoList = observer(class VideoList extends React.Component {
         tmp += duration[i]
       }
     }
-    result = result.substring(0, result.length-1)
     if (result[0] === '0') {
-      return result.substring(1, result.length)
+      return result.substring(1, result.length - 1)
+    }
+    return result.substring(0, result.length - 1)
+  }
+
+  pickRes (resolution) {
+    var result = ''
+    if ('maxres' in resolution) {
+      result = 'maxres'
+    }
+    else if ('high' in resolution) {
+      result = 'hq'
+    }
+    else if ('standard' in resolution) {
+      result = 'sd'
+    }
+    else if ('medium' in resolution) {
+      result = 'mq'
     }
     return result
   }
@@ -73,7 +89,8 @@ const VideoList = observer(class VideoList extends React.Component {
             viewCount: this.addCommmaToDigit(video.statistics.viewCount),
             likeCount: this.addCommmaToDigit(video.statistics.likeCount),
             publishedAt: this.turnDatetoDaysago(video.snippet.publishedAt, new Date()),
-            thumbnail: video.snippet.thumbnails.default.url,
+            // thumbnail: video.snippet.thumbnails.default.url,
+            thumbnail: 'https://i.ytimg.com/vi/' + video.id + '/' + this.pickRes(video.snippet.thumbnails) + 'default.jpg',
             channelTitle: video.snippet.channelTitle,
             videoLink: 'https://www.youtube.com/watch?v=' + video.id,
             channelLink: 'https://www.youtube.com/channel/' + video.snippet.channelId,
