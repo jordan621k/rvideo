@@ -37,18 +37,26 @@ const VideoList = observer(class VideoList extends React.Component {
 
   convertDuration (duration) {
     var result = ''
+    var tmp = ''
     var isAlpha = function (ch) {
-      return typeof ch === 'string' && ch.length === 1 && (ch >= 'a' && ch <= 'z' || ch >= 'A' && ch <= 'Z')
+      return typeof ch === 'string' && ch.length === 1 && ((ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z'))
     }
-    for (var i = 2; i < duration.length - 1; i++) {
+    for (var i = 2; i < duration.length; i++) {
       if (isAlpha(duration[i])) {
-        result += ':'
+        if (tmp.length !== 2) {
+          tmp = '0' + tmp
+        }
+        result = result + tmp + ':'
+        tmp = ''
       }
       else {
-        result += duration[i]
+        tmp += duration[i]
       }
     }
-    console.log(result)
+    result = result.substring(0, result.length-1)
+    if (result[0] === '0') {
+      return result.substring(1, result.length)
+    }
     return result
   }
 
