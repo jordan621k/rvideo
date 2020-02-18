@@ -76,29 +76,37 @@ const VideoList = observer(class VideoList extends React.Component {
     return result
   }
 
+  showPage () {
+    document.getElementById('loader').style.display = 'none'
+    document.getElementById('videoList').style.display = 'block'
+  }
+
   render () {
     let index = 0
     return (
       <React.Fragment>
-        {videoList.get().map((video) => {
-          const rank = index + 1
-          const videoProps = {
-            key: index,
-            title: video.snippet.title.trim(),
-            rank: rank,
-            viewCount: this.addCommmaToDigit(video.statistics.viewCount),
-            likeCount: this.addCommmaToDigit(video.statistics.likeCount),
-            publishedAt: this.turnDatetoDaysago(video.snippet.publishedAt, new Date()),
-            // thumbnail: video.snippet.thumbnails.default.url,
-            thumbnail: 'https://i.ytimg.com/vi/' + video.id + '/' + this.pickRes(video.snippet.thumbnails) + 'default.jpg',
-            channelTitle: video.snippet.channelTitle,
-            videoLink: 'https://www.youtube.com/watch?v=' + video.id,
-            channelLink: 'https://www.youtube.com/channel/' + video.snippet.channelId,
-            duration: this.convertDuration(video.contentDetails.duration)
-          }
-          index = index + 1
-          return <Video {...videoProps}/>
-        })}
+        <div id='loader'></div>
+        <div id='videoList'>
+          {videoList.get().map((video) => {
+            const rank = index + 1
+            const videoProps = {
+              key: index,
+              title: video.snippet.title.trim(),
+              rank: rank,
+              viewCount: this.addCommmaToDigit(video.statistics.viewCount),
+              likeCount: this.addCommmaToDigit(video.statistics.likeCount),
+              publishedAt: this.turnDatetoDaysago(video.snippet.publishedAt, new Date()),
+              // thumbnail: video.snippet.thumbnails.default.url,
+              thumbnail: 'https://i.ytimg.com/vi/' + video.id + '/' + this.pickRes(video.snippet.thumbnails) + 'default.jpg',
+              channelTitle: video.snippet.channelTitle,
+              videoLink: 'https://www.youtube.com/watch?v=' + video.id,
+              channelLink: 'https://www.youtube.com/channel/' + video.snippet.channelId,
+              duration: this.convertDuration(video.contentDetails.duration)
+            }
+            index = index + 1
+            return <Video {...videoProps}/>
+          })}
+        </div>
       </React.Fragment>
     )
   }

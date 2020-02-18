@@ -32,12 +32,15 @@ class Form extends React.Component {
     } else {
       const sortedVideos = response.result.items.sort((a, b) => (parseInt(a.statistics.viewCount) < parseInt(b.statistics.viewCount)) ? 1 : -1)
       videoList.set(sortedVideos)
-      console.log(sortedVideos)
+      document.getElementById('loader').style.display = 'none'
+      document.getElementById('videoList').style.display = 'block'
     }
   }
 
   handleSubmit (event) {
     // event.preventDefault()
+    document.getElementById('videoList').style.display = 'none'
+    document.getElementById('loader').style.display = 'block'
     this.getYoutubeVideos()
   }
 
