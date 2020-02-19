@@ -28,7 +28,7 @@ class Video extends React.Component {
               <p>{viewCount} Views</p>
               <p>{likeCount} Likes</p>
               <p>Video duration: {duration}</p>
-              <p>Uploaded by <a href={channelLink}>{channelTitle}</a> on {publishedAt}</p>
+              <p>Uploaded by <a href={channelLink}>{channelTitle}</a> {publishedAt}</p>
             </div>
           </div>
         </div>

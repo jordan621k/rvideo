@@ -34,7 +34,6 @@ class Form extends React.Component {
       videoList.set(sortedVideos)
       document.getElementById('loader').style.display = 'none'
       document.getElementById('videoList').style.display = 'contents'
-      console.log(sortedVideos)
     }
   }
 

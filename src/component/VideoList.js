@@ -28,7 +28,16 @@ const VideoList = observer(class VideoList extends React.Component {
   turnDateToDaysAgo (date) {
     date = new Date(date)
     const today = new Date()
-    const diff = Math.floor((Date.UTC(today.getFullYear(), today.getMonth(), today.getDate()) - Date.UTC(date.getFullYear(), date.getMonth(), date.getDate())) / (1000 * 60 * 60 * 24))
+    var diff = (Date.UTC(today.getFullYear(), today.getMonth(), today.getDate(), today.getHours()) - Date.UTC(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours())) / (1000 * 60 * 60 * 24)
+    console.log(diff)
+    if (diff < 1) {
+      diff = Math.round(diff * 24)
+      if (diff <= 1) {
+        return 'less than 1 hour ago'
+      }
+      return diff + ' hours ago'
+    }
+    diff = Math.round(diff)
     if (diff === 1) {
       return diff + ' day ago'
     }
@@ -48,8 +57,7 @@ const VideoList = observer(class VideoList extends React.Component {
         }
         result = result + tmp + ':'
         tmp = ''
-      }
-      else {
+      } else {
         tmp += duration[i]
       }
     }
