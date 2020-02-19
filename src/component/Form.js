@@ -38,27 +38,23 @@ class Form extends React.Component {
   }
 
   handleSubmit (event) {
-    // event.preventDefault()
-    document.getElementById('videoList').style.display = 'none'
-    document.getElementById('loader').style.display = 'block'
-    this.getYoutubeVideos()
-  }
-
-  submitVideoList () {
     if (this.state.countryCode !== '' && this.state.categoryCode !== '') {
-      this.handleSubmit()
+      // event.preventDefault()
+      document.getElementById('videoList').style.display = 'none'
+      document.getElementById('loader').style.display = 'block'
+      this.getYoutubeVideos()
     }
   }
 
   updateCountry (country, countryCode) {
     this.setState({ countryCode: countryCode }, function () {
-      this.submitVideoList()
+      this.handleSubmit()
     })
   }
 
   updateCategory (category, categoryCode) {
     this.setState({ categoryCode: categoryCode }, function () {
-      this.submitVideoList()
+      this.handleSubmit()
     })
   }
 
@@ -127,7 +123,7 @@ class Form extends React.Component {
   render () {
     return (
       <React.Fragment>
-        <form Id="submitForm" className="Form" onSubmit={this.handleSubmit}>
+        <form className="Form" onSubmit={this.handleSubmit}>
           <b>
             Watch trending {'{'}
             <DropDownMenu {...this.getCategoryDropDownProps()}/>{'} '}
