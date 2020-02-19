@@ -25,10 +25,10 @@ const VideoList = observer(class VideoList extends React.Component {
     return result
   }
 
-  turnDatetoDaysago (date1, date2) {
-    const dt1 = new Date(date1)
-    const dt2 = new Date(date2)
-    const diff = Math.floor((Date.UTC(dt2.getFullYear(), dt2.getMonth(), dt2.getDate()) - Date.UTC(dt1.getFullYear(), dt1.getMonth(), dt1.getDate())) / (1000 * 60 * 60 * 24))
+  turnDateToDaysAgo (date) {
+    date = new Date(date)
+    const today = new Date()
+    const diff = Math.floor((Date.UTC(today.getFullYear(), today.getMonth(), today.getDate()) - Date.UTC(date.getFullYear(), date.getMonth(), date.getDate())) / (1000 * 60 * 60 * 24))
     if (diff === 1) {
       return diff + ' day ago'
     }
@@ -59,7 +59,7 @@ const VideoList = observer(class VideoList extends React.Component {
     return result.substring(0, result.length - 1)
   }
 
-  pickRes (resolution) {
+  pickThumbnail (resolution, videoId) {
     var result = ''
     if ('maxres' in resolution) {
       result = 'maxres'
@@ -73,7 +73,7 @@ const VideoList = observer(class VideoList extends React.Component {
     else if ('medium' in resolution) {
       result = 'mq'
     }
-    return result
+    return `https://i.ytimg.com/vi/${videoId}/${result}default.jpg`
   }
 
   showPage () {
@@ -95,9 +95,9 @@ const VideoList = observer(class VideoList extends React.Component {
               rank: rank,
               viewCount: this.addCommmaToDigit(video.statistics.viewCount),
               likeCount: this.addCommmaToDigit(video.statistics.likeCount),
-              publishedAt: this.turnDatetoDaysago(video.snippet.publishedAt, new Date()),
+              publishedAt: this.turnDateToDaysAgo(video.snippet.publishedAt),
               // thumbnail: video.snippet.thumbnails.default.url,
-              thumbnail: 'https://i.ytimg.com/vi/' + video.id + '/' + this.pickRes(video.snippet.thumbnails) + 'default.jpg',
+              thumbnail: this.pickThumbnail(video.snippet.thumbnails, video.id),
               channelTitle: video.snippet.channelTitle,
               videoLink: 'https://www.youtube.com/watch?v=' + video.id,
               channelLink: 'https://www.youtube.com/channel/' + video.snippet.channelId,
