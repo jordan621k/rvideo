@@ -59,21 +59,17 @@ const VideoList = observer(class VideoList extends React.Component {
     return result.substring(0, result.length - 1)
   }
 
-  pickThumbnail (resolution, videoId) {
-    var result = ''
-    if ('maxres' in resolution) {
-      result = 'maxres'
+  pickThumbnail (video) {
+    if (video.maxres && video.maxres.url) {
+      return video.maxres.url
+    } else if (video.high.url && video.high.url) {
+      return video.high.url
+    } else if (video.standard && video.standard.url) {
+      return video.standard.url
+    } else if (video.medium && video.medium.url) {
+      return video.medium.url
     }
-    else if ('high' in resolution) {
-      result = 'hq'
-    }
-    else if ('standard' in resolution) {
-      result = 'sd'
-    }
-    else if ('medium' in resolution) {
-      result = 'mq'
-    }
-    return `https://i.ytimg.com/vi/${videoId}/${result}default.jpg`
+    return video.default.url
   }
 
   showPage () {
@@ -96,8 +92,7 @@ const VideoList = observer(class VideoList extends React.Component {
               viewCount: this.addCommmaToDigit(video.statistics.viewCount),
               likeCount: this.addCommmaToDigit(video.statistics.likeCount),
               publishedAt: this.turnDateToDaysAgo(video.snippet.publishedAt),
-              // thumbnail: video.snippet.thumbnails.default.url,
-              thumbnail: this.pickThumbnail(video.snippet.thumbnails, video.id),
+              thumbnail: this.pickThumbnail(video.snippet.thumbnails),
               channelTitle: video.snippet.channelTitle,
               videoLink: 'https://www.youtube.com/watch?v=' + video.id,
               channelLink: 'https://www.youtube.com/channel/' + video.snippet.channelId,

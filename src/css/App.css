@@ -23,16 +23,14 @@ html {
   left: 50%;
   top: 50%;
   z-index: 1;
-  width: 150px;
-  height: 150px;
+  width: 75px;
+  height: 75px;
   margin: -75px 0 0 -75px;
-  border: 16px solid #f3f3f3;
+  border: 16px solid #0b0c10;
   border-radius: 50%;
-  border-top: 16px solid #3498db;
-  width: 120px;
-  height: 120px;
-  -webkit-animation: spin 2s linear infinite;
-  animation: spin 2s linear infinite;
+  border-top: 16px solid #66fcf1;
+  -webkit-animation: spin 1s linear infinite;
+  animation: spin 1s linear infinite;
 }
 
 @-webkit-keyframes spin {
@@ -46,5 +44,6 @@ html {
 }
 
 #videoList {
-  display: block
+  display: contents;
+  position: relative
 }

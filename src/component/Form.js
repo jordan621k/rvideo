@@ -33,7 +33,8 @@ class Form extends React.Component {
       const sortedVideos = response.result.items.sort((a, b) => (parseInt(a.statistics.viewCount) < parseInt(b.statistics.viewCount)) ? 1 : -1)
       videoList.set(sortedVideos)
       document.getElementById('loader').style.display = 'none'
-      document.getElementById('videoList').style.display = 'block'
+      document.getElementById('videoList').style.display = 'contents'
+      console.log(sortedVideos)
     }
   }
 
