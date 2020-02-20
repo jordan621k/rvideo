@@ -5,10 +5,6 @@ import { observer } from 'mobx-react'
 import { videoList } from '../store/VideoStore'
 
 const VideoList = observer(class VideoList extends React.Component {
-  constructor (props) {
-    super(props)
-  }
-
   addCommmaToDigit (count) {
     if (count == null) {
       return '0'
@@ -29,7 +25,6 @@ const VideoList = observer(class VideoList extends React.Component {
     date = new Date(date)
     const today = new Date()
     var diff = (Date.UTC(today.getFullYear(), today.getMonth(), today.getDate(), today.getHours()) - Date.UTC(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours())) / (1000 * 60 * 60 * 24)
-    console.log(diff)
     if (diff < 1) {
       diff = Math.round(diff * 24)
       if (diff <= 1) {
@@ -68,16 +63,17 @@ const VideoList = observer(class VideoList extends React.Component {
   }
 
   pickThumbnail (video) {
+    var thumbnailUrl = video.default.url
     if (video.maxres && video.maxres.url) {
-      return video.maxres.url
+      thumbnailUrl = video.maxres.url
     } else if (video.high.url && video.high.url) {
-      return video.high.url
+      thumbnailUrl = video.high.url
     } else if (video.standard && video.standard.url) {
-      return video.standard.url
+      thumbnailUrl = video.standard.url
     } else if (video.medium && video.medium.url) {
-      return video.medium.url
+      thumbnailUrl = video.medium.url
     }
-    return video.default.url
+    return thumbnailUrl
   }
 
   showPage () {
