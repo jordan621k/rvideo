@@ -5,6 +5,10 @@ import { observer } from 'mobx-react'
 import { videoList } from '../store/VideoStore'
 
 const VideoList = observer(class VideoList extends React.Component {
+  propTypes = {
+    name: PropTypes.string.isRequired,
+  }
+  
   addCommmaToDigit (count) {
     if (count == null) {
       return '0'

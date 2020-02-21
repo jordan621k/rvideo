@@ -2,6 +2,10 @@ import React from 'react'
 import '../css/Video.css'
 
 class Video extends React.Component {
+  propTypes = {
+    name: PropTypes.string.isRequired,
+  }
+  
   constructor (props) {
     super(props)
     this.openVideoInWindow = this.openVideoInWindow.bind(this)

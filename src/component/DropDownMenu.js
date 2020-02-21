@@ -2,6 +2,8 @@ import React from 'react'
 import '../css/DropDownMenu.css'
 
 class DropDownMenu extends React.Component {
+  static propTypes = { name: React.PropTypes.string.isRequired }
+
   constructor (props) {
     super(props)
     this.state = { options: this.props.options, showDropDown: false }
