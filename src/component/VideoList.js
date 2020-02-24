@@ -5,10 +5,6 @@ import { observer } from 'mobx-react'
 import { videoList } from '../store/VideoStore'
 
 const VideoList = observer(class VideoList extends React.Component {
-  propTypes = {
-    name: PropTypes.string.isRequired,
-  }
-  
   addCommmaToDigit (count) {
     if (count == null) {
       return '0'
@@ -107,7 +103,7 @@ const VideoList = observer(class VideoList extends React.Component {
               duration: this.convertDuration(video.contentDetails.duration)
             }
             index = index + 1
-            return <Video {...videoProps}/>
+            return <Video {...videoProps} key="key"/>
           })}
         </div>
       </React.Fragment>

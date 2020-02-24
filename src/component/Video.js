@@ -1,11 +1,8 @@
 import React from 'react'
 import '../css/Video.css'
+import PropTypes from 'prop-types'
 
 class Video extends React.Component {
-  propTypes = {
-    name: PropTypes.string.isRequired,
-  }
-  
   constructor (props) {
     super(props)
     this.openVideoInWindow = this.openVideoInWindow.bind(this)
@@ -39,6 +36,19 @@ class Video extends React.Component {
       </div>
     )
   }
+}
+
+Video.propTypes = {
+  title: PropTypes.string,
+  viewCount: PropTypes.string,
+  likeCount: PropTypes.string,
+  publishedAt: PropTypes.string,
+  thumbnail: PropTypes.string,
+  rank: PropTypes.string,
+  channelTitle: PropTypes.string,
+  channelLink: PropTypes.string,
+  videoLink: PropTypes.string,
+  duration: PropTypes.string
 }
 
 export default Video
