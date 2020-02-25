@@ -12,7 +12,7 @@ class App extends React.Component {
         <Header/>
         <div className="App">
           <Form/>
-          <VideoList id="videoList"/>
+          <VideoList/>
         </div>
         <Footer/>
       </React.Fragment>
