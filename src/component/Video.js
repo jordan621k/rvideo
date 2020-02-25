@@ -2,19 +2,6 @@ import React from 'react'
 import '../css/Video.css'
 import PropTypes from 'prop-types'
 
-Video.propTypes = {
-  title: PropTypes.string,
-  viewCount: PropTypes.string,
-  likeCount: PropTypes.string,
-  publishedAt: PropTypes.string,
-  thumbnail: PropTypes.string,
-  rank: PropTypes.string,
-  channelTitle: PropTypes.string,
-  channelLink: PropTypes.string,
-  videoLink: PropTypes.string,
-  duration: PropTypes.string
-}
-
 class Video extends React.Component {
   constructor (props) {
     super(props)
@@ -49,6 +36,19 @@ class Video extends React.Component {
       </div>
     )
   }
+}
+
+Video.propTypes = {
+  title: PropTypes.string,
+  viewCount: PropTypes.string,
+  likeCount: PropTypes.string,
+  publishedAt: PropTypes.string,
+  thumbnail: PropTypes.string,
+  rank: PropTypes.string,
+  channelTitle: PropTypes.string,
+  channelLink: PropTypes.string,
+  videoLink: PropTypes.string,
+  duration: PropTypes.string
 }
 
 export default Video
