@@ -1,12 +1,11 @@
 import React from 'react'
 import DropDownMenu from './DropDownMenu'
 import '../css/Form.css'
-import { videoList } from '../store/VideoStore'
+import { videoList, isLoading } from '../store/VideoStore'
 
 class Form extends React.Component {
   constructor (props) {
     super(props)
-    this.state = { countryCode: '', categoryCode: '' }
     this.handleSubmit = this.handleSubmit.bind(this)
     this.updateCountry = this.updateCountry.bind(this)
     this.updateCategory = this.updateCategory.bind(this)
@@ -32,30 +31,27 @@ class Form extends React.Component {
     } else {
       const sortedVideos = response.result.items.sort((a, b) => (parseInt(a.statistics.viewCount) < parseInt(b.statistics.viewCount)) ? 1 : -1)
       videoList.set(sortedVideos)
-      console.log(sortedVideos)
     }
+    isLoading.set(false)
   }
 
   handleSubmit (event) {
-    // event.preventDefault()
-    this.getYoutubeVideos()
-  }
-
-  submitVideoList () {
-    if (this.state.countryCode !== '' && this.state.categoryCode !== '') {
-      this.handleSubmit()
+    if (this.state.countryCode !== undefined && this.state.categoryCode !== undefined) {
+      // event.preventDefault()
+      isLoading.set(true)
+      this.getYoutubeVideos()
     }
   }
 
   updateCountry (country, countryCode) {
     this.setState({ countryCode: countryCode }, function () {
-      this.submitVideoList()
+      this.handleSubmit()
     })
   }
 
   updateCategory (category, categoryCode) {
     this.setState({ categoryCode: categoryCode }, function () {
-      this.submitVideoList()
+      this.handleSubmit()
     })
   }
 
@@ -68,7 +64,6 @@ class Form extends React.Component {
         'Music': '10',
         'Pets & Animals': '15',
         'Sports': '17',
-        'Short Movies': '18',
         'Travel & Events': '19',
         'Gaming': '20',
         'Videoblogging': '21',
@@ -124,7 +119,7 @@ class Form extends React.Component {
   render () {
     return (
       <React.Fragment>
-        <form Id="submitForm" className="Form" onSubmit={this.handleSubmit}>
+        <form className="Form" onSubmit={this.handleSubmit}>
           <b>
             Watch trending {'{'}
             <DropDownMenu {...this.getCategoryDropDownProps()}/>{'} '}
