@@ -1,12 +1,11 @@
 import React from 'react'
 import DropDownMenu from './DropDownMenu'
 import '../css/Form.css'
-import { videoList } from '../store/VideoStore'
+import { videoList, isLoading } from '../store/VideoStore'
 
 class Form extends React.Component {
   constructor (props) {
     super(props)
-    this.state = { countryCode: '', categoryCode: '' }
     this.handleSubmit = this.handleSubmit.bind(this)
     this.updateCountry = this.updateCountry.bind(this)
     this.updateCategory = this.updateCategory.bind(this)
@@ -32,16 +31,14 @@ class Form extends React.Component {
     } else {
       const sortedVideos = response.result.items.sort((a, b) => (parseInt(a.statistics.viewCount) < parseInt(b.statistics.viewCount)) ? 1 : -1)
       videoList.set(sortedVideos)
-      document.getElementById('loader').style.display = 'none'
-      document.getElementById('videoList').style.display = 'contents'
     }
+    isLoading.set(false)
   }
 
   handleSubmit (event) {
-    if (this.state.countryCode !== '' && this.state.categoryCode !== '') {
+    if (this.state.countryCode !== undefined && this.state.categoryCode !== undefined) {
       // event.preventDefault()
-      document.getElementById('videoList').style.display = 'none'
-      document.getElementById('loader').style.display = 'block'
+      isLoading.set(true)
       this.getYoutubeVideos()
     }
   }
@@ -64,36 +61,35 @@ class Form extends React.Component {
       options: {
         'Film & Animation': '1',
         'Autos & Vehicles': '2',
-        Music: '10',
+        'Music': '10',
         'Pets & Animals': '15',
-        Sports: '17',
-        'Short Movies': '18',
+        'Sports': '17',
         'Travel & Events': '19',
-        Gaming: '20',
-        Videoblogging: '21',
+        'Gaming': '20',
+        'Videoblogging': '21',
         'People & Blogs': '22',
-        Comedy: '23',
-        Entertainment: '24',
+        'Comedy': '23',
+        'Entertainment': '24',
         'GamiNews & Politicsng': '25',
         'Howto & Style': '26',
-        Education: '27',
+        'Education': '27',
         'Science & Technology': '28',
         'Nonprofits & Activism': '29',
-        Movies: '30',
+        'Movies': '30',
         'Anime/Animation': '31',
         'Action/Adventure': '32',
-        Classics: '33',
+        'Classics': '33',
         // 'Comedy': '34',
-        Documentary: '35',
-        Drama: '36',
-        Family: '37',
-        Foreign: '38',
-        Horror: '39',
+        'Documentary': '35',
+        'Drama': '36',
+        'Family': '37',
+        'Foreign': '38',
+        'Horror': '39',
         'Sci-Fi/Fantasy': '40',
-        Thriller: '41',
-        Shorts: '42',
-        Shows: '43',
-        Trailers: '44'
+        'Thriller': '41',
+        'Shorts': '42',
+        'Shows': '43',
+        'Trailers': '44'
       },
       placeholder: 'ALL',
       callback: this.updateCategory
@@ -104,16 +100,16 @@ class Form extends React.Component {
     return {
       name: 'countryDropDownMenu',
       options: {
-        Brazil: 'BR',
-        Canada: 'CA',
-        Japan: 'JP',
-        Korea: 'KP',
-        Spain: 'ES',
+        'Brazil': 'BR',
+        'Canada': 'CA',
+        'Japan': 'JP',
+        'Korea': 'KP',
+        'Spain': 'ES',
         'South Africa': 'ZA',
         'United Kingdom': 'GB',
         'United States of America': 'US',
-        Thailand: 'TH',
-        Taiwan: 'TW'
+        'Thailand': 'TH',
+        'Taiwan': 'TW'
       },
       placeholder: 'United States',
       callback: this.updateCountry

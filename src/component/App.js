@@ -12,7 +12,6 @@ class App extends React.Component {
         <Header/>
         <div className="App">
           <Form/>
-          <div id="loader"></div>
           <VideoList id="videoList"/>
         </div>
         <Footer/>

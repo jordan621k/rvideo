@@ -2,7 +2,7 @@ import React from 'react'
 import Video from './Video'
 import '../css/VideoList.css'
 import { observer } from 'mobx-react'
-import { videoList } from '../store/VideoStore'
+import { videoList, isLoading } from '../store/VideoStore'
 
 const VideoList = observer(class VideoList extends React.Component {
   addCommmaToDigit (count) {
@@ -57,9 +57,16 @@ const VideoList = observer(class VideoList extends React.Component {
       }
     }
     if (result[0] === '0') {
-      return result.substring(1, result.length - 1)
+      result = result.substring(1, result.length - 1)
+    } else {
+      result = result.substring(0, result.length - 1)
     }
-    return result.substring(0, result.length - 1)
+    if (result.lenght === 2) {
+      result = '0:' + result
+    } else if (result.lentgh === 1) {
+      result = '0:0' + result
+    }
+    return result
   }
 
   pickThumbnail (video) {
@@ -76,17 +83,12 @@ const VideoList = observer(class VideoList extends React.Component {
     return thumbnailUrl
   }
 
-  showPage () {
-    document.getElementById('loader').style.display = 'none'
-    document.getElementById('videoList').style.display = 'block'
-  }
-
   render () {
     let index = 0
     return (
       <React.Fragment>
-        <div id='loader'></div>
-        <div id='videoList'>
+        {isLoading.get() && <div id='loader'></div>}
+        {!isLoading.get() && <div id='videoList'>
           {videoList.get().map((video) => {
             const rank = index + 1
             const videoProps = {
@@ -105,7 +107,7 @@ const VideoList = observer(class VideoList extends React.Component {
             index = index + 1
             return <Video {...videoProps} key="key"/>
           })}
-        </div>
+        </div>}
       </React.Fragment>
     )
   }
