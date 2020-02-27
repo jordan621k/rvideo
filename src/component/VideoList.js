@@ -40,31 +40,37 @@ const VideoList = observer(class VideoList extends React.Component {
   }
 
   convertDuration (duration) {
-    var result = ''
+    var result = '00:00:00'
     var tmp = ''
-    var isAlpha = function (ch) {
-      return typeof ch === 'string' && ch.length === 1 && ((ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z'))
-    }
-    for (var i = 2; i < duration.length; i++) {
-      if (isAlpha(duration[i])) {
-        if (tmp.length !== 2) {
-          tmp = '0' + tmp
+    var ind = 0
+    for (var i = duration.length - 1; i > 0; i--) {
+      if (duration[i] === 'S' || duration[i] === 'M' || duration[i] === 'H') {
+        if (i !== duration.length - 1) {
+          if (tmp.length < 2) {
+            tmp += '0'
+          }
+          result = result.substring(0, ind) + tmp + result.substring(ind + 2)
         }
-        result = result + tmp + ':'
+        if (duration[i] === 'S') {
+          ind = 0
+        } else if (duration[i] === 'M') {
+          ind = 3
+        } else if (duration[i] === 'H') {
+          ind = 6
+        }
         tmp = ''
-      } else {
-        tmp += duration[i]
+        continue
+      } else if (duration[i] === 'T') {
+        if (tmp.length < 2) {
+          tmp += '0'
+        }
+        result = result.substring(0, ind) + tmp + result.substring(ind + 2)
       }
+      tmp += duration[i]
     }
-    if (result[0] === '0') {
-      result = result.substring(1, result.length - 1)
-    } else {
-      result = result.substring(0, result.length - 1)
-    }
-    if (result.lenght === 2) {
-      result = '0:' + result
-    } else if (result.lentgh === 1) {
-      result = '0:0' + result
+    result = result.split('').reverse().join('')
+    while (result[0] === '0' || result[0] === ':') {
+      result = result.substring(1)
     }
     return result
   }
