@@ -93,7 +93,7 @@ const VideoList = observer(class VideoList extends React.Component {
     let index = 0
     return (
       <React.Fragment>
-        {isLoading.get() && <div id='loader'></div>}
+        {isLoading.get() && <div id='loader'/>}
         {!isLoading.get() && <div id='videoList'>
           {videoList.get().map((video) => {
             const rank = index + 1
