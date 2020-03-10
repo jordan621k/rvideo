@@ -33,4 +33,5 @@ li {
     font-weight: normal;
     padding: 0.15em 0.3em;
     white-space: nowrap;
+    border-radius: 10px;
 }
