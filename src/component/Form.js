@@ -6,6 +6,7 @@ import { videoList, isLoading } from '../store/VideoStore'
 class Form extends React.Component {
   constructor (props) {
     super(props)
+    this.state = { showError: false }
     this.handleSubmit = this.handleSubmit.bind(this)
     this.updateCountry = this.updateCountry.bind(this)
     this.updateCategory = this.updateCategory.bind(this)
@@ -31,12 +32,16 @@ class Form extends React.Component {
         window.alert(response.result.error.message)
       } else {
         const sortedVideos = response.result.items.sort((a, b) => (parseInt(a.statistics.viewCount) < parseInt(b.statistics.viewCount)) ? 1 : -1)
+        this.setState({ showError: false })
         videoList.set(sortedVideos)
       }
-      isLoading.set(false)
     } catch (error) {
-      console.log(error)
+      console.log(error.body)
+      this.errorMessage = error.body
+      videoList.set([])
+      this.setState({ showError: true })
     }
+    isLoading.set(false)
   }
 
   handleSubmit (event) {
@@ -132,6 +137,9 @@ class Form extends React.Component {
           <br/>
           {/* <input type="submit" value="Submit"/> */}
         </form>
+        {this.state.showError && <div className="Errorbox">
+          <p className="ErrorMessage">{this.errorMessage}</p>
+        </div>}
       </React.Fragment>
     )
   }
