@@ -24,15 +24,19 @@ class Form extends React.Component {
     const youtubePromise = window.gapi.client.request({
       path: `https://www.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&chart=mostPopular&maxResults=20&regionCode=${this.state.countryCode}&videoCategoryId=${this.state.categoryCode}&key=AIzaSyAN6WGBl3-zqdtlabrDV428Tn3zrlpeAW0`
     })
-    const response = await youtubePromise
-    if (response.result.error) {
-      console.log('Error: ' + JSON.stringify(response.result.error.message))
-      window.alert(response.result.error.message)
-    } else {
-      const sortedVideos = response.result.items.sort((a, b) => (parseInt(a.statistics.viewCount) < parseInt(b.statistics.viewCount)) ? 1 : -1)
-      videoList.set(sortedVideos)
+    try {
+      const response = await youtubePromise
+      if (response.result.error) {
+        console.log('Error: ' + JSON.stringify(response.result.error.message))
+        window.alert(response.result.error.message)
+      } else {
+        const sortedVideos = response.result.items.sort((a, b) => (parseInt(a.statistics.viewCount) < parseInt(b.statistics.viewCount)) ? 1 : -1)
+        videoList.set(sortedVideos)
+      }
+      isLoading.set(false)
+    } catch (error) {
+      console.log(error)
     }
-    isLoading.set(false)
   }
 
   handleSubmit (event) {
@@ -59,37 +63,36 @@ class Form extends React.Component {
     return {
       name: 'categoryDropDownMenu',
       options: {
-        'Film & Animation': '1',
-        'Autos & Vehicles': '2',
-        'Music': '10',
-        'Pets & Animals': '15',
-        'Sports': '17',
-        'Travel & Events': '19',
-        'Gaming': '20',
-        'Videoblogging': '21',
-        'People & Blogs': '22',
-        'Comedy': '23',
-        'Entertainment': '24',
-        'GamiNews & Politicsng': '25',
-        'Howto & Style': '26',
-        'Education': '27',
-        'Science & Technology': '28',
-        'Nonprofits & Activism': '29',
-        'Movies': '30',
-        'Anime/Animation': '31',
         'Action/Adventure': '32',
+        'Anime/Animation': '31',
+        'Autos & Vehicles': '2',
         'Classics': '33',
-        // 'Comedy': '34',
+        'Comedy': '23',
         'Documentary': '35',
         'Drama': '36',
+        'Education': '27',
+        'Entertainment': '24',
         'Family': '37',
+        'Film & Animation': '1',
         'Foreign': '38',
+        'GamiNews & Politicsng': '25',
+        'Gaming': '20',
         'Horror': '39',
+        'Howto & Style': '26',
+        'Movies': '30',
+        'Music': '10',
+        'Nonprofits & Activism': '29',
+        'Pets & Animals': '15',
+        'People & Blogs': '22',
+        'Science & Technology': '28',
         'Sci-Fi/Fantasy': '40',
-        'Thriller': '41',
         'Shorts': '42',
         'Shows': '43',
-        'Trailers': '44'
+        'Sports': '17',
+        'Thriller': '41',
+        'Trailers': '44',
+        'Travel & Events': '19',
+        'Videoblogging': '21'
       },
       placeholder: 'ALL',
       callback: this.updateCategory
@@ -106,10 +109,10 @@ class Form extends React.Component {
         'Korea': 'KP',
         'Spain': 'ES',
         'South Africa': 'ZA',
-        'United Kingdom': 'GB',
-        'United States of America': 'US',
+        'Taiwan': 'TW',
         'Thailand': 'TH',
-        'Taiwan': 'TW'
+        'United Kingdom': 'GB',
+        'United States of America': 'US'
       },
       placeholder: 'United States',
       callback: this.updateCountry
