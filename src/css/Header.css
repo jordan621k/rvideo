@@ -1,12 +1,12 @@
 .Header {
     text-align: center;
-    height: 7vw;
+    height: 16vh;
     background-color: #0b0c10;
 }
   
-.Header h1 {
-    padding: 0.8em;
+.Header h6 {
+    padding: 0.1em;
     margin: 0;
     color: #66fcf1;
-    font-size: 3vw;
+    font-size: 2vh;
 } 
