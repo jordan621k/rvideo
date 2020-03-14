@@ -24,7 +24,7 @@ class Video extends React.Component {
             <h3>{title}</h3>
           </div>
           <div className="ThumbnailAndStats">
-            <img className="Thumbnail" src={thumbnail}/>
+            <img className="Thumbnail" src={thumbnail} alt="Cover Image"/>
             <div className="Stats">
               <p>{viewCount} Views</p>
               <p>{likeCount} Likes</p>
@@ -44,7 +44,7 @@ Video.propTypes = {
   likeCount: PropTypes.string,
   publishedAt: PropTypes.string,
   thumbnail: PropTypes.string,
-  rank: PropTypes.string,
+  rank: PropTypes.number,
   channelTitle: PropTypes.string,
   channelLink: PropTypes.string,
   videoLink: PropTypes.string,
