@@ -94,7 +94,7 @@ class Form extends React.Component {
         'Travel & Events': '19',
         'Videoblogging': '21'
       },
-      placeholder: 'ALL',
+      placeholder: 'All',
       callback: this.updateCategory
     }
   }
@@ -111,8 +111,8 @@ class Form extends React.Component {
         'South Africa': 'ZA',
         'Taiwan': 'TW',
         'Thailand': 'TH',
-        'United Kingdom': 'GB',
-        'United States of America': 'US'
+        'United States': 'US',
+        'United Kingdom': 'GB'
       },
       placeholder: 'United States',
       callback: this.updateCountry
@@ -124,13 +124,11 @@ class Form extends React.Component {
       <React.Fragment>
         <form className="Form" onSubmit={this.handleSubmit}>
           <b>
-            Watch trending {'{'}
-            <DropDownMenu {...this.getCategoryDropDownProps()}/>{'} '}
-            videos on Youtube from
-            {' {'}
-            <DropDownMenu {...this.getCountryDropDownProps()}/> {'}'} </b>
+            <DropDownMenu {...this.getCategoryDropDownProps()}/>
+            &nbsp; from &nbsp;
+            <DropDownMenu {...this.getCountryDropDownProps()}/>
+          </b>
           <br/>
-          {/* <input type="submit" value="Submit"/> */}
         </form>
       </React.Fragment>
     )
