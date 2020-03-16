@@ -12,10 +12,14 @@ class Video extends React.Component {
     window.open(this.props.videoLink)
   }
 
+  changeMouseCursor (e) {
+    e.target.style.cursor = 'pointer'
+  }
+
   render () {
     const { title, viewCount, likeCount, publishedAt, thumbnail, rank, channelTitle, channelLink, duration } = this.props
     return (
-      <div className="Video" onMouseDown={this.openVideoInWindow}>
+      <div className="Video" onMouseDown={this.openVideoInWindow} onMouseOver={this.changeMouseCursor}>
         <div className="Rank">
           <h2>{rank}</h2>
         </div>
