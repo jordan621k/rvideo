@@ -6,7 +6,7 @@ import { videoList, isLoading } from '../store/VideoStore'
 class Form extends React.Component {
   constructor (props) {
     super(props)
-    this.state = { showError: false }
+    this.state = ({ })
     this.handleSubmit = this.handleSubmit.bind(this)
     this.updateCountry = this.updateCountry.bind(this)
     this.updateCategory = this.updateCategory.bind(this)
@@ -32,14 +32,12 @@ class Form extends React.Component {
         window.alert(response.result.error.message)
       } else {
         const sortedVideos = response.result.items.sort((a, b) => (parseInt(a.statistics.viewCount) < parseInt(b.statistics.viewCount)) ? 1 : -1)
-        this.setState({ showError: false })
         videoList.set(sortedVideos)
       }
     } catch (error) {
-      console.log(error.body)
-      this.errorMessage = error.body
-      videoList.set([])
-      this.setState({ showError: true })
+      var errorBody = JSON.parse(error.body)
+      console.log(errorBody)
+      this.setState({ errorMessage: errorBody.error.message })
     }
     isLoading.set(false)
   }
@@ -48,6 +46,7 @@ class Form extends React.Component {
     if (this.state.countryCode !== undefined && this.state.categoryCode !== undefined) {
       // event.preventDefault()
       isLoading.set(true)
+      this.setState({ errorMessage: '' })
       this.getYoutubeVideos()
     }
   }
@@ -135,9 +134,11 @@ class Form extends React.Component {
           </b>
           <br/>
         </form>
-        {this.state.showError && <div className="Errorbox">
-          <p className="ErrorMessage">{this.errorMessage}</p>
-        </div>}
+        {this.state.errorMessage &&
+          <div className="ErrorMessage">
+            <p className="ErrorMessageText">{this.state.errorMessage}</p>
+          </div>
+        }
       </React.Fragment>
     )
   }
