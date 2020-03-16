@@ -1,3 +1,16 @@
 .Form {
     color: white;
 }
+
+.ErrorMessage {
+    width: 50vw;
+    display: flex;
+    background-color: #0b0c10;
+    border-radius: 10px;
+}
+
+.ErrorMessageText {
+    color: red;
+    font-weight: bold;
+    padding: 0.8vw;
+}
