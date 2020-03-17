@@ -22,14 +22,22 @@ class Form extends React.Component {
   }
 
   async getYoutubeVideos () {
+    var requestPath = ''
+    if (this.state.countryCode === 'ALL') {
+      requestPath = `https://www.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&chart=mostPopular&maxResults=20&videoCategoryId=${this.state.categoryCode}&key=AIzaSyAN6WGBl3-zqdtlabrDV428Tn3zrlpeAW0`
+    } else {
+      requestPath = `https://www.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&chart=mostPopular&maxResults=20&regionCode=${this.state.countryCode}&videoCategoryId=${this.state.categoryCode}&key=AIzaSyAN6WGBl3-zqdtlabrDV428Tn3zrlpeAW0`
+    }
     const youtubePromise = window.gapi.client.request({
-      path: `https://www.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&chart=mostPopular&maxResults=20&regionCode=${this.state.countryCode}&videoCategoryId=${this.state.categoryCode}&key=AIzaSyAN6WGBl3-zqdtlabrDV428Tn3zrlpeAW0`
+      path: requestPath
     })
     try {
       const response = await youtubePromise
       if (response.result.error) {
         console.log('Error: ' + JSON.stringify(response.result.error.message))
         window.alert(response.result.error.message)
+      } else if (response.result.pageInfo.totalResults === 0) {
+        this.setState({ errorMessage: 'The requested video chart is not supported or is not available.' })
       } else {
         const sortedVideos = response.result.items.sort((a, b) => (parseInt(a.statistics.viewCount) < parseInt(b.statistics.viewCount)) ? 1 : -1)
         videoList.set(sortedVideos)
@@ -67,6 +75,7 @@ class Form extends React.Component {
     return {
       name: 'categoryDropDownMenu',
       options: {
+        'All': '0',
         'Action/Adventure': '32',
         'Anime/Animation': '31',
         'Autos & Vehicles': '2',
@@ -107,6 +116,7 @@ class Form extends React.Component {
     return {
       name: 'countryDropDownMenu',
       options: {
+        'ALL': 'ALL',
         'Brazil': 'BR',
         'Canada': 'CA',
         'Japan': 'JP',
@@ -118,7 +128,7 @@ class Form extends React.Component {
         'United States': 'US',
         'United Kingdom': 'GB'
       },
-      placeholder: 'United States',
+      placeholder: 'All Countries',
       callback: this.updateCountry
     }
   }
