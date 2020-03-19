@@ -22,14 +22,8 @@ class Form extends React.Component {
   }
 
   async getYoutubeVideos () {
-    var requestPath = ''
-    if (this.state.countryCode === 'ALL') {
-      requestPath = `https://www.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&chart=mostPopular&maxResults=20&videoCategoryId=${this.state.categoryCode}&key=AIzaSyAN6WGBl3-zqdtlabrDV428Tn3zrlpeAW0`
-    } else {
-      requestPath = `https://www.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&chart=mostPopular&maxResults=20&regionCode=${this.state.countryCode}&videoCategoryId=${this.state.categoryCode}&key=AIzaSyAN6WGBl3-zqdtlabrDV428Tn3zrlpeAW0`
-    }
     const youtubePromise = window.gapi.client.request({
-      path: requestPath
+      path: `https://www.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&chart=mostPopular&maxResults=20&regionCode=${this.state.countryCode}&videoCategoryId=${this.state.categoryCode}&key=AIzaSyAN6WGBl3-zqdtlabrDV428Tn3zrlpeAW0`
     })
     try {
       const response = await youtubePromise
@@ -37,7 +31,7 @@ class Form extends React.Component {
         console.log('Error: ' + JSON.stringify(response.result.error.message))
         window.alert(response.result.error.message)
       } else if (response.result.pageInfo.totalResults === 0) {
-        this.setState({ errorMessage: 'The requested video chart is not supported or is not available.' })
+        this.setState({ errorMessage: 'There is no video for the selected category.' })
       } else {
         const sortedVideos = response.result.items.sort((a, b) => (parseInt(a.statistics.viewCount) < parseInt(b.statistics.viewCount)) ? 1 : -1)
         videoList.set(sortedVideos)
@@ -116,7 +110,6 @@ class Form extends React.Component {
     return {
       name: 'countryDropDownMenu',
       options: {
-        'ALL': 'ALL',
         'Brazil': 'BR',
         'Canada': 'CA',
         'Japan': 'JP',
@@ -128,7 +121,7 @@ class Form extends React.Component {
         'United States': 'US',
         'United Kingdom': 'GB'
       },
-      placeholder: 'All Countries',
+      placeholder: 'United States',
       callback: this.updateCountry
     }
   }
