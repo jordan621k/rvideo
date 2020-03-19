@@ -27,10 +27,11 @@ class Form extends React.Component {
     })
     try {
       const response = await youtubePromise
-      if (response.result.pageInfo.totalResults === 0) {
+      const reponseResult = response.result
+      if (reponseResult && reponseResult.pageInfo && reponseResult.pageInfo.totalResults === 0) {
         this.setState({ errorMessage: 'There is no video for the selected category.' })
       } else {
-        const sortedVideos = response.result.items.sort((a, b) => (parseInt(a.statistics.viewCount) < parseInt(b.statistics.viewCount)) ? 1 : -1)
+        const sortedVideos = reponseResult.items.sort((a, b) => (parseInt(a.statistics.viewCount) < parseInt(b.statistics.viewCount)) ? 1 : -1)
         videoList.set(sortedVideos)
       }
     } catch (error) {
