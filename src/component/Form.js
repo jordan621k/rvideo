@@ -27,11 +27,11 @@ class Form extends React.Component {
     })
     try {
       const response = await youtubePromise
-      if (response.result.error) {
-        console.log('Error: ' + JSON.stringify(response.result.error.message))
-        window.alert(response.result.error.message)
+      const reponseResult = response.result
+      if (reponseResult && reponseResult.pageInfo && reponseResult.pageInfo.totalResults === 0) {
+        this.setState({ errorMessage: 'There is no video for the selected category.' })
       } else {
-        const sortedVideos = response.result.items.sort((a, b) => (parseInt(a.statistics.viewCount) < parseInt(b.statistics.viewCount)) ? 1 : -1)
+        const sortedVideos = reponseResult.items.sort((a, b) => (parseInt(a.statistics.viewCount) < parseInt(b.statistics.viewCount)) ? 1 : -1)
         videoList.set(sortedVideos)
       }
     } catch (error) {
@@ -67,6 +67,7 @@ class Form extends React.Component {
     return {
       name: 'categoryDropDownMenu',
       options: {
+        'All': '0',
         'Action/Adventure': '32',
         'Anime/Animation': '31',
         'Autos & Vehicles': '2',
