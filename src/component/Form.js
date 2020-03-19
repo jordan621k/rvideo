@@ -27,10 +27,7 @@ class Form extends React.Component {
     })
     try {
       const response = await youtubePromise
-      if (response.result.error) {
-        console.log('Error: ' + JSON.stringify(response.result.error.message))
-        window.alert(response.result.error.message)
-      } else if (response.result.pageInfo.totalResults === 0) {
+      if (response.result.pageInfo.totalResults === 0) {
         this.setState({ errorMessage: 'There is no video for the selected category.' })
       } else {
         const sortedVideos = response.result.items.sort((a, b) => (parseInt(a.statistics.viewCount) < parseInt(b.statistics.viewCount)) ? 1 : -1)
