@@ -8,7 +8,7 @@ import { withRouter } from 'react-router-dom'
 class Form extends React.Component {
   constructor (props) {
     super(props)
-    this.state = ({ })
+    this.state = ({})
     this.handleSubmit = this.handleSubmit.bind(this)
     this.updateCountry = this.updateCountry.bind(this)
     this.updateCategory = this.updateCategory.bind(this)
@@ -19,6 +19,15 @@ class Form extends React.Component {
       window.gapi.client.init({
         apiKey: 'AIzaSyAN6WGBl3-zqdtlabrDV428Tn3zrlpeAW0',
         scope: 'profile'
+      })
+      var defaultCountryCode = new URLSearchParams(this.props.history.location.search).get('country')
+      var defaultCategoryCode = new URLSearchParams(this.props.history.location.search).get('category')
+      if (defaultCountryCode === null && defaultCategoryCode === null) {
+        defaultCountryCode = 'US'
+        defaultCategoryCode = '0'
+      }
+      this.setState({ countryCode: defaultCountryCode, categoryCode: defaultCategoryCode }, function () {
+        this.getYoutubeVideos()
       })
     })
   }
@@ -35,6 +44,7 @@ class Form extends React.Component {
       } else {
         const sortedVideos = responseResult.items.sort((a, b) => (parseInt(a.statistics.viewCount) < parseInt(b.statistics.viewCount)) ? 1 : -1)
         videoList.set(sortedVideos)
+        this.setState({ currentCountryCode: this.state.countryCode, currentCategoryCode: this.state.categoryCode })
       }
       this.props.history.push(`?category=${this.state.categoryCode}&country=${this.state.countryCode}`)
     } catch (error) {
@@ -46,12 +56,14 @@ class Form extends React.Component {
   }
 
   handleSubmit (event) {
-    if (this.state.countryCode !== undefined && this.state.categoryCode !== undefined) {
-      // event.preventDefault()
-      isLoading.set(true)
+    if (this.state.countryCode === this.state.currentCountryCode && this.state.categoryCode === this.state.currentCategoryCode && this.state.errorMessage) {
       this.setState({ errorMessage: '' })
-      this.getYoutubeVideos()
+      return
     }
+    // event.preventDefault()
+    isLoading.set(true)
+    this.setState({ errorMessage: '' })
+    this.getYoutubeVideos()
   }
 
   updateCountry (country, countryCode) {
