@@ -5,12 +5,14 @@ import Footer from './Footer'
 import Form from './Form'
 import VideoList from './VideoList'
 import { LocaleContext } from '../i18n/i18n'
+import { Router } from 'react-router'
+import { createBrowserHistory } from 'history'
 
 class App extends React.Component {
 
   constructor (props) {
     super(props)
-
+    this.history = createBrowserHistory()
     this.state = {
       locale: 'en',
       updateLocale: (locale, localeCode) => {
@@ -26,7 +28,9 @@ class App extends React.Component {
       <LocaleContext.Provider value={this.state}>
         <Header/>
         <div className="App">
-          <Form/>
+          <Router history={this.history}>
+            <Form/>
+          </Router>
           <VideoList/>
         </div>
         <Footer/>

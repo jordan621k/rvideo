@@ -3,6 +3,7 @@ import DropDownMenu from './DropDownMenu'
 import '../css/Form.css'
 import { videoList, isLoading } from '../store/VideoStore'
 import { i18n, LocaleContext } from '../i18n/i18n'
+import { withRouter } from 'react-router-dom'
 
 class Form extends React.Component {
   constructor (props) {
@@ -35,6 +36,7 @@ class Form extends React.Component {
         const sortedVideos = responseResult.items.sort((a, b) => (parseInt(a.statistics.viewCount) < parseInt(b.statistics.viewCount)) ? 1 : -1)
         videoList.set(sortedVideos)
       }
+      this.props.history.push(`?category=${this.state.categoryCode}&country=${this.state.countryCode}`)
     } catch (error) {
       const errorBody = JSON.parse(error.body)
       console.log(errorBody)
@@ -165,4 +167,4 @@ class Form extends React.Component {
 
 Form.contextType = LocaleContext
 
-export default Form
+export default withRouter(Form)
