@@ -1,22 +1,22 @@
 .dropDown {
     position: relative;
     display: inline-block;
-    margin: 0.8em;
+    margin: 0.6em;
 }
 
-.dropDownInput, .dropDownInput::placeholder {
+.dropDownInput {
     color: white;
     font-weight: bold;
     font-size: 1.5vw;
     background-color: #0b0c10;
     border-radius: 5px;
-    padding: 0.2em;
-    text-align: center;
+    padding: 0.4em;
+    /*text-align: center;*/
     border: #66fcf1 2px solid;
 }
 
 .dropDownInput:focus {
-    text-align: right;
+    text-align: left;
 }
 
 .dropDownMenu {

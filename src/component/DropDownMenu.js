@@ -84,7 +84,7 @@ class DropDownMenu extends React.Component {
           className="dropDownInput"
           autoComplete="off"
           placeholder={this.props.placeholder}
-          size={this.props.placeholder.length}
+          // size={this.props.placeholder.length}
           onFocus={this.showDropDown}
           onChange={this.filter}
           onBlur={this.hideDropDown}

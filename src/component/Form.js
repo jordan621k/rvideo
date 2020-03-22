@@ -2,6 +2,7 @@ import React from 'react'
 import DropDownMenu from './DropDownMenu'
 import '../css/Form.css'
 import { videoList, isLoading } from '../store/VideoStore'
+import { i18n, LocaleContext } from '../i18n/i18n'
 
 class Form extends React.Component {
   constructor (props) {
@@ -27,15 +28,15 @@ class Form extends React.Component {
     })
     try {
       const response = await youtubePromise
-      const reponseResult = response.result
-      if (reponseResult && reponseResult.pageInfo && reponseResult.pageInfo.totalResults === 0) {
+      const responseResult = response.result
+      if (responseResult && responseResult.pageInfo && responseResult.pageInfo.totalResults === 0) {
         this.setState({ errorMessage: 'There is no video for the selected category.' })
       } else {
-        const sortedVideos = reponseResult.items.sort((a, b) => (parseInt(a.statistics.viewCount) < parseInt(b.statistics.viewCount)) ? 1 : -1)
+        const sortedVideos = responseResult.items.sort((a, b) => (parseInt(a.statistics.viewCount) < parseInt(b.statistics.viewCount)) ? 1 : -1)
         videoList.set(sortedVideos)
       }
     } catch (error) {
-      var errorBody = JSON.parse(error.body)
+      const errorBody = JSON.parse(error.body)
       console.log(errorBody)
       this.setState({ errorMessage: errorBody.error.message })
     }
@@ -124,17 +125,34 @@ class Form extends React.Component {
     }
   }
 
+  getLanguageDropDownProps () {
+    return {
+      name: 'languageDropDownMenu',
+      options: {
+        'Chinese': 'zh',
+        'English': 'en'
+      },
+      placeholder: 'English'
+    }
+  }
+
   render () {
     return (
       <React.Fragment>
-        <form className="Form" onSubmit={this.handleSubmit}>
-          <b>
-            <DropDownMenu {...this.getCategoryDropDownProps()}/>
-            &nbsp; from &nbsp;
-            <DropDownMenu {...this.getCountryDropDownProps()}/>
-          </b>
-          <br/>
-        </form>
+        <LocaleContext.Consumer>
+          {({ updateLocale }) => (
+            <form className="Form" onSubmit={this.handleSubmit}>
+              <b>
+                <DropDownMenu {...this.getCategoryDropDownProps()}/>
+                &nbsp; {i18n(this.context.locale).form.from} &nbsp;
+                <DropDownMenu {...this.getCountryDropDownProps()}/>
+                &nbsp; {i18n(this.context.locale).form.in} &nbsp;
+                <DropDownMenu {...this.getLanguageDropDownProps()} callback={updateLocale}/>
+              </b>
+              <br/>
+            </form>
+          )}
+        </LocaleContext.Consumer>
         {this.state.errorMessage &&
           <div className="ErrorMessage">
             <p className="ErrorMessageText">{this.state.errorMessage}</p>
@@ -144,5 +162,7 @@ class Form extends React.Component {
     )
   }
 }
+
+Form.contextType = LocaleContext
 
 export default Form
