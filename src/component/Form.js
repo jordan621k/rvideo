@@ -22,8 +22,10 @@ class Form extends React.Component {
       })
       var defaultCountryCode = new URLSearchParams(this.props.history.location.search).get('country')
       var defaultCategoryCode = new URLSearchParams(this.props.history.location.search).get('category')
-      if (defaultCountryCode === null && defaultCategoryCode === null) {
+      if (defaultCountryCode === null) {
         defaultCountryCode = 'US'
+      }
+      if (defaultCategoryCode === null) {
         defaultCategoryCode = '0'
       }
       this.setState({ countryCode: defaultCountryCode, categoryCode: defaultCategoryCode }, function () {
