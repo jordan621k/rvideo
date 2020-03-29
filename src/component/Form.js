@@ -20,64 +20,70 @@ class Form extends React.Component {
         apiKey: 'AIzaSyAN6WGBl3-zqdtlabrDV428Tn3zrlpeAW0',
         scope: 'profile'
       })
-      var defaultCountryCode = new URLSearchParams(this.props.history.location.search).get('country')
-      var defaultCategoryCode = new URLSearchParams(this.props.history.location.search).get('category')
-      if (defaultCountryCode === null) {
-        defaultCountryCode = 'US'
-      }
-      if (defaultCategoryCode === null) {
-        defaultCategoryCode = '0'
-      }
-      this.setState({ countryCode: defaultCountryCode, categoryCode: defaultCategoryCode }, function () {
-        this.getYoutubeVideos()
-      })
+      var defaultCountryCode = this.getQueryParam('country', 'US')
+      var defaultCategoryCode = this.getQueryParam('category', '0')
+      this.setState({ countryCode: defaultCountryCode, categoryCode: defaultCategoryCode })
+      this.getYoutubeVideos(defaultCountryCode, defaultCategoryCode)
     })
   }
 
-  async getYoutubeVideos () {
+  getQueryParam (param, defaultValue) {
+    var result = new URLSearchParams(this.props.history.location.search).get(param)
+    return result === null ? defaultValue : result
+  }
+
+  async getYoutubeVideos (country, category) {
     const youtubePromise = window.gapi.client.request({
-      path: `https://www.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&chart=mostPopular&maxResults=20&regionCode=${this.state.countryCode}&videoCategoryId=${this.state.categoryCode}&key=AIzaSyAN6WGBl3-zqdtlabrDV428Tn3zrlpeAW0`
+      path: `https://www.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&chart=mostPopular&maxResults=20&regionCode=${country}&videoCategoryId=${category}&key=AIzaSyAN6WGBl3-zqdtlabrDV428Tn3zrlpeAW0`
     })
     try {
       const response = await youtubePromise
       const responseResult = response.result
       if (responseResult && responseResult.pageInfo && responseResult.pageInfo.totalResults === 0) {
-        this.setState({ errorMessage: 'There is no video for the selected category.' })
+        this.updateErrorMessage('There is no video for the selected category.')
+        this.setPreviousState()
       } else {
         const sortedVideos = responseResult.items.sort((a, b) => (parseInt(a.statistics.viewCount) < parseInt(b.statistics.viewCount)) ? 1 : -1)
         videoList.set(sortedVideos)
-        this.setState({ currentCountryCode: this.state.countryCode, currentCategoryCode: this.state.categoryCode })
       }
-      this.props.history.push(`?category=${this.state.categoryCode}&country=${this.state.countryCode}`)
     } catch (error) {
+      this.setPreviousState()
       const errorBody = JSON.parse(error.body)
       console.log(errorBody)
-      this.setState({ errorMessage: errorBody.error.message })
+      this.updateErrorMessage(errorBody.error.message)
+    } finally {
+      isLoading.set(false)
+      this.setState({ countryCode: country, categoryCode: category })
+      this.props.history.push(`?category=${this.state.categoryCode}&country=${this.state.countryCode}`)
+      console.log(this.state)
     }
-    isLoading.set(false)
   }
 
-  handleSubmit (event) {
-    if (this.state.countryCode === this.state.currentCountryCode && this.state.categoryCode === this.state.currentCategoryCode && this.state.errorMessage) {
-      this.setState({ errorMessage: '' })
+  setPreviousState () {
+    this.setState({ previousCategoryCode: this.state.categoryCode, previousCountryCode: this.state.countryCode })
+  }
+
+  handleSubmit (country, category) {
+    if (country === this.state.previousCountryCode && category === this.state.previousCategoryCode) {
+      this.updateErrorMessage(null)
       return
     }
     // event.preventDefault()
     isLoading.set(true)
-    this.setState({ errorMessage: '' })
-    this.getYoutubeVideos()
+    this.updateErrorMessage(null)
+    this.getYoutubeVideos(country, category)
+  }
+
+  updateErrorMessage (message) {
+    this.setState({ errorMessage: message })
   }
 
   updateCountry (country, countryCode) {
-    this.setState({ countryCode: countryCode }, function () {
-      this.handleSubmit()
-    })
+    this.handleSubmit(countryCode, this.state.categoryCode)
   }
 
   updateCategory (category, categoryCode) {
-    this.setState({ categoryCode: categoryCode }, function () {
-      this.handleSubmit()
-    })
+    this.handleSubmit(this.state.countryCode, categoryCode)
   }
 
   getCategoryDropDownProps () {
