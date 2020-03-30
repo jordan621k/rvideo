@@ -1,6 +1,6 @@
 import React from 'react'
 import DropDownMenu from './DropDownMenu'
-import '../css/Form.css'
+import '../css/Form.less'
 import { videoList, isLoading } from '../store/VideoStore'
 import { i18n, LocaleContext } from '../i18n/i18n'
 
@@ -137,6 +137,7 @@ class Form extends React.Component {
   }
 
   render () {
+
     return (
       <React.Fragment>
         <LocaleContext.Consumer>
