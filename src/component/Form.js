@@ -54,7 +54,6 @@ class Form extends React.Component {
       isLoading.set(false)
       this.setState({ countryCode: country, categoryCode: category })
       this.props.history.push(`?category=${this.state.categoryCode}&country=${this.state.countryCode}`)
-      console.log(this.state)
     }
   }
 
@@ -63,7 +62,6 @@ class Form extends React.Component {
   }
 
   handleSubmit (country, category) {
-    console.log(this.state, country, category)
     if (country === this.state.previousCountryCode && category === this.state.previousCategoryCode && this.state.errorMessage !== null) {
       this.updateErrorMessage(null)
       return
