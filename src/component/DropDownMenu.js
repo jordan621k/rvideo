@@ -97,8 +97,8 @@ class DropDownMenu extends React.Component {
 
 DropDownMenu.propTypes = {
   placeholder: PropTypes.string,
-  options: PropTypes.string,
-  callback: PropTypes.string,
+  options: PropTypes.object,
+  callback: PropTypes.func,
   name: PropTypes.string
 }
 

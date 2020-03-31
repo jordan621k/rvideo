@@ -90,31 +90,29 @@ const VideoList = observer(class VideoList extends React.Component {
   }
 
   render () {
-    let index = 0
+    if (isLoading.get()) {
+      return <div id='loader'/>
+    }
     return (
-      <React.Fragment>
-        {isLoading.get() && <div id='loader'/>}
-        {!isLoading.get() && <div id='videoList'>
-          {videoList.get().map((video) => {
-            const rank = index + 1
-            const videoProps = {
-              key: index,
-              title: video.snippet.title.trim(),
-              rank: rank,
-              viewCount: this.addCommmaToDigit(video.statistics.viewCount),
-              likeCount: this.addCommmaToDigit(video.statistics.likeCount),
-              publishedAt: this.turnDateToDaysAgo(video.snippet.publishedAt),
-              thumbnail: this.pickThumbnail(video.snippet.thumbnails),
-              channelTitle: video.snippet.channelTitle,
-              videoLink: 'https://www.youtube.com/watch?v=' + video.id,
-              channelLink: 'https://www.youtube.com/channel/' + video.snippet.channelId,
-              duration: this.convertDuration(video.contentDetails.duration)
-            }
-            index = index + 1
-            return <Video {...videoProps} key="key"/>
-          })}
-        </div>}
-      </React.Fragment>
+      <div id='videoList'>
+        {videoList.get().map((video, index) => {
+          const rank = index + 1
+          const videoProps = {
+            key: index,
+            title: video.snippet.title.trim(),
+            rank: rank,
+            viewCount: this.addCommmaToDigit(video.statistics.viewCount),
+            likeCount: this.addCommmaToDigit(video.statistics.likeCount),
+            publishedAt: this.turnDateToDaysAgo(video.snippet.publishedAt),
+            thumbnail: this.pickThumbnail(video.snippet.thumbnails),
+            channelTitle: video.snippet.channelTitle,
+            videoLink: 'https://www.youtube.com/watch?v=' + video.id,
+            channelLink: 'https://www.youtube.com/channel/' + video.snippet.channelId,
+            duration: this.convertDuration(video.contentDetails.duration)
+          }
+          return <Video {...videoProps}/>
+        })}
+      </div>
     )
   }
 })
