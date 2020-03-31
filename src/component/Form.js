@@ -41,13 +41,12 @@ class Form extends React.Component {
       const responseResult = response.result
       if (responseResult && responseResult.pageInfo && responseResult.pageInfo.totalResults === 0) {
         this.updateErrorMessage('There is no video for the selected category.')
-        this.setPreviousState()
       } else {
         const sortedVideos = responseResult.items.sort((a, b) => (parseInt(a.statistics.viewCount) < parseInt(b.statistics.viewCount)) ? 1 : -1)
         videoList.set(sortedVideos)
+        this.setPreviousState(country, category)
       }
     } catch (error) {
-      this.setPreviousState()
       const errorBody = JSON.parse(error.body)
       console.log(errorBody)
       this.updateErrorMessage(errorBody.error.message)
@@ -59,12 +58,13 @@ class Form extends React.Component {
     }
   }
 
-  setPreviousState () {
-    this.setState({ previousCategoryCode: this.state.categoryCode, previousCountryCode: this.state.countryCode })
+  setPreviousState (country, category) {
+    this.setState({ previousCategoryCode: category, previousCountryCode: country })
   }
 
   handleSubmit (country, category) {
-    if (country === this.state.previousCountryCode && category === this.state.previousCategoryCode) {
+    console.log(this.state, country, category)
+    if (country === this.state.previousCountryCode && category === this.state.previousCategoryCode && this.state.errorMessage !== null) {
       this.updateErrorMessage(null)
       return
     }
