@@ -20,10 +20,10 @@ class Form extends React.Component {
         apiKey: 'AIzaSyAN6WGBl3-zqdtlabrDV428Tn3zrlpeAW0',
         scope: 'profile'
       })
-      var defaultCountryCode = this.getQueryParam('country', 'US')
-      var defaultCategoryCode = this.getQueryParam('category', '0')
-      this.setState({ countryCode: defaultCountryCode, categoryCode: defaultCategoryCode })
-      this.getYoutubeVideos(defaultCountryCode, defaultCategoryCode)
+      this.defaultCountryCode = this.getQueryParam('country', 'US')
+      this.defaultCategoryCode = this.getQueryParam('category', '0')
+      // this.setState({ countryCode: this.defaultCountryCode, categoryCode: this.defaultCategoryCode })
+      this.getYoutubeVideos(this.defaultCountryCode, this.defaultCategoryCode)
     })
   }
 
@@ -58,11 +58,11 @@ class Form extends React.Component {
   }
 
   setPreviousState (country, category) {
-    this.setState({ previousCategoryCode: category, previousCountryCode: country })
+    this.setState({ previousCategory: category, previousCountry: country })
   }
 
   handleSubmit (country, category) {
-    if (country === this.state.previousCountryCode && category === this.state.previousCategoryCode && this.state.errorMessage !== null) {
+    if (country === this.state.previousCountry && category === this.state.previousCategory && this.state.errorMessage !== null) {
       this.updateErrorMessage(null)
       return
     }
@@ -77,11 +77,11 @@ class Form extends React.Component {
   }
 
   updateCountry (country, countryCode) {
-    this.handleSubmit(countryCode, this.state.categoryCode)
+    this.handleSubmit(country, this.state.category)
   }
 
   updateCategory (category, categoryCode) {
-    this.handleSubmit(this.state.countryCode, categoryCode)
+    this.handleSubmit(this.state.country, category)
   }
 
   getCategoryDropDownProps () {
@@ -120,7 +120,7 @@ class Form extends React.Component {
         'Travel & Events': '19',
         'Videoblogging': '21'
       },
-      placeholder: 'All',
+      defaultValue: this.state.categoryCode,
       callback: this.updateCategory
     }
   }
@@ -140,7 +140,7 @@ class Form extends React.Component {
         'United States': 'US',
         'United Kingdom': 'GB'
       },
-      placeholder: 'United States',
+      defaultValue: this.state.countryCode,
       callback: this.updateCountry
     }
   }
@@ -157,7 +157,8 @@ class Form extends React.Component {
   }
 
   render () {
-
+    console.log(this.state)
+    console.log(this.getCountryDropDownProps())
     return (
       <React.Fragment>
         <LocaleContext.Consumer>
