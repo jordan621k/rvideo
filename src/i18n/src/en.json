@@ -6,6 +6,22 @@
     "errorType" : {
       "noCategory" : "The requested video chart is not supported or is not available.",
       "noVideo" : "There is no video for the selected category."
+    },
+    "countryOptions" : {
+      "Brazil": "BR",
+      "Canada": "CA",
+      "Japan": "JP",
+      "Korea": "KP",
+      "Spain": "ES",
+      "South Africa": "ZA",
+      "Taiwan": "TW",
+      "Thailand": "TH",
+      "United States": "US",
+      "United Kingdom": "GB"
+      },
+    "languageOptions" : {
+      "Chinese": "zh",
+      "English": "en"
     }
   }
 }

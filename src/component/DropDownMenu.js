@@ -48,32 +48,33 @@ class DropDownMenu extends React.Component {
   }
 
   filter () {
-    const input = document.getElementById(this.inputId).value.toLowerCase()
-    const filteredOptions = {}
+    this.setState({ input: document.getElementById(this.inputId).value.toLowerCase() })
+    // const input = document.getElementById(this.inputId).value.toLowerCase()
+    // const filteredOptions = {}
 
-    this.resizeInput(input.length)
+    // this.resizeInput(input.length)
 
-    Object.keys(this.props.options).forEach((key) => {
-      if (key.toLowerCase().includes(input)) {
-        filteredOptions[key] = this.props.options[key]
-      }
-    })
-
-    this.setState({ options: filteredOptions })
+    // Object.keys(this.props.options).forEach((key) => {
+    //   if (key.toLowerCase().includes(input)) {
+    //     filteredOptions[key] = this.props.options[key]
+    //   }
+    // })
   }
 
   render () {
+    console.log(this.state.input)
     let dropDownMenu
-
     if (this.state.showDropDown) {
       dropDownMenu = <div id={this.dropDownId} className="dropDownMenu">
-        {Object.keys(this.state.options).map((key) => {
-          return <li onMouseOver={this.highlightItem}
-            onMouseLeave={this.unHighlightItem}
-            onMouseDown={this.populateInput}
-            key={this.state.options[key]}>
-            {key}
-          </li>
+        {Object.keys(this.props.options).map((key) => {
+          if (key.toLowerCase().includes(this.state.input) || this.state.input === undefined) {
+            return <li onMouseOver={this.highlightItem}
+              onMouseLeave={this.unHighlightItem}
+              onMouseDown={this.populateInput}
+              key={this.props.options[key]}>
+              {key}
+            </li>
+          }
         })}
       </div>
     }
@@ -85,7 +86,7 @@ class DropDownMenu extends React.Component {
           value={this.props.value}
           // size={this.props.placeholder.length}
           onFocus={this.showDropDown}
-          onChange={this.filter}
+          onKeyDown={this.filter}
           onBlur={this.hideDropDown}
         />
         {dropDownMenu}

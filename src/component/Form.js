@@ -12,6 +12,8 @@ class Form extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this)
     this.updateCountry = this.updateCountry.bind(this)
     this.updateCategory = this.updateCategory.bind(this)
+    // console.log(i18n(this.context))
+    // console.log(i18n(this.context).form.countryOptions)
     this.countryOptions = {
       'Brazil': 'BR',
       'Canada': 'CA',
@@ -69,6 +71,7 @@ class Form extends React.Component {
         apiKey: 'AIzaSyAN6WGBl3-zqdtlabrDV428Tn3zrlpeAW0',
         scope: 'profile'
       })
+      console.log(this.context)
       const defaultCountryCode = this.getQueryParam('country', 'US')
       const defaultCategoryCode = this.getQueryParam('category', '0')
       this.getYoutubeVideos(
@@ -81,6 +84,11 @@ class Form extends React.Component {
   getQueryParam (param, defaultValue) {
     const result = new URLSearchParams(this.props.history.location.search).get(param)
     return result === null ? defaultValue : result
+  }
+
+  getOptions (option) {
+    var result = JSON.parse(option)
+    return result
   }
 
   async getYoutubeVideos (country, category) {
@@ -151,20 +159,22 @@ class Form extends React.Component {
   getCountryDropDownProps () {
     return {
       name: 'countryDropDownMenu',
-      options: this.countryOptions,
+      options: i18n(this.context.locale).form.countryOptions,
       value: (this.state.country && this.state.country.value) || null,
       callback: this.updateCountry
     }
   }
 
   getLanguageDropDownProps () {
+    console.log(i18n(this.context.locale))
     return {
       name: 'languageDropDownMenu',
-      options: this.languageOptions
+      options: i18n(this.context.locale).form.languageOptions
     }
   }
 
   render () {
+    console.log(this.getLanguageDropDownProps())
     return (
       <React.Fragment>
         <LocaleContext.Consumer>
