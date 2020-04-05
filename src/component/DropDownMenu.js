@@ -33,17 +33,16 @@ class DropDownMenu extends React.Component {
   }
 
   populateInput (e) {
-    console.log(e.target.innerText)
     document.getElementById(this.inputId).value = e.target.innerText
     this.resizeInput(e.target.innerText.length)
     this.props.callback(e.target.innerText, this.props.options[e.target.innerText])
   }
 
   resizeInput (size) {
-    const { defaultValue } = this.props
+    const { value } = this.props
 
-    if (size <= defaultValue.length) {
-      size = defaultValue.length
+    if (size <= value.length) {
+      size = value.length
     }
     document.getElementById(this.inputId).size = size
   }
@@ -78,13 +77,12 @@ class DropDownMenu extends React.Component {
         })}
       </div>
     }
-    console.log(this.props.defaultValue)
     return (
       <div className="dropDown">
         <input id={this.inputId}
           className="dropDownInput"
           autoComplete="off"
-          value={this.props.defaultValue}
+          value={this.props.value}
           // size={this.props.placeholder.length}
           onFocus={this.showDropDown}
           onChange={this.filter}
@@ -97,7 +95,7 @@ class DropDownMenu extends React.Component {
 }
 
 DropDownMenu.propTypes = {
-  defaultValue: PropTypes.string,
+  value: PropTypes.string,
   options: PropTypes.object,
   callback: PropTypes.func,
   name: PropTypes.string
