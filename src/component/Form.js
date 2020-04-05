@@ -91,7 +91,7 @@ class Form extends React.Component {
       const response = await youtubePromise
       const responseResult = response.result
       if (responseResult && responseResult.pageInfo && responseResult.pageInfo.totalResults === 0) {
-        this.updateErrorMessage('There is no video for the selected category.')
+        this.updateErrorType('noVideo')
       } else {
         const sortedVideos = responseResult.items.sort((a, b) => (parseInt(a.statistics.viewCount) < parseInt(b.statistics.viewCount)) ? 1 : -1)
         videoList.set(sortedVideos)
@@ -100,7 +100,7 @@ class Form extends React.Component {
     } catch (error) {
       const errorBody = JSON.parse(error.body)
       console.log(errorBody)
-      this.updateErrorMessage(errorBody.error.message)
+      this.updateErrorType('noCategory')
     } finally {
       isLoading.set(false)
       this.setState({ country: country, category: category })
@@ -115,20 +115,20 @@ class Form extends React.Component {
   handleSubmit (country, category) {
     if (JSON.stringify(country) === JSON.stringify(this.state.previousCountry) &&
         JSON.stringify(category) === JSON.stringify(this.state.previousCategory) &&
-        this.state.errorMessage !== null
+        this.state.errorType !== null
     ) {
-      this.updateErrorMessage(null)
+      this.updateErrorType(null)
       this.setState({ country: country, category: category })
       return
     }
     // event.preventDefault()
     isLoading.set(true)
-    this.updateErrorMessage(null)
+    this.updateErrorType(null)
     this.getYoutubeVideos(country, category)
   }
 
-  updateErrorMessage (message) {
-    this.setState({ errorMessage: message })
+  updateErrorType (message) {
+    this.setState({ errorType: message })
   }
 
   updateCountry (country, countryCode) {
@@ -160,8 +160,7 @@ class Form extends React.Component {
   getLanguageDropDownProps () {
     return {
       name: 'languageDropDownMenu',
-      options: this.languageOptions,
-      placeholder: 'English'
+      options: this.languageOptions
     }
   }
 
@@ -185,9 +184,9 @@ class Form extends React.Component {
             </form>
           )}
         </LocaleContext.Consumer>
-        {this.state.errorMessage &&
+        {this.state.errorType &&
           <div className="ErrorMessage">
-            <p className="ErrorMessageText">{this.state.errorMessage}</p>
+            <p className="ErrorMessageText">{i18n(this.context.locale).form.errorType[this.state.errorType]}</p>
           </div>
         }
       </React.Fragment>

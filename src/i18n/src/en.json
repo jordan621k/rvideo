@@ -2,6 +2,10 @@
   "header": "Trending Videos on Youtube",
   "form" : {
     "from" : "from",
-    "in" : "in"
+    "in" : "in",
+    "errorType" : {
+      "noCategory" : "The requested video chart is not supported or is not available.",
+      "noVideo" : "There is no video for the selected category."
+    }
   }
 }
