@@ -3,6 +3,7 @@ import DropDownMenu from './DropDownMenu'
 import '../css/Form.less'
 import { videoList, isLoading } from '../store/VideoStore'
 import { i18n, LocaleContext } from '../i18n/i18n'
+import { withRouter } from 'react-router-dom'
 
 class Form extends React.Component {
   constructor (props) {
@@ -11,6 +12,55 @@ class Form extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this)
     this.updateCountry = this.updateCountry.bind(this)
     this.updateCategory = this.updateCategory.bind(this)
+    this.countryOptions = {
+      'Brazil': 'BR',
+      'Canada': 'CA',
+      'Japan': 'JP',
+      'Korea': 'KP',
+      'Spain': 'ES',
+      'South Africa': 'ZA',
+      'Taiwan': 'TW',
+      'Thailand': 'TH',
+      'United States': 'US',
+      'United Kingdom': 'GB'
+    }
+    this.categoryOptions = {
+      'All': '0',
+      'Action/Adventure': '32',
+      'Anime/Animation': '31',
+      'Autos & Vehicles': '2',
+      'Classics': '33',
+      'Comedy': '23',
+      'Documentary': '35',
+      'Drama': '36',
+      'Education': '27',
+      'Entertainment': '24',
+      'Family': '37',
+      'Film & Animation': '1',
+      'Foreign': '38',
+      'GamiNews & Politicsng': '25',
+      'Gaming': '20',
+      'Horror': '39',
+      'Howto & Style': '26',
+      'Movies': '30',
+      'Music': '10',
+      'Nonprofits & Activism': '29',
+      'Pets & Animals': '15',
+      'People & Blogs': '22',
+      'Science & Technology': '28',
+      'Sci-Fi/Fantasy': '40',
+      'Shorts': '42',
+      'Shows': '43',
+      'Sports': '17',
+      'Thriller': '41',
+      'Trailers': '44',
+      'Travel & Events': '19',
+      'Videoblogging': '21'
+    }
+    this.languageOptions = {
+      'Chinese': 'zh',
+      'English': 'en'
+    }
   }
 
   componentDidMount () {
@@ -19,88 +69,81 @@ class Form extends React.Component {
         apiKey: 'AIzaSyAN6WGBl3-zqdtlabrDV428Tn3zrlpeAW0',
         scope: 'profile'
       })
+      const defaultCountryCode = this.getQueryParam('country', 'US')
+      const defaultCategoryCode = this.getQueryParam('category', '0')
+      this.getYoutubeVideos(
+        { value: Object.entries(this.countryOptions).filter((option) => { return option[1] === defaultCountryCode })[0][0], code: defaultCountryCode },
+        { value: Object.entries(this.categoryOptions).filter((option) => { return option[1] === defaultCategoryCode })[0][0], code: defaultCategoryCode }
+      )
     })
   }
 
-  async getYoutubeVideos () {
-    const youtubePromise = window.gapi.client.request({
-      path: `https://www.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&chart=mostPopular&maxResults=20&regionCode=${this.state.countryCode}&videoCategoryId=${this.state.categoryCode}&key=AIzaSyAN6WGBl3-zqdtlabrDV428Tn3zrlpeAW0`
-    })
+  getQueryParam (param, defaultValue) {
+    const result = new URLSearchParams(this.props.history.location.search).get(param)
+    return result === null ? defaultValue : result
+  }
+
+  async getYoutubeVideos (country, category) {
     try {
+      const youtubePromise = window.gapi.client.request({
+        path: `https://www.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&chart=mostPopular&maxResults=20&regionCode=${country.code}&videoCategoryId=${category.code}&key=AIzaSyAN6WGBl3-zqdtlabrDV428Tn3zrlpeAW0`
+      })
       const response = await youtubePromise
       const responseResult = response.result
       if (responseResult && responseResult.pageInfo && responseResult.pageInfo.totalResults === 0) {
-        this.setState({ errorMessage: 'There is no video for the selected category.' })
+        this.updateErrorMessage('There is no video for the selected category.')
       } else {
         const sortedVideos = responseResult.items.sort((a, b) => (parseInt(a.statistics.viewCount) < parseInt(b.statistics.viewCount)) ? 1 : -1)
         videoList.set(sortedVideos)
+        this.setPreviousState(country, category)
       }
     } catch (error) {
       const errorBody = JSON.parse(error.body)
       console.log(errorBody)
-      this.setState({ errorMessage: errorBody.error.message })
+      this.updateErrorMessage(errorBody.error.message)
+    } finally {
+      isLoading.set(false)
+      this.setState({ country: country, category: category })
+      this.props.history.push(`?category=${this.state.category.code}&country=${this.state.country.code}`)
     }
-    isLoading.set(false)
   }
 
-  handleSubmit (event) {
-    if (this.state.countryCode !== undefined && this.state.categoryCode !== undefined) {
-      // event.preventDefault()
-      isLoading.set(true)
-      this.setState({ errorMessage: '' })
-      this.getYoutubeVideos()
+  setPreviousState (country, category) {
+    this.setState({ previousCategory: category, previousCountry: country })
+  }
+
+  handleSubmit (country, category) {
+    if (JSON.stringify(country) === JSON.stringify(this.state.previousCountry) &&
+        JSON.stringify(category) === JSON.stringify(this.state.previousCategory) &&
+        this.state.errorMessage !== null
+    ) {
+      this.updateErrorMessage(null)
+      this.setState({ country: country, category: category })
+      return
     }
+    // event.preventDefault()
+    isLoading.set(true)
+    this.updateErrorMessage(null)
+    this.getYoutubeVideos(country, category)
+  }
+
+  updateErrorMessage (message) {
+    this.setState({ errorMessage: message })
   }
 
   updateCountry (country, countryCode) {
-    this.setState({ countryCode: countryCode }, function () {
-      this.handleSubmit()
-    })
+    this.handleSubmit({ value: country, code: countryCode }, this.state.category)
   }
 
   updateCategory (category, categoryCode) {
-    this.setState({ categoryCode: categoryCode }, function () {
-      this.handleSubmit()
-    })
+    this.handleSubmit(this.state.country, { value: category, code: categoryCode })
   }
 
   getCategoryDropDownProps () {
     return {
       name: 'categoryDropDownMenu',
-      options: {
-        'All': '0',
-        'Action/Adventure': '32',
-        'Anime/Animation': '31',
-        'Autos & Vehicles': '2',
-        'Classics': '33',
-        'Comedy': '23',
-        'Documentary': '35',
-        'Drama': '36',
-        'Education': '27',
-        'Entertainment': '24',
-        'Family': '37',
-        'Film & Animation': '1',
-        'Foreign': '38',
-        'GamiNews & Politicsng': '25',
-        'Gaming': '20',
-        'Horror': '39',
-        'Howto & Style': '26',
-        'Movies': '30',
-        'Music': '10',
-        'Nonprofits & Activism': '29',
-        'Pets & Animals': '15',
-        'People & Blogs': '22',
-        'Science & Technology': '28',
-        'Sci-Fi/Fantasy': '40',
-        'Shorts': '42',
-        'Shows': '43',
-        'Sports': '17',
-        'Thriller': '41',
-        'Trailers': '44',
-        'Travel & Events': '19',
-        'Videoblogging': '21'
-      },
-      placeholder: 'All',
+      options: this.categoryOptions,
+      value: (this.state.category && this.state.category.value) || null,
       callback: this.updateCategory
     }
   }
@@ -108,19 +151,8 @@ class Form extends React.Component {
   getCountryDropDownProps () {
     return {
       name: 'countryDropDownMenu',
-      options: {
-        'Brazil': 'BR',
-        'Canada': 'CA',
-        'Japan': 'JP',
-        'Korea': 'KP',
-        'Spain': 'ES',
-        'South Africa': 'ZA',
-        'Taiwan': 'TW',
-        'Thailand': 'TH',
-        'United States': 'US',
-        'United Kingdom': 'GB'
-      },
-      placeholder: 'United States',
+      options: this.countryOptions,
+      value: (this.state.country && this.state.country.value) || null,
       callback: this.updateCountry
     }
   }
@@ -128,27 +160,26 @@ class Form extends React.Component {
   getLanguageDropDownProps () {
     return {
       name: 'languageDropDownMenu',
-      options: {
-        'Chinese': 'zh',
-        'English': 'en'
-      },
+      options: this.languageOptions,
       placeholder: 'English'
     }
   }
 
   render () {
-
     return (
       <React.Fragment>
         <LocaleContext.Consumer>
-          {({ updateLocale }) => (
+          {({ locale, updateLocale }) => (
             <form className="Form" onSubmit={this.handleSubmit}>
               <b>
                 <DropDownMenu {...this.getCategoryDropDownProps()}/>
                 &nbsp; {i18n(this.context.locale).form.from} &nbsp;
                 <DropDownMenu {...this.getCountryDropDownProps()}/>
                 &nbsp; {i18n(this.context.locale).form.in} &nbsp;
-                <DropDownMenu {...this.getLanguageDropDownProps()} callback={updateLocale}/>
+                <DropDownMenu {...this.getLanguageDropDownProps()}
+                  value={Object.entries(this.languageOptions).filter((option) => { return option[1] === locale })[0][0]}
+                  callback={updateLocale}
+                />
               </b>
               <br/>
             </form>
@@ -166,4 +197,4 @@ class Form extends React.Component {
 
 Form.contextType = LocaleContext
 
-export default Form
+export default withRouter(Form)
