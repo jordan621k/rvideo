@@ -9,4 +9,4 @@ export function i18n (locale) {
   return en
 }
 
-export const LocaleContext = React.createContext('zh');
+export const LocaleContext = React.createContext('en')

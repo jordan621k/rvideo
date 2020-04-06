@@ -4,7 +4,7 @@ import Header from './Header'
 import Footer from './Footer'
 import Form from './Form'
 import VideoList from './VideoList'
-import { LocaleContext } from '../i18n/i18n'
+import { i18n, LocaleContext } from '../i18n/i18n'
 import { Router } from 'react-router'
 import { createBrowserHistory } from 'history'
 
@@ -15,10 +15,14 @@ class App extends React.Component {
     this.history = createBrowserHistory()
     this.state = {
       locale: 'en',
-      updateLocale: (locale, localeCode) => {
+      updateLocale: (language, localeCode) => {
         this.setState({
           locale: localeCode
         })
+        document.getElementById('languageDropDownMenu-input').value =
+          Object.entries(i18n(localeCode).form.dropDownOptions.language).filter(
+            (option) => { return option[1] === localeCode }
+          )[0][0]
       }
     }
   }

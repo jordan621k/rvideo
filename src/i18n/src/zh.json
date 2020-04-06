@@ -1,27 +1,17 @@
 {
   "header": "Youtube發燒影片看起來",
   "form" : {
-    "from" : "來自",
-    "in" : "用",
-    "errorType" : {
-      "noCategory" : "不支援影片種類，請選擇別的種類。",
-      "noVideo" : "搜尋無結果，請選擇別的種類。"
+    "from": "來自",
+    "in": "用",
+    "errorType": {
+      "noCategory": "不支援影片種類，請選擇別的種類。",
+      "noVideo": "搜尋無結果，請選擇別的種類。"
     },
-    "countryOptions" : {
-      "巴西": "BR",
-      "Canada": "CA",
-      "Japan": "JP",
-      "Korea": "KP",
-      "Spain": "ES",
-      "South Africa": "ZA",
-      "Taiwan": "TW",
-      "Thailand": "TH",
-      "United States": "US",
-      "United Kingdom": "GB"
-      },
-    "languageOptions" : {
-      "中文": "zh",
-      "English": "en"
-    }  
+    "dropDownOptions": {
+      "language" : {
+        "中文": "zh",
+        "英文": "en"
+      }
     }
+  }
 }

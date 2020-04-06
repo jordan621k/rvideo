@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 class DropDownMenu extends React.Component {
   constructor (props) {
     super(props)
-    this.state = { options: this.props.options, showDropDown: false }
+    this.state = { showDropDown: false }
     this.inputId = this.props.name + '-input'
     this.dropDownId = this.props.name + '-dropdown'
     this.showDropDown = this.showDropDown.bind(this)
@@ -14,6 +14,12 @@ class DropDownMenu extends React.Component {
     this.highlightItem = this.highlightItem.bind(this)
     this.populateInput = this.populateInput.bind(this)
     this.resizeInput = this.resizeInput.bind(this)
+  }
+
+  componentDidUpdate () {
+    if (document.getElementById(this.inputId).value.length === 0) {
+      document.getElementById(this.inputId).value = this.props.initialValue
+    }
   }
 
   showDropDown () {
@@ -39,54 +45,43 @@ class DropDownMenu extends React.Component {
   }
 
   resizeInput (size) {
-    const { value } = this.props
+    const { initialValue } = this.props
 
-    if (size <= value.length) {
-      size = value.length
+    if (size <= initialValue.length) {
+      size = initialValue.length
     }
     document.getElementById(this.inputId).size = size
   }
 
   filter () {
     this.setState({ input: document.getElementById(this.inputId).value.toLowerCase() })
-    // const input = document.getElementById(this.inputId).value.toLowerCase()
-    // const filteredOptions = {}
-
-    // this.resizeInput(input.length)
-
-    // Object.keys(this.props.options).forEach((key) => {
-    //   if (key.toLowerCase().includes(input)) {
-    //     filteredOptions[key] = this.props.options[key]
-    //   }
-    // })
   }
 
   render () {
-    console.log(this.state.input)
     let dropDownMenu
     if (this.state.showDropDown) {
       dropDownMenu = <div id={this.dropDownId} className="dropDownMenu">
-        {Object.keys(this.props.options).map((key) => {
-          if (key.toLowerCase().includes(this.state.input) || this.state.input === undefined) {
-            return <li onMouseOver={this.highlightItem}
-              onMouseLeave={this.unHighlightItem}
-              onMouseDown={this.populateInput}
-              key={this.props.options[key]}>
-              {key}
-            </li>
-          }
+        {Object.keys(this.props.options).filter(
+          (key) => { return this.state.input === undefined || key.toLowerCase().includes(this.state.input) }
+        ).map((key) => {
+          return <li onMouseOver={this.highlightItem}
+            onMouseLeave={this.unHighlightItem}
+            onMouseDown={this.populateInput}
+            key={this.props.options[key]}>
+            {key}
+          </li>
         })}
       </div>
     }
+
     return (
       <div className="dropDown">
         <input id={this.inputId}
           className="dropDownInput"
           autoComplete="off"
-          value={this.props.value}
           // size={this.props.placeholder.length}
           onFocus={this.showDropDown}
-          onKeyDown={this.filter}
+          onKeyUp={this.filter}
           onBlur={this.hideDropDown}
         />
         {dropDownMenu}
@@ -96,7 +91,7 @@ class DropDownMenu extends React.Component {
 }
 
 DropDownMenu.propTypes = {
-  value: PropTypes.string,
+  initialValue: PropTypes.string,
   options: PropTypes.object,
   callback: PropTypes.func,
   name: PropTypes.string

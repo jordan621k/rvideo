@@ -12,8 +12,6 @@ class Form extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this)
     this.updateCountry = this.updateCountry.bind(this)
     this.updateCategory = this.updateCategory.bind(this)
-    // console.log(i18n(this.context))
-    // console.log(i18n(this.context).form.countryOptions)
     this.countryOptions = {
       'Brazil': 'BR',
       'Canada': 'CA',
@@ -59,10 +57,6 @@ class Form extends React.Component {
       'Travel & Events': '19',
       'Videoblogging': '21'
     }
-    this.languageOptions = {
-      'Chinese': 'zh',
-      'English': 'en'
-    }
   }
 
   componentDidMount () {
@@ -84,11 +78,6 @@ class Form extends React.Component {
   getQueryParam (param, defaultValue) {
     const result = new URLSearchParams(this.props.history.location.search).get(param)
     return result === null ? defaultValue : result
-  }
-
-  getOptions (option) {
-    var result = JSON.parse(option)
-    return result
   }
 
   async getYoutubeVideos (country, category) {
@@ -151,7 +140,7 @@ class Form extends React.Component {
     return {
       name: 'categoryDropDownMenu',
       options: this.categoryOptions,
-      value: (this.state.category && this.state.category.value) || null,
+      initialValue: (this.state.category && this.state.category.value) || null,
       callback: this.updateCategory
     }
   }
@@ -159,36 +148,32 @@ class Form extends React.Component {
   getCountryDropDownProps () {
     return {
       name: 'countryDropDownMenu',
-      options: i18n(this.context.locale).form.countryOptions,
-      value: (this.state.country && this.state.country.value) || null,
+      options: this.countryOptions,
+      initialValue: (this.state.country && this.state.country.value) || null,
       callback: this.updateCountry
     }
   }
 
   getLanguageDropDownProps () {
-    console.log(i18n(this.context.locale))
     return {
       name: 'languageDropDownMenu',
-      options: i18n(this.context.locale).form.languageOptions
+      options: i18n(this.context.locale).form.dropDownOptions.language,
+      initialValue: 'English'
     }
   }
 
   render () {
-    console.log(this.getLanguageDropDownProps())
     return (
       <React.Fragment>
         <LocaleContext.Consumer>
-          {({ locale, updateLocale }) => (
+          {({ updateLocale }) => (
             <form className="Form" onSubmit={this.handleSubmit}>
               <b>
                 <DropDownMenu {...this.getCategoryDropDownProps()}/>
                 &nbsp; {i18n(this.context.locale).form.from} &nbsp;
                 <DropDownMenu {...this.getCountryDropDownProps()}/>
                 &nbsp; {i18n(this.context.locale).form.in} &nbsp;
-                <DropDownMenu {...this.getLanguageDropDownProps()}
-                  value={Object.entries(this.languageOptions).filter((option) => { return option[1] === locale })[0][0]}
-                  callback={updateLocale}
-                />
+                <DropDownMenu {...this.getLanguageDropDownProps()} callback={updateLocale}/>
               </b>
               <br/>
             </form>
