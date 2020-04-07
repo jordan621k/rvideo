@@ -1,5 +1,5 @@
 import React from 'react'
-import '../css/Video.css'
+import '../css/Video.less'
 import PropTypes from 'prop-types'
 
 class Video extends React.Component {

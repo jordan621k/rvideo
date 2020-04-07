@@ -1,0 +1,59 @@
+.Video {
+    width: 50vw;
+    display: flex;
+    background-color: #0b0c10;
+    border-radius: 25px;
+    margin: 0.5vw 0;
+
+    a {
+        color: #66fcf1;
+    }
+
+    @media (min-width: 900px) {
+        .Rank {
+            min-width: 8vw;
+            height: 100%;
+            font-size: 3em;
+            color: #66fcf1;
+            margin: auto 0;
+            /*border: #45A291 3em;*/
+        }
+    }
+
+    .Info {
+        color: white;
+        text-align: left;
+        margin: 0.5vw 0;
+
+        .Title {
+            color: white;
+        }
+
+        .ThumbnailAndStats {
+            display: flex;
+
+            .Thumbnail {
+                width: 23vw;
+                height: 15vw;
+                float: left;
+            }
+
+            @media (min-width: 900px) {
+                .Stats {
+                    margin: auto 1vw;
+                }
+            }
+
+            @media (max-width: 900px) {
+                .Stats {
+                    display: none;
+                }
+            }
+        }
+    }
+}
+
+
+
+
+
