@@ -12,51 +12,51 @@ class Form extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this)
     this.updateCountry = this.updateCountry.bind(this)
     this.updateCategory = this.updateCategory.bind(this)
-    this.countryOptions = {
-      'Brazil': 'BR',
-      'Canada': 'CA',
-      'Japan': 'JP',
-      'Korea': 'KP',
-      'Spain': 'ES',
-      'South Africa': 'ZA',
-      'Taiwan': 'TW',
-      'Thailand': 'TH',
-      'United States': 'US',
-      'United Kingdom': 'GB'
-    }
-    this.categoryOptions = {
-      'All': '0',
-      'Action/Adventure': '32',
-      'Anime/Animation': '31',
-      'Autos & Vehicles': '2',
-      'Classics': '33',
-      'Comedy': '23',
-      'Documentary': '35',
-      'Drama': '36',
-      'Education': '27',
-      'Entertainment': '24',
-      'Family': '37',
-      'Film & Animation': '1',
-      'Foreign': '38',
-      'GamiNews & Politicsng': '25',
-      'Gaming': '20',
-      'Horror': '39',
-      'Howto & Style': '26',
-      'Movies': '30',
-      'Music': '10',
-      'Nonprofits & Activism': '29',
-      'Pets & Animals': '15',
-      'People & Blogs': '22',
-      'Science & Technology': '28',
-      'Sci-Fi/Fantasy': '40',
-      'Shorts': '42',
-      'Shows': '43',
-      'Sports': '17',
-      'Thriller': '41',
-      'Trailers': '44',
-      'Travel & Events': '19',
-      'Videoblogging': '21'
-    }
+    // this.countryOptions = {
+    //   'Brazil': 'BR',
+    //   'Canada': 'CA',
+    //   'Japan': 'JP',
+    //   'Korea': 'KP',
+    //   'Spain': 'ES',
+    //   'South Africa': 'ZA',
+    //   'Taiwan': 'TW',
+    //   'Thailand': 'TH',
+    //   'United States': 'US',
+    //   'United Kingdom': 'GB'
+    // }
+    // this.categoryOptions = {
+    //   'All': '0',
+    //   'Action/Adventure': '32',
+    //   'Anime/Animation': '31',
+    //   'Autos & Vehicles': '2',
+    //   'Classics': '33',
+    //   'Comedy': '23',
+    //   'Documentary': '35',
+    //   'Drama': '36',
+    //   'Education': '27',
+    //   'Entertainment': '24',
+    //   'Family': '37',
+    //   'Film & Animation': '1',
+    //   'Foreign': '38',
+    //   'GamiNews & Politicsng': '25',
+    //   'Gaming': '20',
+    //   'Horror': '39',
+    //   'Howto & Style': '26',
+    //   'Movies': '30',
+    //   'Music': '10',
+    //   'Nonprofits & Activism': '29',
+    //   'Pets & Animals': '15',
+    //   'People & Blogs': '22',
+    //   'Science & Technology': '28',
+    //   'Sci-Fi/Fantasy': '40',
+    //   'Shorts': '42',
+    //   'Shows': '43',
+    //   'Sports': '17',
+    //   'Thriller': '41',
+    //   'Trailers': '44',
+    //   'Travel & Events': '19',
+    //   'Videoblogging': '21'
+    // }
   }
 
   componentDidMount () {
@@ -69,8 +69,8 @@ class Form extends React.Component {
       const defaultCountryCode = this.getQueryParam('country', 'US')
       const defaultCategoryCode = this.getQueryParam('category', '0')
       this.getYoutubeVideos(
-        { value: Object.entries(this.countryOptions).filter((option) => { return option[1] === defaultCountryCode })[0][0], code: defaultCountryCode },
-        { value: Object.entries(this.categoryOptions).filter((option) => { return option[1] === defaultCategoryCode })[0][0], code: defaultCategoryCode }
+        { value: Object.entries(i18n(this.context.locale).form.dropDownOptions.country).filter((option) => { return option[1] === defaultCountryCode })[0][0], code: defaultCountryCode },
+        { value: Object.entries(i18n(this.context.locale).form.dropDownOptions.category).filter((option) => { return option[1] === defaultCategoryCode })[0][0], code: defaultCategoryCode }
       )
     })
   }
@@ -81,6 +81,7 @@ class Form extends React.Component {
   }
 
   async getYoutubeVideos (country, category) {
+    console.log(this.state)
     try {
       const youtubePromise = window.gapi.client.request({
         path: `https://www.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&chart=mostPopular&maxResults=20&regionCode=${country.code}&videoCategoryId=${category.code}&key=AIzaSyAN6WGBl3-zqdtlabrDV428Tn3zrlpeAW0`
@@ -139,7 +140,7 @@ class Form extends React.Component {
   getCategoryDropDownProps () {
     return {
       name: 'categoryDropDownMenu',
-      options: this.categoryOptions,
+      options: i18n(this.context.locale).form.dropDownOptions.category,
       initialValue: (this.state.category && this.state.category.value) || null,
       callback: this.updateCategory
     }
@@ -148,7 +149,7 @@ class Form extends React.Component {
   getCountryDropDownProps () {
     return {
       name: 'countryDropDownMenu',
-      options: this.countryOptions,
+      options: i18n(this.context.locale).form.dropDownOptions.country,
       initialValue: (this.state.country && this.state.country.value) || null,
       callback: this.updateCountry
     }
