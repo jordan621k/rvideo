@@ -9,7 +9,6 @@ import { Router } from 'react-router'
 import { createBrowserHistory } from 'history'
 
 class App extends React.Component {
-
   constructor (props) {
     super(props)
     this.history = createBrowserHistory()
