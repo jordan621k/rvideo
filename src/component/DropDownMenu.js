@@ -1,6 +1,7 @@
 import React from 'react'
 import '../css/DropDownMenu.css'
 import PropTypes from 'prop-types'
+import { i18n, LocaleContext } from '../i18n/i18n'
 
 class DropDownMenu extends React.Component {
   constructor (props) {
@@ -19,6 +20,11 @@ class DropDownMenu extends React.Component {
   componentDidUpdate () {
     if (document.getElementById(this.inputId).value.length === 0) {
       document.getElementById(this.inputId).value = this.props.initialValue
+    }
+    if (this.inputId === 'languageDropDownMenu-input') {
+      this.languageCode = this.props.options[document.getElementById('languageDropDownMenu-input').value]
+      this.countryCode = i18n(this.languageCode).form.dropDownOptions.country[document.getElementById('countryDropDownMenu-input').value]
+      this.categoryCode = i18n(this.languageCode).form.dropDownOptions.category[document.getElementById('categoryDropDownMenu-input').value]
     }
   }
 
@@ -41,7 +47,11 @@ class DropDownMenu extends React.Component {
   populateInput (e) {
     document.getElementById(this.inputId).value = e.target.innerText
     this.resizeInput(e.target.innerText.length)
-    this.props.callback(e.target.innerText, this.props.options[e.target.innerText])
+    if (this.inputId === 'languageDropDownMenu-input') {
+      this.props.callback(e.target.innerText, this.props.options[e.target.innerText], this.countryCode, this.categoryCode)
+    } else {
+      this.props.callback(e.target.innerText, this.props.options[e.target.innerText])
+    }
   }
 
   resizeInput (size) {
