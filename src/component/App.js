@@ -13,7 +13,7 @@ class App extends React.Component {
     super(props)
     this.history = createBrowserHistory()
     this.state = {
-      locale: 'en',
+      locale: 'en_us',
       updateLocale: (language, localeCode, countryCode, categoryCode) => {
         this.setState({
           locale: localeCode

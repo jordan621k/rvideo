@@ -9,8 +9,8 @@
     },
     "dropDownOptions": {
       "language" : {
-        "中文": "zh",
-        "英文": "en"
+        "中文": "zh_tw",
+        "英文": "en_us"
       },
       "country" : {
         "巴西": "BR",

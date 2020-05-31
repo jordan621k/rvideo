@@ -1,12 +1,12 @@
-import en from './src/en'
-import zh from './src/zh'
+import en_us from './src/en_us'
+import zh_tw from './src/zh_tw'
 import React from 'react'
 
 export function i18n (locale) {
-  if (locale === 'zh') {
-    return zh
+  if (locale === 'zh_tw') {
+    return zh_tw
   }
-  return en
+  return en_us
 }
 
-export const LocaleContext = React.createContext('en')
+export const LocaleContext = React.createContext('en_us')

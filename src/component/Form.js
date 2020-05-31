@@ -37,7 +37,7 @@ class Form extends React.Component {
   async getYoutubeVideos (country, category) {
     try {
       const youtubePromise = window.gapi.client.request({
-        path: `https://www.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&chart=mostPopular&maxResults=20&regionCode=${country.code}&videoCategoryId=${category.code}&key=AIzaSyAN6WGBl3-zqdtlabrDV428Tn3zrlpeAW0`
+        path: `https://www.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&chart=mostPopular&maxResults=20&regionCode=${country.code}&videoCategoryId=${category.code}&key=AIzaSyAN6WGBl3-zqdtlabrDV428Tn3zrlpeAW0&h1=${this.context.locale}`
       })
       const response = await youtubePromise
       const responseResult = response.result
