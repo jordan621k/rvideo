@@ -25,7 +25,7 @@
       "US": "United States",
       "GB": "United Kingdom"
     },
-    "Category" : {
+    "category" : {
       "0" : "All",
       "32" : "Action/Adventure",
       "31" : "Anime/Animation",

@@ -12,55 +12,6 @@ class Form extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this)
     this.updateCountry = this.updateCountry.bind(this)
     this.updateCategory = this.updateCategory.bind(this)
-    this.countryOptions = {
-      'Brazil': 'BR',
-      'Canada': 'CA',
-      'Japan': 'JP',
-      'Korea': 'KP',
-      'Spain': 'ES',
-      'South Africa': 'ZA',
-      'Taiwan': 'TW',
-      'Thailand': 'TH',
-      'United States': 'US',
-      'United Kingdom': 'GB'
-    }
-    this.categoryOptions = {
-      'All': '0',
-      'Action/Adventure': '32',
-      'Anime/Animation': '31',
-      'Autos & Vehicles': '2',
-      'Classics': '33',
-      'Comedy': '23',
-      'Documentary': '35',
-      'Drama': '36',
-      'Education': '27',
-      'Entertainment': '24',
-      'Family': '37',
-      'Film & Animation': '1',
-      'Foreign': '38',
-      'GamiNews & Politicsng': '25',
-      'Gaming': '20',
-      'Horror': '39',
-      'Howto & Style': '26',
-      'Movies': '30',
-      'Music': '10',
-      'Nonprofits & Activism': '29',
-      'Pets & Animals': '15',
-      'People & Blogs': '22',
-      'Science & Technology': '28',
-      'Sci-Fi/Fantasy': '40',
-      'Shorts': '42',
-      'Shows': '43',
-      'Sports': '17',
-      'Thriller': '41',
-      'Trailers': '44',
-      'Travel & Events': '19',
-      'Videoblogging': '21'
-    }
-    this.languageOptions = {
-      'Chinese': 'zh',
-      'English': 'en'
-    }
   }
 
   componentDidMount () {
@@ -72,8 +23,8 @@ class Form extends React.Component {
       const defaultCountryCode = this.getQueryParam('country', 'US')
       const defaultCategoryCode = this.getQueryParam('category', '0')
       this.getYoutubeVideos(
-        { value: Object.entries(this.countryOptions).filter((option) => { return option[1] === defaultCountryCode })[0][0], code: defaultCountryCode },
-        { value: Object.entries(this.categoryOptions).filter((option) => { return option[1] === defaultCategoryCode })[0][0], code: defaultCategoryCode }
+        { value: i18n(this.context.locale).dropDownOptions.country[defaultCountryCode], code: defaultCountryCode },
+        { value: i18n(this.context.locale).dropDownOptions.category[defaultCategoryCode], code: defaultCategoryCode }
       )
     })
   }
@@ -131,27 +82,29 @@ class Form extends React.Component {
     this.setState({ errorType: message })
   }
 
-  updateCountry (country, countryCode) {
-    this.handleSubmit({ value: country, code: countryCode }, this.state.category)
+  updateCountry (countryCode) {
+    this.handleSubmit({ value: i18n(this.context.locale).dropDownOptions.country[countryCode], code: countryCode }, this.state.category)
   }
 
-  updateCategory (category, categoryCode) {
-    this.handleSubmit(this.state.country, { value: category, code: categoryCode })
+  updateCategory (categoryCode) {
+    this.handleSubmit(this.state.country, { value: i18n(this.context.locale).dropDownOptions.category[categoryCode], code: categoryCode })
   }
 
   getCategoryDropDownProps () {
     return {
       name: 'categoryDropDownMenu',
-      options: this.categoryOptions,
+      options: i18n(this.context.locale).dropDownOptions.category,
       value: (this.state.category && this.state.category.value) || null,
       callback: this.updateCategory
     }
   }
 
   getCountryDropDownProps () {
+    console.log((this.state.country && this.state.country.value) || null)
+    console.log(this.state)
     return {
       name: 'countryDropDownMenu',
-      options: this.countryOptions,
+      options: i18n(this.context.locale).dropDownOptions.country,
       value: (this.state.country && this.state.country.value) || null,
       callback: this.updateCountry
     }
