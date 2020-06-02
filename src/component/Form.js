@@ -160,7 +160,7 @@ class Form extends React.Component {
   getLanguageDropDownProps () {
     return {
       name: 'languageDropDownMenu',
-      options: this.languageOptions
+      options: i18n(this.context.locale).dropDownOptions.language
     }
   }
 

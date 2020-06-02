@@ -65,14 +65,14 @@ class DropDownMenu extends React.Component {
   render () {
     let dropDownMenu
 
-    if (this.state.showDropDown) {
+    if (true) {
       dropDownMenu = <div id={this.dropDownId} className="dropDownMenu">
         {Object.keys(this.state.options).map((key) => {
           return <li onMouseOver={this.highlightItem}
             onMouseLeave={this.unHighlightItem}
             onMouseDown={this.populateInput}
-            key={this.state.options[key]}>
-            {key}
+            key={key}>
+            {this.state.options[key]}
           </li>
         })}
       </div>
