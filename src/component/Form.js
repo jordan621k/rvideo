@@ -157,13 +157,6 @@ class Form extends React.Component {
     }
   }
 
-  getLanguageDropDownProps () {
-    return {
-      name: 'languageDropDownMenu',
-      options: i18n(this.context.locale).dropDownOptions.language
-    }
-  }
-
   render () {
     return (
       <React.Fragment>
@@ -175,8 +168,10 @@ class Form extends React.Component {
                 &nbsp; {i18n(this.context.locale).form.from} &nbsp;
                 <DropDownMenu {...this.getCountryDropDownProps()}/>
                 &nbsp; {i18n(this.context.locale).form.in} &nbsp;
-                <DropDownMenu {...this.getLanguageDropDownProps()}
-                  value={Object.entries(this.languageOptions).filter((option) => { return option[1] === locale })[0][0]}
+                <DropDownMenu
+                  name='languageDropDownMenu'
+                  options={i18n(this.context.locale).dropDownOptions.language}
+                  value={i18n(this.context.locale).dropDownOptions.language[this.context.locale]}
                   callback={updateLocale}
                 />
               </b>

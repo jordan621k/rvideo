@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 class DropDownMenu extends React.Component {
   constructor (props) {
     super(props)
-    this.state = { options: this.props.options, showDropDown: false }
+    this.state = { showDropDown: false }
     this.inputId = this.props.name + '-input'
     this.dropDownId = this.props.name + '-dropdown'
     this.showDropDown = this.showDropDown.bind(this)
@@ -35,7 +35,7 @@ class DropDownMenu extends React.Component {
   populateInput (e) {
     document.getElementById(this.inputId).value = e.target.innerText
     this.resizeInput(e.target.innerText.length)
-    this.props.callback(e.target.innerText, this.props.options[e.target.innerText])
+    this.props.callback(e.target.id)
   }
 
   resizeInput (size) {
@@ -67,12 +67,13 @@ class DropDownMenu extends React.Component {
 
     if (this.state.showDropDown) {
       dropDownMenu = <div id={this.dropDownId} className="dropDownMenu">
-        {Object.keys(this.state.options).map((key) => {
+        {Object.keys(this.props.options).map((key) => {
           return <li onMouseOver={this.highlightItem}
             onMouseLeave={this.unHighlightItem}
             onMouseDown={this.populateInput}
+            id={key}
             key={key}>
-            {this.state.options[key]}
+            {this.props.options[key]}
           </li>
         })}
       </div>

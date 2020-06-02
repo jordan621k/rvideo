@@ -15,9 +15,10 @@ class App extends React.Component {
     this.history = createBrowserHistory()
     this.state = {
       locale: 'en',
-      updateLocale: (locale, localeCode) => {
+      updateLocale: (locale) => {
+        console.log(locale)
         this.setState({
-          locale: localeCode
+          locale: locale
         })
       }
     }
