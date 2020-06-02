@@ -12,6 +12,51 @@
     "language" : {
       "zh" : "Chinese",
       "en" : "English"
+    },
+    "country" : {
+      "BR": "Brazil",
+      "CA": "Canada",
+      "JP": "Japan",
+      "KP": "Korea",
+      "ES": "Spain",
+      "ZA": "South Africa",
+      "TW": "Taiwan",
+      "TH": "Thailand",
+      "US": "United States",
+      "GB": "United Kingdom"
+    },
+    "Category" : {
+      "0" : "All",
+      "32" : "Action/Adventure",
+      "31" : "Anime/Animation",
+      "2" : "Autos & Vehicles",
+      "33" : "Classics",
+      "23" : "Comedy",
+      "35" : "Documentary",
+      "36" : "Drama",
+      "27" : "Education",
+      "24" : "Entertainment",
+      "37" : "Family",
+      "1" : "Film & Animation",
+      "38" : "Foreign",
+      "25" : "GamiNews & Politicsng",
+      "20" : "Gaming",
+      "39" : "Horror",
+      "26" : "Howto & Style",
+      "30" : "Movies",
+      "10" : "Music",
+      "29" : "Nonprofits & Activism",
+      "15" : "Pets & Animals",
+      "22" : "People & Blogs",
+      "28" : "Science & Technology",
+      "40" : "Sci-Fi/Fantasy",
+      "42" : "Shorts",
+      "43" : "Shows",
+      "17" : "Sports",
+      "41" : "Thriller",
+      "44" : "Trailers",
+      "19" : "Travel & Events",
+      "21" : "Videoblogging"
     }
   }
 }
