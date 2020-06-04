@@ -94,19 +94,25 @@ class Form extends React.Component {
     return {
       name: 'categoryDropDownMenu',
       options: i18n(this.context.locale).dropDownOptions.category,
-      value: (this.state.category && this.state.category.value) || null,
+      initialValue: (this.state.category && this.state.category.value) || null,
       callback: this.updateCategory
     }
   }
 
   getCountryDropDownProps () {
-    console.log((this.state.country && this.state.country.value) || null)
-    console.log(this.state)
     return {
       name: 'countryDropDownMenu',
       options: i18n(this.context.locale).dropDownOptions.country,
-      value: (this.state.country && this.state.country.value) || null,
+      initialValue: (this.state.country && this.state.country.value) || null,
       callback: this.updateCountry
+    }
+  }
+
+  getLanguageDropDownProps () {
+    return {
+      name: 'languageDropDownMenu',
+      options: i18n(this.context.locale).dropDownOptions.language,
+      initialValue: 'English'
     }
   }
 
@@ -121,12 +127,7 @@ class Form extends React.Component {
                 &nbsp; {i18n(this.context.locale).form.from} &nbsp;
                 <DropDownMenu {...this.getCountryDropDownProps()}/>
                 &nbsp; {i18n(this.context.locale).form.in} &nbsp;
-                <DropDownMenu
-                  name='languageDropDownMenu'
-                  options={i18n(this.context.locale).dropDownOptions.language}
-                  value={i18n(this.context.locale).dropDownOptions.language[this.context.locale]}
-                  callback={updateLocale}
-                />
+                <DropDownMenu {...this.getLanguageDropDownProps()} callback={updateLocale}/>
               </b>
               <br/>
             </form>

@@ -4,9 +4,10 @@ import Header from './Header'
 import Footer from './Footer'
 import Form from './Form'
 import VideoList from './VideoList'
-import { LocaleContext } from '../i18n/i18n'
+import { i18n, LocaleContext } from '../i18n/i18n'
 import { Router } from 'react-router'
 import { createBrowserHistory } from 'history'
+
 
 class App extends React.Component {
 
@@ -15,11 +16,13 @@ class App extends React.Component {
     this.history = createBrowserHistory()
     this.state = {
       locale: 'en',
-      updateLocale: (locale) => {
-        console.log(locale)
+      updateLocale: (localeCode, countryCode, categoryCode) => {
         this.setState({
-          locale: locale
+          locale: localeCode
         })
+        document.getElementById('languageDropDownMenu-input').value = i18n(localeCode).dropDownOptions.language[localeCode]
+        document.getElementById('countryDropDownMenu-input').value = i18n(localeCode).dropDownOptions.country[countryCode]
+        document.getElementById('categoryDropDownMenu-input').value = i18n(localeCode).dropDownOptions.category[categoryCode]
       }
     }
   }
