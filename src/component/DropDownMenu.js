@@ -1,8 +1,6 @@
 import React from 'react'
 import '../css/DropDownMenu.css'
 import PropTypes from 'prop-types'
-import { i18n, LocaleContext} from '../i18n/i18n'
-import { toJS } from 'mobx'
 
 class DropDownMenu extends React.Component {
   constructor (props) {
