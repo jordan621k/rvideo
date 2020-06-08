@@ -94,7 +94,7 @@ class Form extends React.Component {
     return {
       name: 'categoryDropDownMenu',
       options: i18n(this.context.locale).dropDownOptions.category,
-      initialValue: (this.state.category && this.state.category.value) || null,
+      value: (this.state.category && i18n(this.context.locale).dropDownOptions.category[this.state.category.code]) || null,
       callback: this.updateCategory
     }
   }
@@ -103,7 +103,7 @@ class Form extends React.Component {
     return {
       name: 'countryDropDownMenu',
       options: i18n(this.context.locale).dropDownOptions.country,
-      initialValue: (this.state.country && this.state.country.value) || null,
+      value: (this.state.country && i18n(this.context.locale).dropDownOptions.country[this.state.country.code]) || null,
       callback: this.updateCountry
     }
   }
@@ -112,7 +112,7 @@ class Form extends React.Component {
     return {
       name: 'languageDropDownMenu',
       options: i18n(this.context.locale).dropDownOptions.language,
-      initialValue: 'English'
+      value: i18n(this.context.locale).dropDownOptions.language[this.context.locale]
     }
   }
 

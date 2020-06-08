@@ -18,15 +18,6 @@ class DropDownMenu extends React.Component {
     this.resizeInput = this.resizeInput.bind(this)
   }
 
-  componentDidUpdate () {
-    if (document.getElementById(this.inputId).value.length === 0) {
-      document.getElementById(this.inputId).value = this.props.initialValue
-    }
-    if (this.inputId === 'languageDropDownMenu-input') {
-      this.currentLanguageCode = Object.entries(this.props.options).filter((option) => { return option[1] === document.getElementById('languageDropDownMenu-input').value })[0][0]
-    }
-  }
-
   showDropDown () {
     this.setState({ showDropDown: true })
   }
@@ -46,21 +37,10 @@ class DropDownMenu extends React.Component {
   populateInput (e) {
       document.getElementById(this.inputId).value = e.target.innerText
       this.resizeInput(e.target.innerText.length)
-    if (this.inputId === 'languageDropDownMenu-input') {
-      this.countryCode = Object.entries(i18n(this.currentLanguageCode).dropDownOptions.country).filter((option) => { return option[1] === document.getElementById('countryDropDownMenu-input').value })[0][0]
-      this.categoryCode = Object.entries(i18n(this.currentLanguageCode).dropDownOptions.category).filter((option) => { return option[1] === document.getElementById('categoryDropDownMenu-input').value })[0][0]
-      this.props.callback(e.target.id, this.countryCode, this.categoryCode)
-    } else {
       this.props.callback(e.target.id)
-    }
   }
 
   resizeInput (size) {
-    const { initialValue } = this.props
-
-    if (size <= initialValue.length) {
-      size = initialValue.length
-    }
     document.getElementById(this.inputId).size = size
   }
 
@@ -100,6 +80,7 @@ class DropDownMenu extends React.Component {
         <input id={this.inputId}
           className="dropDownInput"
           autoComplete="off"
+          value={this.props.value}
           // size={this.props.placeholder.length}
           onFocus={this.showDropDown}
           onChange={this.filter}
@@ -112,7 +93,7 @@ class DropDownMenu extends React.Component {
 }
 
 DropDownMenu.propTypes = {
-  initialValue: PropTypes.string,
+  value: PropTypes.string,
   options: PropTypes.object,
   callback: PropTypes.func,
   name: PropTypes.string

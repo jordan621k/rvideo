@@ -16,13 +16,10 @@ class App extends React.Component {
     this.history = createBrowserHistory()
     this.state = {
       locale: 'en',
-      updateLocale: (localeCode, countryCode, categoryCode) => {
+      updateLocale: (localeCode) => {
         this.setState({
           locale: localeCode
         })
-        document.getElementById('languageDropDownMenu-input').value = i18n(localeCode).dropDownOptions.language[localeCode]
-        document.getElementById('countryDropDownMenu-input').value = i18n(localeCode).dropDownOptions.country[countryCode]
-        document.getElementById('categoryDropDownMenu-input').value = i18n(localeCode).dropDownOptions.category[categoryCode]
       }
     }
   }
