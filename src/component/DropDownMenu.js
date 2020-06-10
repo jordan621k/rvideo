@@ -14,6 +14,7 @@ class DropDownMenu extends React.Component {
     this.highlightItem = this.highlightItem.bind(this)
     this.populateInput = this.populateInput.bind(this)
     this.resizeInput = this.resizeInput.bind(this)
+    this.keyReaction = this.keyReaction.bind(this)
   }
 
   showDropDown () {
@@ -25,11 +26,14 @@ class DropDownMenu extends React.Component {
   }
 
   highlightItem (e) {
-    e.target.style.background = '#45A291'
+    e.target.classList.add('selected')
   }
 
   unHighlightItem (e) {
-    e.target.style.background = '#0b0c10'
+    // e.target.classList.remove('selected')
+    if (document.querySelectorAll("li.selected")[0]) {
+      document.querySelectorAll("li.selected")[0].classList.remove('selected')
+    }
   }
 
   populateInput (e) {
@@ -57,6 +61,31 @@ class DropDownMenu extends React.Component {
     this.setState({ options: filteredOptions })
   }
 
+  keyReaction (e) {
+    e.preventDefault()
+    var curSelected = document.querySelectorAll("li.selected")[0] || document.getElementById(this.inputId)
+    var dropDownFirstOption = document.getElementById(this.dropDownId).getElementsByTagName("li")[0]
+    if (e.keyCode == 38) {
+      if (curSelected.tagName == "LI" && curSelected.previousSibling) {
+        curSelected.previousSibling.classList.add('selected')
+        curSelected.classList.remove('selected')
+      }
+    } else if (e.keyCode == 40) {
+      if (curSelected.tagName == "LI" && curSelected.nextSibling) {
+        curSelected.nextSibling.classList.add('selected')
+        curSelected.classList.remove('selected')
+      } else {
+        dropDownFirstOption.classList.add('selected')
+        curSelected.classList.remove('selected')
+      }
+    } else if (e.keyCode == 13) {
+      document.getElementById(this.inputId).value = curSelected.innerText
+      this.resizeInput(curSelected.innerText.length)
+      this.props.callback(curSelected.id)
+      this.hideDropDown()
+    }
+  }
+
   render () {
     let dropDownMenu
 
@@ -80,6 +109,7 @@ class DropDownMenu extends React.Component {
           autoComplete="off"
           value={this.props.value}
           // size={this.props.placeholder.length}
+          onKeyDown={this.keyReaction}
           onFocus={this.showDropDown}
           onChange={this.filter}
           onBlur={this.hideDropDown}

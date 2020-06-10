@@ -37,3 +37,7 @@ li {
     white-space: nowrap;
     border-radius: 10px;
 }
+
+li.selected {
+    background: #45A291;
+}
