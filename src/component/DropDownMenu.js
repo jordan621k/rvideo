@@ -65,9 +65,13 @@ class DropDownMenu extends React.Component {
     e.preventDefault()
     var curSelected = document.querySelectorAll("li.selected")[0] || document.getElementById(this.inputId)
     var dropDownFirstOption = document.getElementById(this.dropDownId).getElementsByTagName("li")[0]
+    var dropDownLastOption = document.getElementById(this.dropDownId).getElementsByTagName("li")[Object.keys(this.props.options).length-1]
     if (e.keyCode == 38) {
       if (curSelected.tagName == "LI" && curSelected.previousSibling) {
         curSelected.previousSibling.classList.add('selected')
+        curSelected.classList.remove('selected')
+      } else {
+        dropDownLastOption.classList.add('selected')
         curSelected.classList.remove('selected')
       }
     } else if (e.keyCode == 40) {
