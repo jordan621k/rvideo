@@ -14,7 +14,7 @@ class DropDownMenu extends React.Component {
     this.highlightItem = this.highlightItem.bind(this)
     this.populateInput = this.populateInput.bind(this)
     this.resizeInput = this.resizeInput.bind(this)
-    this.keyReaction = this.keyReaction.bind(this)
+    this.onKeyDown = this.onKeyDown.bind(this)
   }
 
   showDropDown () {
@@ -26,20 +26,29 @@ class DropDownMenu extends React.Component {
   }
 
   highlightItem (e) {
-    e.target.classList.add('selected')
+    if (e.target) {
+      e.target.classList.add('selected')
+    } else {
+      e.classList.add('selected')
+    }
   }
 
   unHighlightItem (e) {
-    // e.target.classList.remove('selected')
-    if (document.querySelectorAll("li.selected")[0]) {
+    if (e.target) {
       document.querySelectorAll("li.selected")[0].classList.remove('selected')
+    } else {
+      e.classList.remove('selected')
     }
   }
 
   populateInput (e) {
-      document.getElementById(this.inputId).value = e.target.innerText
-      this.resizeInput(e.target.innerText.length)
-      this.props.callback(e.target.id)
+    const target = e.target ? e.target : e
+    const input = document.getElementById(this.inputId)
+    input.value = target.innerText
+    this.resizeInput(target.innerText.length)
+    this.props.callback(target.id)
+    this.hideDropDown()
+    input.blur()
   }
 
   resizeInput (size) {
@@ -61,32 +70,31 @@ class DropDownMenu extends React.Component {
     this.setState({ options: filteredOptions })
   }
 
-  keyReaction (e) {
+  onKeyDown (e) {
     e.preventDefault()
-    var curSelected = document.querySelectorAll("li.selected")[0] || document.getElementById(this.inputId)
-    var dropDownFirstOption = document.getElementById(this.dropDownId).getElementsByTagName("li")[0]
-    var dropDownLastOption = document.getElementById(this.dropDownId).getElementsByTagName("li")[Object.keys(this.props.options).length-1]
+    const selected = document.querySelectorAll("li.selected")[0] || document.getElementById(this.inputId)
+    const dropDownOptions = document.getElementById(this.dropDownId).getElementsByTagName("li")
+    const dropDownFirstOption = dropDownOptions[0]
+    const dropDownLastOption = dropDownOptions[Object.keys(this.props.options).length - 1]
+    const selectedIsLi = selected.tagName == "LI"
     if (e.keyCode == 38) {
-      if (curSelected.tagName == "LI" && curSelected.previousSibling) {
-        curSelected.previousSibling.classList.add('selected')
-        curSelected.classList.remove('selected')
+      if (selectedIsLi && selected.previousSibling) {
+        this.highlightItem(selected.previousSibling)
+        this.unHighlightItem(selected)
       } else {
-        dropDownLastOption.classList.add('selected')
-        curSelected.classList.remove('selected')
+        this.highlightItem(dropDownLastOption)
+        this.unHighlightItem(selected)
       }
     } else if (e.keyCode == 40) {
-      if (curSelected.tagName == "LI" && curSelected.nextSibling) {
-        curSelected.nextSibling.classList.add('selected')
-        curSelected.classList.remove('selected')
+      if (selectedIsLi && selected.nextSibling) {
+        this.highlightItem(selected.nextSibling)
+        this.unHighlightItem(selected)
       } else {
-        dropDownFirstOption.classList.add('selected')
-        curSelected.classList.remove('selected')
+        this.highlightItem(dropDownFirstOption)
+        this.unHighlightItem(selected)
       }
     } else if (e.keyCode == 13) {
-      document.getElementById(this.inputId).value = curSelected.innerText
-      this.resizeInput(curSelected.innerText.length)
-      this.props.callback(curSelected.id)
-      this.hideDropDown()
+      this.populateInput(selected)
     }
   }
 
@@ -113,7 +121,7 @@ class DropDownMenu extends React.Component {
           autoComplete="off"
           value={this.props.value}
           // size={this.props.placeholder.length}
-          onKeyDown={this.keyReaction}
+          onKeyDown={this.onKeyDown}
           onFocus={this.showDropDown}
           onChange={this.filter}
           onBlur={this.hideDropDown}
