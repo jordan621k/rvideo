@@ -1,5 +1,5 @@
 .Video {
-    width: 50vw;
+    width: 60vw;
     display: flex;
     background-color: #0b0c10;
     border-radius: 25px;
@@ -47,3 +47,9 @@
 a {
     color: #66fcf1;;
 }
+
+@media (max-width: 800px) {
+    .Video {
+        width: 100%;
+    }
+  }
