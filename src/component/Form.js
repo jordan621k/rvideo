@@ -1,6 +1,6 @@
 import React from 'react'
 import DropDownMenu from './DropDownMenu'
-import '../css/Form.less'
+import '../css/Form.css'
 import { videoList, isLoading } from '../store/VideoStore'
 import { i18n, LocaleContext } from '../i18n/i18n'
 import { withRouter } from 'react-router-dom'
@@ -122,13 +122,13 @@ class Form extends React.Component {
         <LocaleContext.Consumer>
           {({ locale, updateLocale }) => (
             <form className="Form" onSubmit={this.handleSubmit}>
-              <b>
-                <DropDownMenu {...this.getCategoryDropDownProps()}/>
-                &nbsp; {i18n(this.context.locale).form.from} &nbsp;
-                <DropDownMenu {...this.getCountryDropDownProps()}/>
-                &nbsp; {i18n(this.context.locale).form.in} &nbsp;
-                <DropDownMenu {...this.getLanguageDropDownProps()} callback={updateLocale}/>
-              </b>
+              {/* <b> */}
+              <DropDownMenu {...this.getCategoryDropDownProps()}/>
+              &nbsp; {i18n(this.context.locale).form.from} &nbsp;
+              <DropDownMenu {...this.getCountryDropDownProps()}/>
+              &nbsp; {i18n(this.context.locale).form.in} &nbsp;
+              <DropDownMenu {...this.getLanguageDropDownProps()} callback={updateLocale}/>
+              {/* </b> */}
               <br/>
             </form>
           )}

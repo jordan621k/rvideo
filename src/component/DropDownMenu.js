@@ -35,7 +35,7 @@ class DropDownMenu extends React.Component {
 
   unHighlightItem (e) {
     if (e.target) {
-      document.querySelectorAll("li.selected")[0].classList.remove('selected')
+      document.querySelectorAll('li.selected')[0].classList.remove('selected')
     } else {
       e.classList.remove('selected')
     }
@@ -72,12 +72,12 @@ class DropDownMenu extends React.Component {
 
   onKeyDown (e) {
     e.preventDefault()
-    const selected = document.querySelectorAll("li.selected")[0] || document.getElementById(this.inputId)
-    const dropDownOptions = document.getElementById(this.dropDownId).getElementsByTagName("li")
+    const selected = document.querySelectorAll('li.selected')[0] || document.getElementById(this.inputId)
+    const dropDownOptions = document.getElementById(this.dropDownId).getElementsByTagName('li')
     const dropDownFirstOption = dropDownOptions[0]
     const dropDownLastOption = dropDownOptions[Object.keys(this.props.options).length - 1]
-    const selectedIsLi = selected.tagName == "LI"
-    if (e.keyCode == 38) {
+    const selectedIsLi = selected.tagName === 'LI'
+    if (e.keyCode === 38) {
       if (selectedIsLi && selected.previousSibling) {
         this.highlightItem(selected.previousSibling)
         this.unHighlightItem(selected)
@@ -85,7 +85,7 @@ class DropDownMenu extends React.Component {
         this.highlightItem(dropDownLastOption)
         this.unHighlightItem(selected)
       }
-    } else if (e.keyCode == 40) {
+    } else if (e.keyCode === 40) {
       if (selectedIsLi && selected.nextSibling) {
         this.highlightItem(selected.nextSibling)
         this.unHighlightItem(selected)
@@ -93,7 +93,7 @@ class DropDownMenu extends React.Component {
         this.highlightItem(dropDownFirstOption)
         this.unHighlightItem(selected)
       }
-    } else if (e.keyCode == 13) {
+    } else if (e.keyCode === 13) {
       this.populateInput(selected)
     }
   }

@@ -1,0 +1,93 @@
+.Video {
+    width: 50vw;
+    display: flex;
+    background-color: #0b0c10;
+    border-radius: 25px;
+    margin: 0.5vw 0;
+}
+
+.Video .Rank {
+    min-width: 8vw;
+    height: 100%;
+    font-size: 3em;
+    color: #66fcf1;
+    margin: auto 0;
+    /*border: #45A291 3em;*/
+}
+
+.Video .Title {
+    color: white;
+    /*white-space: nowrap;*/
+}
+
+.Video .ThumbnailAndStats {
+    display: flex;
+}
+
+.Video .Thumbnail {
+    width: 240px;
+    height: 135px;
+    float: left;
+}
+
+.Video .Stats {
+    margin: auto 1vw;
+}
+
+.Video .Stats p {
+    margin: 0.5em 0;
+}
+
+.Video .Info {
+    color: white;
+    text-align: left;
+    margin: 0.5vw 0;
+}
+
+a {
+    color: #66fcf1;;
+}
+
+@media (max-width: 800px) {
+    .Video {
+        width: 100%;
+        flex-direction: column;
+    }
+
+    .Video .ThumbnailAndStats {
+        flex-direction: column;
+        
+        .Thumbnail {
+            width: 100%;
+        }
+    }
+  }
+
+// .Video {
+//     width: 50vw;
+//     display: flex;
+//     background-color: #0b0c10;
+//     border-radius: 25px;
+//     margin: 0.5vw 0;
+
+//     @media (max-width: 800px) {
+//         width: 100%;
+//         flex-direction: column;
+//     }
+
+//     .ThumbnailAndStats {
+//         display: flex;        
+//         @media (max-width: 800px) {
+//             flex-direction: column;
+//         }
+//     }
+
+//     .Thumbnail {
+//         width: 240px;
+//         height: 135px;
+//         float: left;
+//         @media (max-width: 800px) {
+//             width: 100%;
+//         }
+//     }
+// }

@@ -1,7 +1,11 @@
+:root {
+    --dropDownmargin: 0.6em;
+}
+
 .dropDown {
     position: relative;
     display: inline-block;
-    margin: 0.6em;
+    margin: var(--dropDownmargin);
 }
 
 .dropDownInput {
@@ -42,14 +46,17 @@ li.selected {
     background: #45A291;
 }
 
-@media (max-width: 800px) {
+@media (max-width: 620px) {
     .dropDown {
-        width: 100%;
+        width: calc(100% - 2 * var(--dropDownmargin));
+        flex-direction: column;
     }
 
     .dropDownInput {
+        width: 97%;
         font-weight: bold;
         font-size: 2.5vw;
+        text-align: center;
     }
 }
 
