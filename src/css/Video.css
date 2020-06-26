@@ -1,5 +1,5 @@
 .Video {
-  width: 50vw;
+  width: 65vw;
   display: flex;
   background-color: #0b0c10;
   border-radius: 25px;
@@ -50,5 +50,11 @@ a {
   .Video .ThumbnailAndStats .Thumbnail {
     width: 100%;
     height: 100%;
+  }
+  .Video .Title {
+    text-align: center;
+  }
+  .Video .Stats {
+    text-align: center;
   }
 }
