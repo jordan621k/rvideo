@@ -20,12 +20,17 @@ class Video extends React.Component {
     const { title, viewCount, likeCount, publishedAt, thumbnail, rank, channelTitle, channelLink, duration } = this.props
     return (
       <div className="Video" onMouseDown={this.openVideoInWindow} onMouseOver={this.changeMouseCursor}>
-        <div className="Rank">
+        <div className="Rank" id="DesktopRank">
           <h2>{rank}</h2>
         </div>
         <div className="Info">
           <div className="Title">
-            <h3>{title}</h3>
+            <div className="Rank" id="MobileRank">
+              <h2>{rank}</h2>
+            </div>
+            <div className="TitleText">
+              <h3>{title}</h3>
+            </div>
           </div>
           <div className="ThumbnailAndStats">
             <img className="Thumbnail" src={thumbnail} alt="Cover Image"/>
