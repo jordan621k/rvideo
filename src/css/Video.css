@@ -11,14 +11,13 @@
   font-size: 3em;
   color: #66fcf1;
   margin: auto 0;
-  /*border: #45A291 3em;*/
 }
 .Video .TitleText {
   color: white;
-  flex-direction: row;
-  /*white-space: nowrap;*/
+  display: flex;
+  align-items: center;
 }
-.Video .Rank2{
+.Video #MobileRank {
   display: none;
 }
 .Video .ThumbnailAndStats {
@@ -48,20 +47,19 @@ a {
 }
 @media (max-width: 620px) {
   .Video {
-    display: flex;
     width: 100%;
-    /* flex-direction: column; */
   }
   .Video .Rank {
-    display:none;
+    min-width: initial;
   }
-  .Video .Rank2 {
+  .Video #DesktopRank {
+    display: none;
+  }
+  .Video #MobileRank {
     display: initial;
-    margin: auto 0;
   }
-  .Video .Info .Rank2 h2{
+  .Video .Info #MobileRank h2 {
     min-width: 8vw;
-    font-size: 3em;
     color: #66fcf1;
     margin: auto 0;
     padding: 10px 5px 10px 10px;
@@ -73,9 +71,9 @@ a {
     width: 100%;
     height: 100%;
   }
-  .Video .TitleText {
+  .Video .Title {
     text-align: center;
-    flex-direction: row;
+    display: flex;
     width: initial;
     margin: auto 0;
   }
@@ -85,10 +83,7 @@ a {
     display: flex;
     justify-content: space-around;
   }
-  .Video .TitleText h3{
+  .Video .TitleText h3 {
     text-align: left;
   }
-  /* .Video .Info {
-    flex-direction: row;
-  } */
 }
