@@ -123,11 +123,11 @@ class Form extends React.Component {
           {({ locale, updateLocale }) => (
             <form className="Form" onSubmit={this.handleSubmit}>
               <b>
-              <DropDownMenu {...this.getCategoryDropDownProps()}/>
-              &nbsp; {i18n(this.context.locale).form.from} &nbsp;
-              <DropDownMenu {...this.getCountryDropDownProps()}/>
-              &nbsp; {i18n(this.context.locale).form.in} &nbsp;
-              <DropDownMenu {...this.getLanguageDropDownProps()} callback={updateLocale}/>
+                <DropDownMenu {...this.getCategoryDropDownProps()}/>
+                &nbsp; {i18n(this.context.locale).form.from} &nbsp;
+                <DropDownMenu {...this.getCountryDropDownProps()}/>
+                &nbsp; {i18n(this.context.locale).form.in} &nbsp;
+                <DropDownMenu {...this.getLanguageDropDownProps()} callback={updateLocale}/>
               </b>
               <br/>
             </form>
