@@ -1,5 +1,5 @@
 import React from 'react'
-import '../css/DropDownMenu.css'
+import '../css/DropDownMenu.less'
 import PropTypes from 'prop-types'
 
 class DropDownMenu extends React.Component {

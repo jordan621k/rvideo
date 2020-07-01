@@ -1,4 +1,4 @@
-@mobilewidth: 620px;
+@mobileWidth: 620px;
 
 .Video {
 	width: 65vw;
@@ -6,7 +6,7 @@
 	background-color: #0b0c10;
 	border-radius: 25px;
     margin: 0.5vw 0;
-	@media (max-width: @mobilewidth) {
+	@media (max-width: @mobileWidth) {
 		width: 100%;
 
 		#DesktopRank {
@@ -27,7 +27,7 @@
 		font-size: 3em;
 		color: #66fcf1;
 		margin: auto 0;
-		@media (max-width: @mobilewidth) {
+		@media (max-width: @mobileWidth) {
 			min-width: initial;
 		}
     }
@@ -36,7 +36,7 @@
 		color: white;
 		display: flex;
 		align-items: center;
-		@media (max-width: @mobilewidth) {
+		@media (max-width: @mobileWidth) {
 			h3 {
 				text-align: left;
 			}
@@ -45,9 +45,8 @@
     
 	#MobileRank {
 		display: none;
-		@media (max-width: @mobilewidth) {
+		@media (max-width: @mobileWidth) {
 			display: initial;
-
 			h2 {
 				min-width: 8vw;
 				color: #66fcf1;
@@ -59,7 +58,7 @@
     
 	.ThumbnailAndStats {
 		display: flex;
-		@media (max-width: @mobilewidth) {
+		@media (max-width: @mobileWidth) {
 			flex-direction: column;
 		}
     }
@@ -68,7 +67,7 @@
 		width: 240px;
 		height: 135px;
 		float: left;
-		@media (max-width: @mobilewidth) {
+		@media (max-width: @mobileWidth) {
 			width: 100%;
 			height: 100%;
 		}
@@ -79,8 +78,7 @@
 		p {
 			margin: 0.5em 0;
 		}
-
-		@media (max-width: @mobilewidth) {
+		@media (max-width: @mobileWidth) {
 			flex-wrap: wrap;
 			display: flex;
 			justify-content: space-around;
