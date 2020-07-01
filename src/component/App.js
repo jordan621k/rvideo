@@ -8,7 +8,6 @@ import { i18n, LocaleContext } from '../i18n/i18n'
 import { Router } from 'react-router'
 import { createBrowserHistory } from 'history'
 
-
 class App extends React.Component {
 
   constructor (props) {
