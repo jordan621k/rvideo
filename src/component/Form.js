@@ -122,13 +122,13 @@ class Form extends React.Component {
         <LocaleContext.Consumer>
           {({ locale, updateLocale }) => (
             <form className="Form" onSubmit={this.handleSubmit}>
-              {/* <b> */}
+              <b>
               <DropDownMenu {...this.getCategoryDropDownProps()}/>
               &nbsp; {i18n(this.context.locale).form.from} &nbsp;
               <DropDownMenu {...this.getCountryDropDownProps()}/>
               &nbsp; {i18n(this.context.locale).form.in} &nbsp;
               <DropDownMenu {...this.getLanguageDropDownProps()} callback={updateLocale}/>
-              {/* </b> */}
+              </b>
               <br/>
             </form>
           )}
