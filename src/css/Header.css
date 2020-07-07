@@ -1,12 +1,43 @@
 .Header {
-    text-align: center;
-    height: 16vh;
-    background-color: #0b0c10;
+  text-align: center;
+  background-color: #0b0c10;
+  display: flex;
+  justify-content: space-between;
 }
-  
 .Header h6 {
-    padding: 0.1em;
-    margin: 0;
-    color: #66fcf1;
-    font-size: 2vh;
-} 
+  padding: 0.1em;
+  margin: 0;
+  color: #66fcf1;
+  font-size: 1vh;
+}
+.Header .formBlock {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.Header .logoAndText {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+.Header .logoImage {
+  width: 92px;
+  height: 54px;
+}
+.Header .block {
+  width: 92px;
+  height: 52px;
+}
+@media (max-width: 620px) {
+  .Header {
+    flex-direction: column;
+  }
+  .Header .block {
+    display: none;
+  }
+  .Header .logoAndText {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+  }
+}

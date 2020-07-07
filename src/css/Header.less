@@ -1,0 +1,49 @@
+.Header {
+    text-align: center;
+    background-color: #0b0c10;
+    display: flex;
+    justify-content: space-between;
+
+    h6 {
+        padding: 0.1em;
+        margin: 0;
+        color: #66fcf1;
+        font-size: 1vh;
+    }
+
+    .formBlock {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .logoAndText {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+    }
+
+    .logoImage {
+        width: 92px;
+        height: 54px;
+    }
+
+    .block {
+        width:92px;
+        height:52px;
+    }
+
+    @media (max-width: 620px) {
+        flex-direction: column;
+
+        .block {
+            display: none;
+        }
+        
+        .logoAndText {
+            display: flex;
+            justify-content: center;
+            flex-direction: row;
+        }
+    }
+}
