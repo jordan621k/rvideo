@@ -64,10 +64,9 @@
     .Thumbnail {
         width: 240px;
         height: 135px;
-        float: left;
         @media (max-width: @mobileWidth) {
-            width: 100%;
-            height: 100%;
+             width: 100%;
+             height: 100%;
         }
     }
     
@@ -91,5 +90,32 @@
     
     a {
         color: #66fcf1;
+    }
+
+    .ThumbnailAndDuration {
+        position: relative;
+        .ThumbnailBlock {
+            width: 240px;
+            height: 135px;
+            float: left;
+            @media (max-width: @mobileWidth) {
+                width: 100%;
+                height: 100%;
+            }
+        }
+    
+        .Duration {
+            position: absolute;
+            bottom: 3px;
+            right:3px;
+            background-color: black;
+            border-radius: 5px;
+    
+            p {
+                margin: 0;
+                height: 21px;
+                width: 100%;
+            }
+        }
     }
 }

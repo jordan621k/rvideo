@@ -33,11 +33,17 @@ class Video extends React.Component {
             </div>
           </div>
           <div className="ThumbnailAndStats">
-            <img className="Thumbnail" src={thumbnail} alt="Cover Image"/>
+            <div className="ThumbnailAndDuration">
+              <div className="ThumbnailBlock">
+                <img className="Thumbnail" src={thumbnail} alt="Cover Image"/>
+              </div>
+              <div className="Duration">
+                <p>&nbsp;{duration}&nbsp;</p>
+              </div>
+            </div>
             <div className="Stats">
               <p>{viewCount} Views</p>
               <p>{likeCount} Likes</p>
-              <p>Duration: {duration}</p>
               <p>Uploaded by <a href={channelLink}>{channelTitle}</a> {publishedAt}</p>
             </div>
           </div>
