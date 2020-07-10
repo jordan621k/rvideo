@@ -10,7 +10,7 @@
   },
   "dropDownOptions" : {
     "language" : {
-      "zh_tw" : "Chinese",
+      "zh_tw" : "中文",
       "en_us" : "English"
     },
     "country" : {
@@ -58,5 +58,16 @@
       "19" : "Travel & Events",
       "21" : "Videoblogging"
     }
+  },
+  "video" : {
+    "views" : "Views",
+    "likes" : "Likes",
+    "uploaded_by" : "Uploaded by"
+  },
+  "videoList" : {
+    "less_than_1_hour_ago" : "less than 1 hour ago",
+    "hours_ago" : " hours ago",
+    "day_ago" : " day ago",
+    "days_ago" : " days ago"
   }
 }

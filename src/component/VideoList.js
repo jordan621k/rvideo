@@ -3,8 +3,14 @@ import Video from './Video'
 import '../css/VideoList.css'
 import { observer } from 'mobx-react'
 import { videoList, isLoading } from '../store/VideoStore'
+import { i18n, LocaleContext } from '../i18n/i18n'
 
 const VideoList = observer(class VideoList extends React.Component {
+
+  componentDidUpdate () {
+    this.turnDateToDaysAgo()
+  }
+
   addCommmaToDigit (count) {
     if (count == null) {
       return '0'
@@ -28,15 +34,15 @@ const VideoList = observer(class VideoList extends React.Component {
     if (diff < 1) {
       diff = Math.round(diff * 24)
       if (diff <= 1) {
-        return 'less than 1 hour ago'
+        return i18n(this.context.locale).videoList.less_than_1_hour_ago
       }
-      return diff + ' hours ago'
+      return diff + i18n(this.context.locale).videoList.hours_ago
     }
     diff = Math.round(diff)
     if (diff === 1) {
-      return diff + ' day ago'
+      return diff + i18n(this.context.locale).videoList.day_ago
     }
-    return diff + ' days ago'
+    return diff + i18n(this.context.locale).videoList.days_ago
   }
 
   convertDuration (duration) {
@@ -116,5 +122,7 @@ const VideoList = observer(class VideoList extends React.Component {
     )
   }
 })
+
+VideoList.contextType = LocaleContext
 
 export default VideoList

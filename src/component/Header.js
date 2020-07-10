@@ -5,6 +5,7 @@ import { i18n, LocaleContext } from '../i18n/i18n'
 import Form from './Form'
 import { Router } from 'react-router'
 import { createBrowserHistory } from 'history'
+import DropDownMenu from './DropDownMenu'
 
 class Header extends React.Component {
 
@@ -13,20 +14,34 @@ class Header extends React.Component {
     this.history = createBrowserHistory()
   }
 
+  getLanguageDropDownProps () {
+    return {
+      name: 'languageDropDownMenu',
+      options: i18n(this.context.locale).dropDownOptions.language,
+      value: i18n(this.context.locale).dropDownOptions.language[this.context.locale]
+    }
+  }
+
   render () {
     return (
-      <header className="Header">
-        <div className="logoAndText">
-          <img className="logoImage" src={logo} alt="logo" />
-        </div>
-        <div className="formBlock">
-          <h6>{i18n(this.context.locale).header}</h6>
-          <Router history={this.history}>
-            <Form/>
-          </Router>
-        </div>
-        <div className="block"></div>
-      </header>
+      <LocaleContext.Consumer>
+        {({ locale, updateLocale }) => (
+          <header className="Header">
+            <div className="logoAndText">
+              <img className="logoImage" src={logo} alt="logo" />
+            </div>
+            <div className="formBlock">
+              <h6>{i18n(this.context.locale).header}</h6>
+              {/* <Router history={this.history}>
+                <Form/>
+              </Router> */}
+            </div>
+            <div className="block">
+              <DropDownMenu {...this.getLanguageDropDownProps()} callback={updateLocale}/>
+            </div>
+          </header>
+        )}
+      </LocaleContext.Consumer>
     )
   }
 }

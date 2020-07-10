@@ -1,6 +1,7 @@
 import React from 'react'
 import '../css/Video.less'
 import PropTypes from 'prop-types'
+import { i18n, LocaleContext } from '../i18n/i18n'
 
 class Video extends React.Component {
   constructor (props) {
@@ -42,9 +43,9 @@ class Video extends React.Component {
               </div>
             </div>
             <div className="Stats">
-              <p>{viewCount} Views</p>
-              <p>{likeCount} Likes</p>
-              <p>Uploaded by <a href={channelLink}>{channelTitle}</a> {publishedAt}</p>
+              <p>{viewCount} {i18n(this.context.locale).video.views}</p>
+              <p>{likeCount} {i18n(this.context.locale).video.likes}</p>
+              <p>{i18n(this.context.locale).video.uploaded_by} <a href={channelLink}>{channelTitle}</a> {publishedAt}</p>
             </div>
           </div>
         </div>
@@ -52,6 +53,8 @@ class Video extends React.Component {
     )
   }
 }
+
+Video.contextType = LocaleContext
 
 Video.propTypes = {
   title: PropTypes.string,

@@ -108,31 +108,29 @@ class Form extends React.Component {
     }
   }
 
-  getLanguageDropDownProps () {
-    return {
-      name: 'languageDropDownMenu',
-      options: i18n(this.context.locale).dropDownOptions.language,
-      value: i18n(this.context.locale).dropDownOptions.language[this.context.locale]
-    }
-  }
+  // getLanguageDropDownProps () {
+  //   return {
+  //     name: 'languageDropDownMenu',
+  //     options: i18n(this.context.locale).dropDownOptions.language,
+  //     value: i18n(this.context.locale).dropDownOptions.language[this.context.locale]
+  //   }
+  // }
 
   render () {
     return (
       <React.Fragment>
-        <LocaleContext.Consumer>
-          {({ locale, updateLocale }) => (
-            <form className="Form" onSubmit={this.handleSubmit}>
-              <b>
-                <DropDownMenu {...this.getCategoryDropDownProps()}/>
-                &nbsp; {i18n(this.context.locale).form.from} &nbsp;
-                <DropDownMenu {...this.getCountryDropDownProps()}/>
-                &nbsp; {i18n(this.context.locale).form.in} &nbsp;
-                <DropDownMenu {...this.getLanguageDropDownProps()} callback={updateLocale}/>
-              </b>
-              <br/>
-            </form>
-          )}
-        </LocaleContext.Consumer>
+        {/* <LocaleContext.Consumer> */}
+        {/* {({ locale, updateLocale }) => ( */}
+        <form className="Form" onSubmit={this.handleSubmit}>
+          <b>
+            <DropDownMenu {...this.getCategoryDropDownProps()}/>
+            &nbsp; {i18n(this.context.locale).form.from} &nbsp;
+            <DropDownMenu {...this.getCountryDropDownProps()}/>
+          </b>
+          <br/>
+        </form>
+        {/* )} */}
+        {/* </LocaleContext.Consumer> */}
         {this.state.errorType &&
           <div className="ErrorMessage">
             <p className="ErrorMessageText">{i18n(this.context.locale).form.errorType[this.state.errorType]}</p>
