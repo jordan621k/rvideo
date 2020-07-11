@@ -36,6 +36,19 @@
         display: flex;
         justify-content: flex-end;
         align-self: flex-end;
+
+        .dropDown {
+            direction: rtl;
+        
+            .dropDownMenu {
+                width: 100%;
+                min-width: 80px;
+            }
+        }
+    }
+
+    #languageDropDownMenu-dropdown li {
+        text-align: right;
     }
 
     @media (max-width: @mobileWidth) {
