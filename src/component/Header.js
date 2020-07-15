@@ -32,11 +32,8 @@ class Header extends React.Component {
             </div>
             <div className="formBlock">
               <h6>{i18n(this.context.locale).header}</h6>
-              {/* <Router history={this.history}>
-                <Form/>
-              </Router> */}
             </div>
-            <div className="block">
+            <div className="languageBlock">
               <DropDownMenu {...this.getLanguageDropDownProps()} callback={updateLocale}/>
             </div>
           </header>

@@ -7,20 +7,38 @@ class Video extends React.Component {
   constructor (props) {
     super(props)
     this.openVideoInWindow = this.openVideoInWindow.bind(this)
+    this.onMouseOverFunction = this.onMouseOverFunction.bind(this)
   }
 
   openVideoInWindow () {
     window.open(this.props.videoLink)
   }
 
+  onMouseOverFunction (e) {
+    this.changeMouseCursor(e)
+    this.changeBoarder(e)
+  }
+
   changeMouseCursor (e) {
     e.target.style.cursor = 'pointer'
+  }
+
+  changeBoarder (e) {
+    if (e.target.className === 'Video') {
+      e.target.style.border = '#66fcf1 2px solid'
+    }
+  }
+
+  unchangeBoarder (e) {
+    if (e.target.className === 'Video') {
+      e.target.style.border = '2px solid'
+    }
   }
 
   render () {
     const { title, viewCount, likeCount, publishedAt, thumbnail, rank, channelTitle, channelLink, duration } = this.props
     return (
-      <div className="Video" onMouseDown={this.openVideoInWindow} onMouseOver={this.changeMouseCursor}>
+      <div className="Video" onMouseDown={this.openVideoInWindow} onMouseOver={this.onMouseOverFunction} onMouseLeave={this.unchangeBoarder}>
         <div className="Rank" id="DesktopRank">
           <h2>{rank}</h2>
         </div>

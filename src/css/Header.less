@@ -30,38 +30,41 @@
         height: 54px;
     }
 
-    .block {
+    .languageBlock {
         width:92px;
         height:54px;
         display: flex;
         justify-content: flex-end;
         align-self: flex-end;
-
-        .dropDown {
-            direction: rtl;
         
-            .dropDownMenu {
-                width: 100%;
-                min-width: 80px;
-            }
+        .dropDown{
+            direction: rtl;
+        }
+        
+        .dropDownMenu {
+            width: 100%;
+            min-width: 100px;
         }
     }
+
+    // .languageBlockText{
+    //     display:none;
+    // }
 
     #languageDropDownMenu-dropdown li {
         text-align: right;
     }
 
     @media (max-width: @mobileWidth) {
-        flex-direction: column;
-
-        .block {
-            display: none;
-        }
         
         .logoAndText {
             display: flex;
             justify-content: center;
             flex-direction: row;
+        }
+
+        .formBlock {
+            display:none;
         }
     }
 }
