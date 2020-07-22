@@ -62,12 +62,10 @@
   "video" : {
     "views" : "Views",
     "likes" : "Likes",
-    "uploaded_by" : "Uploaded by"
-  },
-  "videoList" : {
-    "less_than_1_hour_ago" : "less than 1 hour ago",
-    "hours_ago" : " hours ago",
-    "day_ago" : " day ago",
-    "days_ago" : " days ago"
+    "uploadedBy" : "Uploaded ",
+    "lessThanOneHourAgo" : "less than 1 hour ago",
+    "hoursAgo" : " hours ago",
+    "dayAgo" : " day ago",
+    "daysAgo" : " days ago"
   }
 }

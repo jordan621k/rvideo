@@ -7,38 +7,37 @@ class Video extends React.Component {
   constructor (props) {
     super(props)
     this.openVideoInWindow = this.openVideoInWindow.bind(this)
-    this.onMouseOverFunction = this.onMouseOverFunction.bind(this)
+    this.addBorderAndMouseCursor = this.addBorderAndMouseCursor.bind(this)
+    this.removeBorder = this.removeBorder.bind(this)
   }
 
   openVideoInWindow () {
     window.open(this.props.videoLink)
   }
 
-  onMouseOverFunction (e) {
-    this.changeMouseCursor(e)
-    this.changeBoarder(e)
-  }
-
-  changeMouseCursor (e) {
-    e.target.style.cursor = 'pointer'
-  }
-
-  changeBoarder (e) {
+  addBorderAndMouseCursor (e) {
     if (e.target.className === 'Video') {
-      e.target.style.border = '#66fcf1 2px solid'
+      e.target.classList.add('selected')
     }
   }
 
-  unchangeBoarder (e) {
-    if (e.target.className === 'Video') {
-      e.target.style.border = '2px solid'
+  removeBorder (e) {
+    if (document.querySelectorAll('div.Video.selected')[0]) {
+      document.querySelectorAll('div.Video.selected')[0].classList.remove('selected')
     }
+  }
+
+  showUploadInfo () {
+    if (this.context.locale === 'zh_tw') {
+      return this.props.publishedAt + i18n(this.context.locale).video.uploadedBy
+    }
+    return i18n(this.context.locale).video.uploadedBy + this.props.publishedAt
   }
 
   render () {
-    const { title, viewCount, likeCount, publishedAt, thumbnail, rank, channelTitle, channelLink, duration } = this.props
+    const { title, viewCount, likeCount, thumbnail, rank, channelTitle, channelLink, duration } = this.props
     return (
-      <div className="Video" onMouseDown={this.openVideoInWindow} onMouseOver={this.onMouseOverFunction} onMouseLeave={this.unchangeBoarder}>
+      <div className="Video" onMouseDown={this.openVideoInWindow} onMouseOver={this.addBorderAndMouseCursor} onMouseLeave={this.removeBorder}>
         <div className="Rank" id="DesktopRank">
           <h2>{rank}</h2>
         </div>
@@ -63,7 +62,7 @@ class Video extends React.Component {
             <div className="Stats">
               <p>{viewCount} {i18n(this.context.locale).video.views}</p>
               <p>{likeCount} {i18n(this.context.locale).video.likes}</p>
-              <p>{i18n(this.context.locale).video.uploaded_by} <a href={channelLink}>{channelTitle}</a> {publishedAt}</p>
+              <p><a href={channelLink}>{channelTitle}</a> {this.showUploadInfo()}</p>
             </div>
           </div>
         </div>

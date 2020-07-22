@@ -62,12 +62,10 @@
   "video" : {
     "views" : "觀看數",
     "likes" : "個讚",
-    "uploaded_by" : "上傳者："
-  },
-  "videoList" : {
-    "less_than_1_hour_ago" : "1小時內",
-    "hours_ago" : "小時前",
-    "day_ago" : "天前",
-    "days_ago" : "天前"
+    "uploadedBy" : "上傳",
+    "lessThanOneHourAgo" : "1小時內",
+    "hoursAgo" : "小時前",
+    "dayAgo" : "天前",
+    "daysAgo" : "天前"
   }
 }

@@ -7,10 +7,6 @@ import { i18n, LocaleContext } from '../i18n/i18n'
 
 const VideoList = observer(class VideoList extends React.Component {
 
-  componentDidUpdate () {
-    this.turnDateToDaysAgo()
-  }
-
   addCommmaToDigit (count) {
     if (count == null) {
       return '0'
@@ -27,22 +23,22 @@ const VideoList = observer(class VideoList extends React.Component {
     return result
   }
 
-  turnDateToDaysAgo (date) {
+  convertDateToDaysAgo (date) {
     date = new Date(date)
     const today = new Date()
     var diff = (Date.UTC(today.getFullYear(), today.getMonth(), today.getDate(), today.getHours()) - Date.UTC(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours())) / (1000 * 60 * 60 * 24)
     if (diff < 1) {
       diff = Math.round(diff * 24)
       if (diff <= 1) {
-        return i18n(this.context.locale).videoList.less_than_1_hour_ago
+        return i18n(this.context.locale).video.lessThanOneHourAgo
       }
-      return diff + i18n(this.context.locale).videoList.hours_ago
+      return diff + i18n(this.context.locale).video.hoursAgo
     }
     diff = Math.round(diff)
     if (diff === 1) {
-      return diff + i18n(this.context.locale).videoList.day_ago
+      return diff + i18n(this.context.locale).video.dayAgo
     }
-    return diff + i18n(this.context.locale).videoList.days_ago
+    return diff + i18n(this.context.locale).video.daysAgo
   }
 
   convertDuration (duration) {
@@ -109,7 +105,7 @@ const VideoList = observer(class VideoList extends React.Component {
             rank: rank,
             viewCount: this.addCommmaToDigit(video.statistics.viewCount),
             likeCount: this.addCommmaToDigit(video.statistics.likeCount),
-            publishedAt: this.turnDateToDaysAgo(video.snippet.publishedAt),
+            publishedAt: this.convertDateToDaysAgo(video.snippet.publishedAt),
             thumbnail: this.pickThumbnail(video.snippet.thumbnails),
             channelTitle: video.snippet.channelTitle,
             videoLink: 'https://www.youtube.com/watch?v=' + video.id,
