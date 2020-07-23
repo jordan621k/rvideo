@@ -22,8 +22,9 @@ class Video extends React.Component {
   }
 
   removeBorder (e) {
-    if (document.querySelectorAll('div.Video.selected')[0]) {
-      document.querySelectorAll('div.Video.selected')[0].classList.remove('selected')
+    var selectedVideo = document.querySelectorAll('div.Video.selected')[0]
+    if (selectedVideo) {
+      selectedVideo.classList.remove('selected')
     }
   }
 
