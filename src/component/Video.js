@@ -7,7 +7,7 @@ class Video extends React.Component {
   constructor (props) {
     super(props)
     this.openVideoInWindow = this.openVideoInWindow.bind(this)
-    this.addBorderAndMouseCursor = this.addBorderAndMouseCursor.bind(this)
+    this.addMouseOverClass = this.addMouseOverClass.bind(this)
     this.removeBorder = this.removeBorder.bind(this)
   }
 
@@ -15,7 +15,7 @@ class Video extends React.Component {
     window.open(this.props.videoLink)
   }
 
-  addBorderAndMouseCursor (e) {
+  addMouseOverClass (e) {
     if (e.target.className === 'Video') {
       e.target.classList.add('selected')
     }
@@ -28,7 +28,7 @@ class Video extends React.Component {
     }
   }
 
-  showUploadInfo () {
+  getUploadInfo () {
     if (this.context.locale === 'zh_tw') {
       return this.props.publishedAt + i18n(this.context.locale).video.uploadedBy
     }
@@ -38,7 +38,7 @@ class Video extends React.Component {
   render () {
     const { title, viewCount, likeCount, thumbnail, rank, channelTitle, channelLink, duration } = this.props
     return (
-      <div className="Video" onMouseDown={this.openVideoInWindow} onMouseOver={this.addBorderAndMouseCursor} onMouseLeave={this.removeBorder}>
+      <div className="Video" onMouseDown={this.openVideoInWindow} onMouseOver={this.addMouseOverClass} onMouseLeave={this.removeBorder}>
         <div className="Rank" id="DesktopRank">
           <h2>{rank}</h2>
         </div>
@@ -63,7 +63,7 @@ class Video extends React.Component {
             <div className="Stats">
               <p>{viewCount} {i18n(this.context.locale).video.views}</p>
               <p>{likeCount} {i18n(this.context.locale).video.likes}</p>
-              <p><a href={channelLink}>{channelTitle}</a> {this.showUploadInfo()}</p>
+              <p><a href={channelLink}>{channelTitle}</a> {this.getUploadInfo()}</p>
             </div>
           </div>
         </div>
