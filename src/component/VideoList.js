@@ -3,8 +3,10 @@ import Video from './Video'
 import '../css/VideoList.css'
 import { observer } from 'mobx-react'
 import { videoList, isLoading } from '../store/VideoStore'
+import { i18n, LocaleContext } from '../i18n/i18n'
 
 const VideoList = observer(class VideoList extends React.Component {
+
   addCommmaToDigit (count) {
     if (count == null) {
       return '0'
@@ -21,22 +23,22 @@ const VideoList = observer(class VideoList extends React.Component {
     return result
   }
 
-  turnDateToDaysAgo (date) {
+  convertDateToDaysAgo (date) {
     date = new Date(date)
     const today = new Date()
     var diff = (Date.UTC(today.getFullYear(), today.getMonth(), today.getDate(), today.getHours()) - Date.UTC(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours())) / (1000 * 60 * 60 * 24)
     if (diff < 1) {
       diff = Math.round(diff * 24)
       if (diff <= 1) {
-        return 'less than 1 hour ago'
+        return i18n(this.context.locale).video.lessThanOneHourAgo
       }
-      return diff + ' hours ago'
+      return diff + i18n(this.context.locale).video.hoursAgo
     }
     diff = Math.round(diff)
     if (diff === 1) {
-      return diff + ' day ago'
+      return diff + i18n(this.context.locale).video.dayAgo
     }
-    return diff + ' days ago'
+    return diff + i18n(this.context.locale).video.daysAgo
   }
 
   convertDuration (duration) {
@@ -103,7 +105,7 @@ const VideoList = observer(class VideoList extends React.Component {
             rank: rank,
             viewCount: this.addCommmaToDigit(video.statistics.viewCount),
             likeCount: this.addCommmaToDigit(video.statistics.likeCount),
-            publishedAt: this.turnDateToDaysAgo(video.snippet.publishedAt),
+            publishedAt: this.convertDateToDaysAgo(video.snippet.publishedAt),
             thumbnail: this.pickThumbnail(video.snippet.thumbnails),
             channelTitle: video.snippet.channelTitle,
             videoLink: 'https://www.youtube.com/watch?v=' + video.id,
@@ -116,5 +118,7 @@ const VideoList = observer(class VideoList extends React.Component {
     )
   }
 })
+
+VideoList.contextType = LocaleContext
 
 export default VideoList

@@ -10,4 +10,3 @@ export function i18n (locale) {
 }
 
 export const LocaleContext = React.createContext('en_us')
-

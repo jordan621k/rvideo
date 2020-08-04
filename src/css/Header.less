@@ -1,0 +1,66 @@
+@mobileWidth: 620px;
+
+.Header {
+    text-align: center;
+    background-color: #0b0c10;
+    display: flex;
+    justify-content: space-between;
+
+    h6 {
+        padding: 0.1em;
+        margin: 0;
+        color: #66fcf1;
+        font-size: 3vh;
+    }
+
+    .titleBlock {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .logo {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+    }
+
+    .logoImage {
+        width: 92px;
+        height: 54px;
+    }
+
+    .languageDropDown {
+        width:92px;
+        height:54px;
+        display: flex;
+        justify-content: flex-end;
+        align-self: flex-end;
+        
+        .dropDown{
+            direction: rtl;
+        }
+        
+        .dropDownMenu {
+            width: 100%;
+            min-width: 100px;
+        }
+    }
+
+    #languageDropDownMenu-dropdown li {
+        text-align: right;
+    }
+
+    @media (max-width: @mobileWidth) {
+        
+        .logoAndText {
+            display: flex;
+            justify-content: center;
+            flex-direction: row;
+        }
+
+        .formBlock {
+            display:none;
+        }
+    }
+}

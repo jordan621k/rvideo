@@ -1,25 +1,44 @@
 import React from 'react'
 import '../css/Video.less'
 import PropTypes from 'prop-types'
+import { i18n, LocaleContext } from '../i18n/i18n'
 
 class Video extends React.Component {
   constructor (props) {
     super(props)
     this.openVideoInWindow = this.openVideoInWindow.bind(this)
+    this.addMouseOverClass = this.addMouseOverClass.bind(this)
+    this.removeBorder = this.removeBorder.bind(this)
   }
 
   openVideoInWindow () {
     window.open(this.props.videoLink)
   }
 
-  changeMouseCursor (e) {
-    e.target.style.cursor = 'pointer'
+  addMouseOverClass (e) {
+    if (e.target.className === 'Video') {
+      e.target.classList.add('selected')
+    }
+  }
+
+  removeBorder (e) {
+    var selectedVideo = document.querySelectorAll('div.Video.selected')[0]
+    if (selectedVideo) {
+      selectedVideo.classList.remove('selected')
+    }
+  }
+
+  getUploadInfo () {
+    if (this.context.locale === 'zh_tw') {
+      return this.props.publishedAt + i18n(this.context.locale).video.uploadedBy
+    }
+    return i18n(this.context.locale).video.uploadedBy + this.props.publishedAt
   }
 
   render () {
-    const { title, viewCount, likeCount, publishedAt, thumbnail, rank, channelTitle, channelLink, duration } = this.props
+    const { title, viewCount, likeCount, thumbnail, rank, channelTitle, channelLink, duration } = this.props
     return (
-      <div className="Video" onMouseDown={this.openVideoInWindow} onMouseOver={this.changeMouseCursor}>
+      <div className="Video" onMouseDown={this.openVideoInWindow} onMouseOver={this.addMouseOverClass} onMouseLeave={this.removeBorder}>
         <div className="Rank" id="DesktopRank">
           <h2>{rank}</h2>
         </div>
@@ -42,9 +61,9 @@ class Video extends React.Component {
               </div>
             </div>
             <div className="Stats">
-              <p>{viewCount} Views</p>
-              <p>{likeCount} Likes</p>
-              <p>Uploaded by <a href={channelLink}>{channelTitle}</a> {publishedAt}</p>
+              <p>{viewCount} {i18n(this.context.locale).video.views}</p>
+              <p>{likeCount} {i18n(this.context.locale).video.likes}</p>
+              <p><a href={channelLink}>{channelTitle}</a> {this.getUploadInfo()}</p>
             </div>
           </div>
         </div>
@@ -52,6 +71,8 @@ class Video extends React.Component {
     )
   }
 }
+
+Video.contextType = LocaleContext
 
 Video.propTypes = {
   title: PropTypes.string,

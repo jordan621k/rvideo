@@ -3,9 +3,9 @@ import '../css/App.css'
 import Header from './Header'
 import Footer from './Footer'
 import Form from './Form'
+import { Router } from 'react-router'
 import VideoList from './VideoList'
 import { i18n, LocaleContext } from '../i18n/i18n'
-import { Router } from 'react-router'
 import { createBrowserHistory } from 'history'
 
 class App extends React.Component {

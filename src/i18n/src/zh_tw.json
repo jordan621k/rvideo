@@ -11,7 +11,7 @@
   "dropDownOptions" : {
     "language" : {
       "zh_tw" : "中文",
-      "en_us" : "英文"
+      "en_us" : "English"
     },
     "country" : {
       "BR": "巴西",
@@ -58,5 +58,14 @@
       "19" : "旅遊",
       "21" : "Videoblogging"
     }
+  },
+  "video" : {
+    "views" : "觀看數",
+    "likes" : "個讚",
+    "uploadedBy" : "上傳",
+    "lessThanOneHourAgo" : "1小時內",
+    "hoursAgo" : "小時前",
+    "dayAgo" : "天前",
+    "daysAgo" : "天前"
   }
 }
