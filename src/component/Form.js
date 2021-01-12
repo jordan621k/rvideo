@@ -17,7 +17,7 @@ class Form extends React.Component {
   componentDidMount () {
     window.gapi.load('client', () => {
       window.gapi.client.init({
-        apiKey: 'AIzaSyAN6WGBl3-zqdtlabrDV428Tn3zrlpeAW0',
+        apiKey: 'AIzaSyAwScTDl_Kw0Vgo1BzbkI8ZYnNniVD_xDU',
         scope: 'profile'
       })
       const defaultCountryCode = this.getQueryParam('country', 'US')
@@ -37,7 +37,7 @@ class Form extends React.Component {
   async getYoutubeVideos (country, category) {
     try {
       const youtubePromise = window.gapi.client.request({
-        path: `https://www.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&chart=mostPopular&maxResults=20&regionCode=${country.code}&videoCategoryId=${category.code}&key=AIzaSyAN6WGBl3-zqdtlabrDV428Tn3zrlpeAW0&hl=${this.context.locale}`
+        path: `https://www.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&chart=mostPopular&maxResults=20&regionCode=${country.code}&videoCategoryId=${category.code}&key=AIzaSyAwScTDl_Kw0Vgo1BzbkI8ZYnNniVD_xDU&hl=${this.context.locale}`
       })
       const response = await youtubePromise
       const responseResult = response.result

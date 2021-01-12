@@ -74,6 +74,9 @@ const VideoList = observer(class VideoList extends React.Component {
     while (result[0] === '0' || result[0] === ':') {
       result = result.substring(1)
     }
+    if (result.length <= 2) {
+      result = result + 's'
+    }
     return result
   }
 
