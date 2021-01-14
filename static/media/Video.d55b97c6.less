@@ -1,0 +1,128 @@
+@mobileWidth: 620px;
+
+.Video {
+    width: 65vw;
+    display: flex;
+    background-color: #0b0c10;
+    border-radius: 25px;
+    margin: 0.5vw 0;
+    border: 2px solid;
+
+    @media (max-width: @mobileWidth) {
+        width: calc(100% - 4px);
+        #DesktopRank {
+            display: none;
+        }
+        .Title {
+            text-align: center;
+            display: flex;
+            width: initial;
+            margin: auto 0;
+        }
+    }
+    
+    .Rank {
+        min-width: 8vw;
+        height: 100%;
+        font-size: 3em;
+        color: #66fcf1;
+        margin: auto 0;
+        @media (max-width: @mobileWidth) {
+            min-width: initial;
+        }
+    }
+    
+    .TitleText {
+        color: white;
+        display: flex;
+        align-items: center;
+        @media (max-width: @mobileWidth) {
+            h3 {
+                text-align: left;
+            }
+        }
+    }
+    
+    #MobileRank {
+        display: none;
+        @media (max-width: @mobileWidth) {
+            display: initial;
+            h2 {
+                min-width: 8vw;
+                color: #66fcf1;
+                margin: auto 0;
+                padding: 10px 5px 10px 10px;
+            }
+        }
+    }
+    
+    .ThumbnailAndStats {
+        display: flex;
+        @media (max-width: @mobileWidth) {
+            flex-direction: column;
+        }
+    }
+    
+    .Thumbnail {
+        width: 240px;
+        height: 135px;
+        @media (max-width: @mobileWidth) {
+             width: 100%;
+             height: 100%;
+        }
+    }
+    
+    .Stats {
+        margin: auto 1vw;
+        p {
+            margin: 0.5em 0;
+        }
+        @media (max-width: @mobileWidth) {
+            flex-wrap: wrap;
+            display: flex;
+            justify-content: space-around;
+        }
+    }
+    
+    .Info {
+        color: white;
+        text-align: left;
+        margin: 0.5vw 0;
+    }
+    
+    a {
+        color: #66fcf1;
+    }
+
+    .ThumbnailAndDuration {
+        position: relative;
+        .ThumbnailBlock {
+            width: 240px;
+            height: 135px;
+            float: left;
+            @media (max-width: @mobileWidth) {
+                width: 100%;
+                height: 100%;
+            }
+        }
+    
+        .Duration {
+            position: absolute;
+            bottom: 3px;
+            right:3px;
+            background-color: black;
+            border-radius: 5px;
+    
+            p {
+                margin: 0;
+                height: 21px;
+                width: 100%;
+            }
+        }
+    }
+}
+
+.selected {
+    border: #66fcf1 2px solid;
+    cursor: pointer
+  }

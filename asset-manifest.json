@@ -1,0 +1,26 @@
+{
+  "files": {
+    "main.css": "/viralvideos/static/css/main.678f695d.chunk.css",
+    "main.js": "/viralvideos/static/js/main.ef59741f.chunk.js",
+    "main.js.map": "/viralvideos/static/js/main.ef59741f.chunk.js.map",
+    "runtime-main.js": "/viralvideos/static/js/runtime-main.e21072a1.js",
+    "runtime-main.js.map": "/viralvideos/static/js/runtime-main.e21072a1.js.map",
+    "static/js/2.2983582f.chunk.js": "/viralvideos/static/js/2.2983582f.chunk.js",
+    "static/js/2.2983582f.chunk.js.map": "/viralvideos/static/js/2.2983582f.chunk.js.map",
+    "index.html": "/viralvideos/index.html",
+    "precache-manifest.f56bdffcd87d75a875cd4c37e8de0643.js": "/viralvideos/precache-manifest.f56bdffcd87d75a875cd4c37e8de0643.js",
+    "service-worker.js": "/viralvideos/service-worker.js",
+    "static/css/main.678f695d.chunk.css.map": "/viralvideos/static/css/main.678f695d.chunk.css.map",
+    "static/js/2.2983582f.chunk.js.LICENSE.txt": "/viralvideos/static/js/2.2983582f.chunk.js.LICENSE.txt",
+    "static/media/DropDownMenu.less": "/viralvideos/static/media/DropDownMenu.1d2bec68.less",
+    "static/media/Form.less": "/viralvideos/static/media/Form.c9d5c469.less",
+    "static/media/Header.less": "/viralvideos/static/media/Header.1087e6f7.less",
+    "static/media/Video.less": "/viralvideos/static/media/Video.d55b97c6.less"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.e21072a1.js",
+    "static/js/2.2983582f.chunk.js",
+    "static/css/main.678f695d.chunk.css",
+    "static/js/main.ef59741f.chunk.js"
+  ]
+}
